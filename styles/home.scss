@@ -1,0 +1,30 @@
+.homeContainer{
+    width: 90vw;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 10% 50% 40%;
+    border: 1px solid white;
+    // justify-content: center;
+    
+    div{
+        width: 100%;
+        // border: 1px solid white;
+    }
+
+    @media (max-width: 1000px){
+        grid-template-columns: 20% 80%;
+        width: min(900px, 100vw);
+        .rightPanel{
+            display: none;
+        }
+    }
+
+    @media (max-width: 500px){
+        grid-template-columns: 100%;
+        .nav{
+            position: fixed;
+            bottom: 0;
+            left: 0
+        }
+    }
+}

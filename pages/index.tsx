@@ -5,12 +5,12 @@ import { Button, TextField, Alert } from '@mui/material';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      {/* <form action="">
-        <input type="email" placeholder='email' />
-        <input type="password" placeholder='password' />
-        <button>sugnup</button>
-      </form> */}
-    </div>
+    //<div className={styles.container}>
+     <div className="homeContainer">
+      <div className="nav">nawigacja</div>
+      <div className="feed">feed</div>
+      <div className="rightPanel">right panel</div>
+     </div>
+    //</div>
   )
 }
