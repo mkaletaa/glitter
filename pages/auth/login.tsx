@@ -15,9 +15,14 @@ export default function Login() {
     } 
 
   return (
-    <div>Login
-
+    <>
+        <div className="main">
         <button onClick={GoogleLogin}>Sign with google</button>
-    </div>
+
+        </div>
+        <div className="rightPanel">
+
+        </div>
+    </>
   )
 }

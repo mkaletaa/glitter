@@ -31,7 +31,8 @@ const route = useRouter()
 
     <div className='nav'>
 
-      <Tooltip title="Home" placement="right">
+      <Tooltip title="Home" placement="right"
+        onClick={e=>route.push('/')}>
         <IconButton style={iconColor}>
           <HomeRoundedIcon/>
         </IconButton>
@@ -58,9 +59,9 @@ const route = useRouter()
       </Tooltip>
 
 
-      <Tooltip title="Settings" placement="right">
+      <Tooltip title="Settings" placement="right" className='smDisappear'>
         <IconButton style={iconColor}>
-          <SettingsRoundedIcon className='smDisappear'/>
+          <SettingsRoundedIcon />
         </IconButton>
       </Tooltip>
 

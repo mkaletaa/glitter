@@ -14,7 +14,7 @@ export default function LogoutDialog(props:any) {
   return (
     <>
     <Tooltip title='Log out'>
-        <Avatar src={props?.imagesrc} style={{cursor: 'pointer'}} 
+        <Avatar src={props?.imagesrc} style={{cursor: 'pointer'}} className='smDisappear'
         onClick={e=>setOpen(true)}></Avatar>
     </Tooltip>
 
