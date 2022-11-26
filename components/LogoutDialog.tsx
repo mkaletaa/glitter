@@ -2,23 +2,34 @@ import React, {useState} from 'react'
 import {Avatar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip} from'@mui/material'
 import { auth } from '../utils/firebase-config'
 
-export default function LoginDialog(prop:any) {
-    console.log(prop.imagesrc)
+type LogoutDialogProps = {
+    imagesrc: string,
+    name: string
+}
+
+//TODO: ogarnąć typ propsów
+export default function LogoutDialog(props:any) {
+    console.log(typeof props.name)
     const [open, setOpen] = useState(false)
   return (
     <>
     <Tooltip title='Log out'>
-        <Avatar src={prop?.imagesrc} style={{cursor: 'pointer'}} 
+        <Avatar src={props?.imagesrc} style={{cursor: 'pointer'}} 
         onClick={e=>setOpen(true)}></Avatar>
     </Tooltip>
 
         <Dialog open={open}
         onClose={e=>setOpen(false)}
         >
-            <DialogTitle>Log out</DialogTitle>
+            <DialogTitle>
+                <div style={{display: 'flex', gap: '15px'}}>
+                    <Avatar src={props?.imagesrc}></Avatar>
+                    <span>Log out</span>
+                </div> 
+            </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Are you sure you want to log out?
+                    Are you sure you want to log out from the account {props?.name}?
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
