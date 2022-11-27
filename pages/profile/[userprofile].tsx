@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useRouter } from 'next/router'
 import {getFirestore, collection, getDocs, addDoc, query, where} from 'firebase/firestore'
+import {Avatar} from '@mui/material'
 
 
 export default function Userprofile() {
@@ -29,6 +30,12 @@ export default function Userprofile() {
     <div className="topBar"></div>
     <div className="main">
     
+    <Avatar
+      alt="Remy Sharp"
+      src={userprof.photoURL} 
+      sx={{ width: 120, height: 120 }}
+    />
+
     {userprof.photoURL}  
     </div>
 
