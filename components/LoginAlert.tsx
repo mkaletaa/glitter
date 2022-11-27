@@ -17,18 +17,42 @@ export default function LoginAlert() {
     const GoogleLogin = async ()=>{
         try{
             const result = await signInWithPopup(auth, googleProvider)
-            console.log(result.user)    
-            alert('s')
-            addDoc(colRef, {
-              uid: user?.uid
+            console.log('result.user',result.user)  
+            
+            getDocs(colRef)
+            .then((snapshot)=>{
+              let users:any = []
+              snapshot.docs.forEach(doc=>{
+                users.push({...doc.data(), id: doc.id})
+              })
+              console.log('this is a list of users: ', users)
+              const isUser = users.some((a:any)=>{return a.uid===result.user.uid})
+              
             })
+            .catch(err=>{
+              console.log(err.message)
+            })
+
+            if(result.user){
+            const uid = result.user.uid
+            const photoURL = result.user.photoURL
+            const displayName = result.user.displayName
+
+            // addUserToDb(uid, photoURL, displayName)
+          }
         }
         catch(err){
             console.log(err)
         }
     } 
 
-
+    function addUserToDb(uid:string, photoURL:string | null, displayName:string | null){
+      addDoc(colRef, {
+        uid: uid,
+        photoURL: photoURL,
+        displayName
+      })
+    }
     //getAuth()
     // .getUser(user?.uid)
     // .then((userRecord:any) => {
