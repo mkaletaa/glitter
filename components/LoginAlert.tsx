@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { auth } from '../utils/firebase-config'
 import {getAuth} from 'firebase/auth'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
-import {Button, Snackbar, Alert} from '@mui/material'
+import {Button, Snackbar, Alert, CardContent} from '@mui/material'
 import {getFirestore, collection, getDocs, addDoc, deleteDoc, doc} from 'firebase/firestore'
 
 export default function LoginAlert() {
     const [user, loading] = useAuthState(auth)
+    const [userData, setUserData] = useState([])
 
     const googleProvider = new GoogleAuthProvider()
     const db = getFirestore()
@@ -16,16 +17,17 @@ export default function LoginAlert() {
     const GoogleLogin = async ()=>{
         try{
             const result = await signInWithPopup(auth, googleProvider)
-            console.log(result.user)            
+            console.log(result.user)    
+            alert('s')
+            addDoc(colRef, {
+              uid: user?.uid
+            })
         }
         catch(err){
             console.log(err)
         }
     } 
 
-    // addDoc(colRef, {
-    //   uid: user?.uid
-    // })
 
     //getAuth()
     // .getUser(user?.uid)
