@@ -27,7 +27,7 @@ export default function Dashboard() {
             },
           })
           const data = await response.json()
-          console.warn(JSON.stringify({user}))
+          // console.warn(JSON.stringify({user}))
         }
 
   

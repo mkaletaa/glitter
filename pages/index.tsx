@@ -13,10 +13,9 @@ export default function index() {
       snapshot.docs.forEach(doc=>{
         books.push({...doc.data(), id: doc.id})
       })
-      // console.log(books)
     })
     .catch(err=>{
-      console.log(err.message)
+      console.error(err.message)
     })
 
     function add(){

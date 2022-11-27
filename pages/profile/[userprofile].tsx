@@ -1,53 +1,35 @@
 import React, {useEffect, useState} from 'react'
 import { useRouter } from 'next/router'
-import { getAuth } from 'firebase/auth'
-import Image from 'next/image'
-import { execFile } from 'child_process'
+import {getFirestore, collection, getDocs, addDoc, query, where} from 'firebase/firestore'
 
-import {users} from '../../data/users'
-import { isContext } from 'vm'
 
 export default function Userprofile() {
   const router = useRouter()
   const { userprofile : userUid } = router.query
-  const [users, setUsers] = useState([])
+  //profile of searched person
+  const [userprof, setUserprof] = useState<any>('')
 
-  // getAuth()
-  // .getUser(userUid)
-  // .then((userRecord:any) => {
-  //   // See the UserRecord reference doc for the contents of userRecord.
-  //   console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
-  // })
-  // .catch((error:any) => {
-  //   console.log('Error fetching user data:', error);
-  // });
+  const db = getFirestore()
+  const colRef = collection(db, 'users')
+  const q = query(colRef, where("uid", "==", `${userUid}`))
 
-  useEffect(()=>{
-    const fetchUsers = async ()=>{
-      const response = await fetch('/api/users')
-      const data = await response.json()
-      setUsers(data)
-      console.log('fdfdf')
-    }
-    fetchUsers()
-  }, [])
+       getDocs(q)
+       .then((snapshot)=>{
+         snapshot.docs.forEach(doc=>{
+           setUserprof(doc.data())
+         })   
+       })
+       .catch(err=>{
+         console.error(err.message)
+       })
 
-  useEffect(()=>{
-    console.log(users[0])
-  }, [users])
-  
-  
-  const variable = process.env.DB_VARIABLE
-  console.log(variable, 'varoable')
+
   return (
     <>
     <div className="topBar"></div>
     <div className="main">
-ee
-      {
-          users.map((a:any)=>{return (<li key={Date.now()}>{a[0]}</li>)})
-        }
-      
+    
+    {userprof.photoURL}  
     </div>
 
     <div className="rightPanel">
