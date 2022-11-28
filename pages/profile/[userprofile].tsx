@@ -22,10 +22,11 @@ export default function Userprofile() {
   const colRef = collection(db, 'users')
   const q1 = query(colRef, where("uid", "==", `${userUid}`))
 
-  useEffect(()=>{
-    console.log('eerer',userUid, user?.uid)
-    userUid == user?.uid && router.push(`/me`)
-  }), []
+  //TODO: naprawić bo nie działa
+  // useEffect(()=>{
+  //   console.log('eerer',userUid, user?.uid)
+  //   {userUid === user?.uid &&  router.push(`/me`)}
+  // }), []
 
 
     //reading data
@@ -69,13 +70,15 @@ export default function Userprofile() {
     <div className="topBar"></div>
     <div className="main">
     
-    {/* <Image src={userprof.photoURL} /> */}
     {/* TODO: convert it to Image component */}
-    <img src={userprof.photoURL} style={{width: '100%', height: '200px'}}></img>
+    <img src={userprof.banner} style={{width: '100%', height: '200px'}}></img>
 
     {user?.uid===userprof.uid ? 'mój' : 'nie mój'}
     <br></br>
     {user?.uid}
+    <br></br>
+    <br></br>
+    {userprof.displayName}
     <Avatar
       alt={`${userprof.displayName} avatar`}
       src={userprof.photoURL} 

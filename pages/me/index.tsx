@@ -18,8 +18,10 @@ export default function Userprofile() {
   //searched user
   const [userprof, setUserprof] = useState<any>('')
 
+  //TODO: jak niezalogowany to odsyła na główną, jak zalogowany to powinien zostać
+  //bo teraz go odsyła bo nie ma usera póki jest loading
   useEffect(()=>{
-    !user && router.push('/')
+    !user && !loading && router.push('/')
   }, [])
   
   const db = getFirestore()
@@ -30,37 +32,32 @@ export default function Userprofile() {
 
     //reading data
     useEffect(()=>{
-
-       getDocs(q1)
-       .then((snapshot)=>{
-         snapshot.docs.forEach(doc=>{
-           setUserprof(doc.data())
-         })   
-       })
-       .catch(err=>{
-         console.error(err.message)
-       })
-      
+      fetchtDocs()
     //run code inside useEffect every time when url changes
     }, [userUid])
+    
+    useEffect(()=>{
+      setTimeout(()=>{
+    //setTimeout is needed, because, fetching data from firebase is too slow and updated
+    //user data didn't appear in the UI
+      fetchtDocs()
+      }, 1000)
+    //run code inside useEffect every time when url changes
+    }, [router.query.modal])
 
-       //updating data   
-      const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
-
-       function updateBio(){
-
-             getDocs(q2)
-             .then((snapshot)=>{
-              const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-                    updateDoc(docRef, {
-                      bio: 'dupaas'
-                    })
-            })
-            .catch(err=>{
-              console.error(err.message)
-            })
-
-      }
+    //TODO może tę funkcję wziąć jako useCallback zamist setTimeout
+     function fetchtDocs(){
+      getDocs(q1)
+      .then((snapshot)=>{
+        snapshot.docs.forEach(doc=>{
+          setUserprof(doc.data())
+          console.log(doc.data().bio)
+        })   
+      })
+      .catch(err=>{
+        console.error(err.message)
+      })
+     }
 
 
   return (
@@ -68,25 +65,26 @@ export default function Userprofile() {
     <div className="topBar"></div>
     <div className="main">
     
-    {/* <Image src={userprof.photoURL} /> */}
-    {/* TODO: convert it to Image component */}
-    <img src={userprof.photoURL} style={{width: '100%', height: '200px'}}></img>
+    <img src={userprof.banner} style={{width: '100%', height: '200px'}}></img>
 
     {user?.uid===userprof.uid && !user && 'nie mój' }
     <br></br>
     {user?.uid}
+    <br></br>
+    <br></br>
+    {userprof.displayName}
     <Avatar
       alt={`${userprof.displayName} avatar`}
       src={userprof.photoURL} 
       sx={{ width: 120, height: 120 }}
     />
 
-     biod:
+     bio:
     {userprof.bio}
 
       <Link href={`/me/?modal=x`} 
       as={`/me/settings`} >
-        <button onClick={e=>console.log('dede',router.query.image)}>open modal</button>
+        <button>edit your profile</button>
       </Link>
 
       {router.query.modal && (
@@ -97,7 +95,6 @@ export default function Userprofile() {
 
     <div className="rightPanel">
       <div>
-        <button onClick={()=>updateBio()}>update bio</button>
         <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
       </div>
     </div>

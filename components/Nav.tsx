@@ -65,7 +65,7 @@ const route = useRouter()
         </IconButton>
       </Tooltip>
 
-        {user && !loading && 
+        {user && !loading && //TODO: don't pass avatar from firebase auth but database
         <LogoutDialog imagesrc={user?.photoURL} name={user?.displayName} />}
     </div>
     </>

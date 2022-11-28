@@ -56,7 +56,8 @@ export default function LoginAlert() {
         uid,
         photoURL,
         displayName,
-        bio: 'this is bio'
+        bio: 'this is bio',
+        banner: 'https://static.vecteezy.com/system/resources/thumbnails/000/530/795/small/low_poly_abstract_banner_design_2203.jpg'
       }).then(()=>{
         //wyszukaj teraz usera po jego uid i dodaj id
         console.log('addId()')

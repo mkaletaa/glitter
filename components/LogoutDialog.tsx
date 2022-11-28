@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import {Avatar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip} from'@mui/material'
 import { auth } from '../utils/firebase-config'
-import Link from 'next/link'
 
 type LogoutDialogProps = {
     imagesrc: string,
@@ -15,10 +14,8 @@ export default function LogoutDialog(props:any) {
   return (
     <>
     <Tooltip title='Log out'>
-        <Link href='/profile/ZQ2YlBxJ03Wua1gkQCSPujTedVO2/modal'>
             <Avatar src={props?.imagesrc} style={{cursor: 'pointer'}} className='smDisappear'
             onClick={e=>setOpen(true)}></Avatar>
-        </Link>
     </Tooltip>
 
         <Dialog open={open}
