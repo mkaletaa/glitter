@@ -53,7 +53,7 @@ const route = useRouter()
 
 
       <Tooltip title="Profile" placement="right">
-        <IconButton onClick={e=>route.push(`/profile/${user?.uid}`)} style={iconColor}>
+        <IconButton onClick={e=>route.push(`/me`)} style={iconColor}>
           <PersonRoundedIcon/>
         </IconButton>
       </Tooltip>

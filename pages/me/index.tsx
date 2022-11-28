@@ -14,18 +14,18 @@ export default function Userprofile() {
   //logged user
   const [user, loading] = useAuthState(auth)
   //uid of searched user; it appears in addres url
-  const { userprofile : userUid } = router.query
+  const userUid  = user?.uid
   //searched user
   const [userprof, setUserprof] = useState<any>('')
 
+  useEffect(()=>{
+    !user && router.push('/')
+  }, [])
+  
   const db = getFirestore()
   const colRef = collection(db, 'users')
   const q1 = query(colRef, where("uid", "==", `${userUid}`))
 
-  useEffect(()=>{
-    console.log('eerer',userUid, user?.uid)
-    userUid == user?.uid && router.push(`/me`)
-  }), []
 
 
     //reading data
@@ -35,7 +35,6 @@ export default function Userprofile() {
        .then((snapshot)=>{
          snapshot.docs.forEach(doc=>{
            setUserprof(doc.data())
-          //  doc.data
          })   
        })
        .catch(err=>{
@@ -45,23 +44,23 @@ export default function Userprofile() {
     //run code inside useEffect every time when url changes
     }, [userUid])
 
-       //updating data  (actually not needed) 
-      // const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
+       //updating data   
+      const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
 
-      //  function updateBio(){
+       function updateBio(){
 
-      //        getDocs(q2)
-      //        .then((snapshot)=>{
-      //         const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-      //               updateDoc(docRef, {
-      //                 bio: 'dupa'
-      //               })
-      //       })
-      //       .catch(err=>{
-      //         console.error(err.message)
-      //       })
+             getDocs(q2)
+             .then((snapshot)=>{
+              const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
+                    updateDoc(docRef, {
+                      bio: 'dupaas'
+                    })
+            })
+            .catch(err=>{
+              console.error(err.message)
+            })
 
-      // }
+      }
 
 
   return (
@@ -73,7 +72,7 @@ export default function Userprofile() {
     {/* TODO: convert it to Image component */}
     <img src={userprof.photoURL} style={{width: '100%', height: '200px'}}></img>
 
-    {user?.uid===userprof.uid ? 'mój' : 'nie mój'}
+    {user?.uid===userprof.uid && !user && 'nie mój' }
     <br></br>
     {user?.uid}
     <Avatar
@@ -85,23 +84,24 @@ export default function Userprofile() {
      biod:
     {userprof.bio}
 
-      {/* <Link href={`/profile/me/?modal=x`} 
-      as={`/profile/me/settings`} >
+      <Link href={`/me/?modal=x`} 
+      as={`/me/settings`} >
         <button onClick={e=>console.log('dede',router.query.image)}>open modal</button>
       </Link>
 
-      {router.query.modal &&  (
+      {router.query.modal && (
         <UpdateProfile user={user?.uid}/>
-      )} */}
+      )}
 
     </div>
 
     <div className="rightPanel">
       <div>
-        <button onClick={()=>console.log()}>update bio</button>
+        <button onClick={()=>updateBio()}>update bio</button>
         <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
       </div>
     </div>
     </>
   )
 }
+
