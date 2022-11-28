@@ -13,8 +13,6 @@ export default function Userprofile() {
   const router = useRouter()
   //logged user
   const [user, loading] = useAuthState(auth)
-  //id of logged user (not uid)
-  const [userId, setUserId] = useState('')
   //uid of searched user; it appears in addres url
   const { userprofile : userUid } = router.query
   //searched user
@@ -22,19 +20,15 @@ export default function Userprofile() {
 
   const db = getFirestore()
   const colRef = collection(db, 'users')
-  const q = query(colRef, where("uid", "==", `${userUid}`))
+  const q1 = query(colRef, where("uid", "==", `${userUid}`))
 
     //reading data
     useEffect(()=>{
 
-       getDocs(q)
+       getDocs(q1)
        .then((snapshot)=>{
          snapshot.docs.forEach(doc=>{
            setUserprof(doc.data())
-           {user?.uid===userprof.uid && user?.uid!=undefined && userprof.uid!=undefined && setUserId(doc.id)}
-           console.log('userprof.uid',userprof.uid)
-           console.log('doc.id',doc.id)
-           console.log('userId',userId)
          })   
        })
        .catch(err=>{
@@ -45,12 +39,21 @@ export default function Userprofile() {
     }, [userUid])
 
        //updating data   
+      const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
+
        function updateBio(){
-         console.log('update', userId)
-        const docRef= doc(db, 'users', `${user?.id}`)
-        updateDoc(docRef, {
-          bio: 'skkfqwert'
-        })
+
+             getDocs(q2)
+             .then((snapshot)=>{
+              const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
+                    updateDoc(docRef, {
+                      bio: 'dupa'
+                    })
+            })
+            .catch(err=>{
+              console.error(err.message)
+            })
+
       }
 
 
@@ -72,7 +75,7 @@ export default function Userprofile() {
       sx={{ width: 120, height: 120 }}
     />
 
-    {userId}  bio:
+     bio:
     {userprof.bio}
     </div>
 
