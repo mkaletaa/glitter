@@ -62,7 +62,9 @@ export default function Userprofile() {
 
   return (
     <>
-    <div className="topBar"></div>
+    <div className="topBarMain">dd</div>
+    <div className='topBarRight'>right</div>
+
     <div className="main">
     
     <img src={userprof.banner} style={{width: '100%', height: '200px'}}></img>
