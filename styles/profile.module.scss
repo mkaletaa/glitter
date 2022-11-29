@@ -1,0 +1,32 @@
+#avatar{
+    position: absolute;
+    cursor: pointer;
+    translate: 0 -50%;
+    left: 30px;
+    box-shadow: 0 0 0px 5px black;
+    z-index: 1
+}
+
+#editDiv{
+    height: 75px;
+    position: relative;
+}
+
+#edit{
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    translate: 0 -50%
+}
+
+#infoDiv{
+    padding: 20px;
+    border-bottom: 1px solid rgb(255, 255, 255, .3);
+
+    strong{
+        font-size: 25px;
+    }
+    span{
+        color: grey
+    }
+}

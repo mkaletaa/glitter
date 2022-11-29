@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import {getFirestore, collection, getDocs, query, where, updateDoc, doc} from 'firebase/firestore'
-import {Avatar} from '@mui/material'
+import {Avatar, Button} from '@mui/material'
 import Link from "next/link";
 import { auth } from '../../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import UpdateProfile from '../../components/UpdateProfile';
+import profile from '../../styles/profile.module.scss'
 
 
 
@@ -67,43 +68,56 @@ export default function Userprofile() {
 
   return (
     <>
-    <div className="topBar"></div>
+    <div className="topBarMain">d</div>
+    <div className='topBarRight'>right</div>
+
     <div className="main">
     
-    {/* TODO: convert it to Image component */}
-    <img src={userprof.banner} style={{width: '100%', height: '200px'}}></img>
+    <div style={{position: 'relative'}}>
+        {/* TODO: convert it to Image component */}
+        <img src={userprof.banner} style={{width: '100%', height: '200px'}}></img>
+
+        <Avatar
+          id={profile.avatar}
+          alt={`${userprof.displayName} avatar`}
+          src={userprof.photoURL} 
+          sx={{ width: 150, height: 150 }}
+        />
+
+    </div>  
+
+    <div id={profile.editDiv} >
+
+        <Button
+         variant="outlined"
+         style={{fontWeight: 'bold'}}
+         id={profile.edit}>Observe</Button>
+
+    </div>
+    
+    <div id={profile.infoDiv}>
+
+      <strong>{userprof.displayName}</strong>
+      <br/>
+      <span>@{userprof.uid}</span>
+      <br/>
+      <br/>
+      {userprof.bio}
+
+    </div>
+
 
     {user?.uid===userprof.uid ? 'mój' : 'nie mój'}
-    <br></br>
-    {user?.uid}
-    <br></br>
-    <br></br>
-    {userprof.displayName}
-    <Avatar
-      alt={`${userprof.displayName} avatar`}
-      src={userprof.photoURL} 
-      sx={{ width: 120, height: 120 }}
-    />
+ 
 
-     biod:
-    {userprof.bio}
-
-      {/* <Link href={`/profile/me/?modal=x`} 
-      as={`/profile/me/settings`} >
-        <button onClick={e=>console.log('dede',router.query.image)}>open modal</button>
-      </Link>
-
-      {router.query.modal &&  (
-        <UpdateProfile user={user?.uid}/>
-      )} */}
 
     </div>
 
     <div className="rightPanel">
-      <div>
+
         <button onClick={()=>console.log()}>update bio</button>
         <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
-      </div>
+ 
     </div>
     </>
   )
