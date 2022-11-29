@@ -4,6 +4,9 @@ import '../styles/main.scss'
 import LoginAlert from '../components/LoginAlert'
 import Layout from '../components/Layout'
 import {useRouter} from 'next/router'
+import { QueryClientProvider, QueryClient } from 'react-query'
+
+const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: AppProps) {
 const router = useRouter()
@@ -16,13 +19,13 @@ if(router.asPath =='/xxx')  {
 
   return(
     <>
+    <QueryClientProvider client={queryClient} >
+      <LoginAlert></LoginAlert>
 
-    <LoginAlert></LoginAlert>
-       
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-     
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </QueryClientProvider>
     </>
   ) 
 }
