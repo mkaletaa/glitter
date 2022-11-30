@@ -90,7 +90,7 @@ export default function Userprofile() {
     
            :
     
-        <img src={userprof.banner} style={{width: '100%', height: '200px'}}></img>
+        <img src={userprof.banner} style={{width: '100%', height: '250px'}}></img>
       }
 
        { isFetching ?

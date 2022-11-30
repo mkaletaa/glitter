@@ -10,6 +10,7 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import {IconButton, Tooltip, Drawer } from '@mui/material';
+import { ThemeContext } from '@emotion/react'
 
 
 export default function Nav() {
@@ -17,6 +18,11 @@ const [user, loading] = useAuthState(auth)
 const [isDrawerOpen, setDrawerOpen] = useState(false)
 const iconColor = {color: 'white'}
 const route = useRouter()
+
+function Theme(){
+  document.querySelector('body')?.classList.toggle('light')
+}
+
   return (
     <>
 
@@ -64,6 +70,8 @@ const route = useRouter()
           <SettingsRoundedIcon />
         </IconButton>
       </Tooltip>
+
+      <button onClick={e=>Theme()}>theme</button>
 
         {user && !loading && //TODO: don't pass avatar from firebase auth but database
         <LogoutDialog imagesrc={user?.photoURL} name={user?.displayName} />}

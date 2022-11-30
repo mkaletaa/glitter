@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import {getFirestore, collection, getDocs, query, where} from 'firebase/firestore'
-import {Avatar, Button} from '@mui/material'
+import {Avatar, Button, Dialog} from '@mui/material'
 import Link from "next/link";
 import { auth } from '../../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
@@ -68,15 +68,33 @@ export default function Userprofile() {
     <div className="main">
     
     <div style={{position: 'relative'}}>
-        <img src={userprof.banner} style={{width: '100%', height: '200px'}}></img>
+      <Link href={`/me/?banner=x`} 
+        as={`/me/banner`} >
+        <img src={userprof.banner} style={{width: '100%', height: '250px'}}></img>
+      </Link>
 
+      <Link href={`/me/?avatar=x`} 
+        as={`/me/avatar`} >
         <Avatar
           id={profile.avatar}
           alt={`${userprof.displayName} avatar`}
           src={userprof.photoURL} 
           sx={{ width: 150, height: 150 }}
         />
+      </Link>
     </div>  
+
+    {router.query.avatar && (
+        <Dialog open={true} onClose={()=>router.push('/me')}>
+          <img src={userprof.photoURL} style={{width: '30vw'}}></img>
+        </Dialog>
+        )}
+
+    {router.query.banner && (
+        <Dialog open={true} onClose={()=>router.push('/me')}>
+          <img src={userprof.banner} style={{width: '40vw'}}></img>
+        </Dialog>
+        )}
 
     <div id={profile.editDiv} >
       <Link href={`/me/?modal=x`} 

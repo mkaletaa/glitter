@@ -25,7 +25,7 @@ export default function Layout({children}: LayoutProps) {
 
   return (
     <>
-     <div className="homeContainer light" onScroll={e=>alert('dd')}>
+     <div className="homeContainer" onScroll={e=>alert('dd')}>
 
       <Nav></Nav>
 

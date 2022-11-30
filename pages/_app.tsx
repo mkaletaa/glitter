@@ -1,6 +1,6 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import '../styles/colors.scss'
 import '../styles/main.scss'
+import type { AppProps } from 'next/app'
 import LoginAlert from '../components/LoginAlert'
 import Layout from '../components/Layout'
 import {useRouter} from 'next/router'

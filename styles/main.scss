@@ -2,10 +2,14 @@ $nav_height: 50px;
 $topBars_height: 60px;
 $brp_1: 1000px;
 $brp_2: 500px;
+
 $dark: rgb(21, 32, 43);
+$light: snow;
+// $light: rgb(255, 255, 240);
 
-
-
+.light{
+    background-color: $light;
+}
 
 .homeContainer{
     width: 90vw;

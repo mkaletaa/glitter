@@ -1,8 +1,38 @@
-.modal{
-    width: 200%;
+.textField{
+    background-color: rgb(21, 32, 43);
+
+    input{
+        color: white !important;
+    }
+    textarea{
+        color: white !important;
+    }
+
+    &::placeholder{
+        color: antiquewhite
+    }
+}
+
+#dialogTitle{
+    color: white !important;
+    background: rgba(21, 32, 43) !important;
+}
+
+#dialogContent{
     display: grid;
+    gap: 10px;
+    color: white
+
 }
 
 .bio{
     width: 50%
+}
+
+#avkDiv{
+    display: flex;
+    width: 500px;
+    margin-inline: auto;
+    gap: 10px;
+    align-items: center;
 }
