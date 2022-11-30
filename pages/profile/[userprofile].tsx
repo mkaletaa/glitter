@@ -32,8 +32,6 @@ export default function Userprofile() {
    
 
 
-
-
     //reading data
     useEffect(()=>{
       getDocs(q1)
