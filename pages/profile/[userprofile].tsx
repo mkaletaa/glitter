@@ -25,11 +25,13 @@ export default function Userprofile() {
   const colRef = collection(db, 'users')
   const q1 = query(colRef, where("uid", "==", `${userUid}`))
 
-  //TODO: naprawić bo nie działa
-  // useEffect(()=>{
-  //   console.log('eerer',userUid, user?.uid)
-  //   {userUid === user?.uid &&  router.push(`/me`)}
-  // }), []
+  useEffect(()=>{
+    console.log('eerer',userUid, user?.uid)
+    {userUid === user?.uid &&  router.push(`/me`)}
+  }, [])
+   
+
+
 
 
     //reading data

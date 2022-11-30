@@ -38,6 +38,4 @@ export default function Layout({children}: LayoutProps) {
   )
 }
 
-//TODO:  get rid of horizontal scrollbar which appears for some reason
-//TODO: make scrolls on columns behave like on twitter (or even different if needed)
-//TODO: 
+

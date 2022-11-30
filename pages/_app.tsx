@@ -1,4 +1,4 @@
-import '../styles/colors.scss'
+import '../styles/global.scss'
 import '../styles/main.scss'
 import type { AppProps } from 'next/app'
 import LoginAlert from '../components/LoginAlert'

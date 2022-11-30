@@ -18,12 +18,20 @@ export default function Userprofile() {
   //searched user
   const [userprof, setUserprof] = useState<any>('')
 
-  //TODO: jak niezalogowany to odsyła na główną, jak zalogowany to powinien zostać
-  //bo teraz go odsyła bo nie ma usera póki jest loading
   useEffect(()=>{
-    !user && !loading && router.push('/')
+    {!user && !loading && router.push('/')}
   }, [])
   
+  useEffect(()=>{
+    {userprof.uid && router.push(`/profile/${userprof.uid}`)}
+  }, [user])
+  
+  useEffect(()=>{
+    {!user && !loading && router.push('/')}
+  }, [loading])
+
+
+
   const db = getFirestore()
   const colRef = collection(db, 'users')
   const q1 = query(colRef, where("uid", "==", `${userUid}`))

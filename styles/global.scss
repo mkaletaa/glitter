@@ -1,3 +1,5 @@
+@use "./colors" as *;
+
 html,
 body {
   padding: 0;
@@ -15,12 +17,14 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: rgb(21, 32, 43)
-  }
+
+body{
+  color: $light;
+  background: $dark;
+  transition: color .5s, background-color .5s 
+}
+
+.light{
+  color: $dark;
+  background: $light
 }

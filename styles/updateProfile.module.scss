@@ -1,22 +1,23 @@
-.textField{
-    background-color: rgb(21, 32, 43);
+// .textField{
+//     background-color: rgb(21, 32, 43);
 
-    input{
-        color: white !important;
-    }
-    textarea{
-        color: white !important;
-    }
+//     input{
+//         color: white !important;
+//     }
+//     textarea{
+//         color: white !important;
+//     }
 
-    &::placeholder{
-        color: antiquewhite
-    }
-}
+//     *{
+//         color: red
+//     }
+// }
 
-#dialogTitle{
-    color: white !important;
-    background: rgba(21, 32, 43) !important;
-}
+// #dialogTitle{
+//     color: white !important;
+//     background: rgba(21, 32, 43) !important;
+// }
+//TODO koloryzacja
 
 #dialogContent{
     display: grid;
