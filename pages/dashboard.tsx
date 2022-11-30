@@ -1,65 +1,47 @@
-import React, {useState} from 'react'
-import { auth } from '../utils/firebase-config'
-import {useAuthState} from 'react-firebase-hooks/auth'
-import { useRouter } from 'next/router'
-import { Skeleton } from '@mui/material'
+import * as React from 'react'
+const {useState} = React;
 
-export default function Dashboard() {
-    const [user, loading] = useAuthState(auth)
-    const route = useRouter()
-    if(!user && !loading) route.push('/auth/login')
+export default function dashboard() {
+  const [comments, setComments] = useState([])
+  const [comment, setComment] = useState('')
 
-    const [users, setUsers] = useState([])
- 
-  const fetchUsers = async ()=>{
-    const response = await fetch('/api/users')
+  const fetchComments = async () => {
+    const response = await fetch('/api/comments')
     const data = await response.json()
-    setUsers(data)
+    setComments(data)
   }
 
-        const registerUser = async ()=>{
-          // console.warn(user)
-          const response = await fetch('/api/users', {
-            method: 'POST',
-            body: JSON.stringify([user?.uid, user?.displayName, user?.photoURL, 'this is bio']),
-            headers: {
-              'Contrnt-Type': 'application/json',
-            },
-          })
-          const data = await response.json()
-          // console.warn(JSON.stringify({user}))
-        }
+  const submitComment = async ()=> {
+    const response = await fetch('/api/comments', {
+      method: 'POST',
+      body: JSON.stringify({comment}),
+      headers: {
+        'Content-Type' : 'application/json'
+      } 
+    })
 
-  
+    const data = await response.json()
+    console.log(data)
+  }
 
   return (
     <>
-     <div className='topBar'>cececec</div>
+      <div className="topBarMain">main</div>
+      <div className="topBarRight">right</div>
 
-    <div className="main">
-       {loading ? <p>Loading...</p> :
-        <h1>Welcome, {user?.displayName}!</h1> }
+      <div className="main">
         {
-          users.map((a:any)=>{return (<li key={a.uid}>{a.displayName}, {a.photoURL}</li>)})
+          comments.map(comment=>{
+            // @ts-ignore
+            return <div key={comment.id}>{comment.text}</div>
+          })
         }
-    </div>
-
-    <div className="rightPanel">
-      <div>
-        <button onClick={()=>auth.signOut()}>sign out</button>
-        <Skeleton
-          sx={{ bgcolor: 'grey.500' }}
-          variant="rounded"
-          width={210}
-          height={118}
-        />
-        <button onClick={()=>route.push(`profile/${user?.displayName}`)}>profile</button>
-
-        <button onClick={e=>fetchUsers()}>GET</button>
-        <button onClick={e=>registerUser()}>Post</button>
-
       </div>
-    </div>
+      <div className="rightPanel">
+        <button onClick={e=>fetchComments()}>load comments</button>
+        <input type="text" value={comment} onChange={e=>setComment(e.target.value)} />
+        <button onClick={e=>submitComment()}>Submit</button>
+      </div>
     </>
   )
 }
