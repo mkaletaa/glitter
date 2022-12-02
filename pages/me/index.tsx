@@ -59,7 +59,7 @@ export default function Userprofile() {
       .then((snapshot)=>{
         snapshot.docs.forEach(doc=>{
           setUserprof(doc.data())
-          console.log(doc.data().bio)
+          console.log('ss',db)
         })   
       })
       .catch(err=>{
@@ -134,6 +134,7 @@ export default function Userprofile() {
       <br></br>
     {user?.uid===userprof.uid && !user && 'nie mój' }
    
+
 
 
     </div>

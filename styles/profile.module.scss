@@ -36,14 +36,14 @@
 //TODO: chujstwo nie działa
 .light{
     background-color: red;
-    #avatar{
+     & :global #avatar{
         box-shadow: 0 0 0px 5px $light !important;
         background-color: $light !important;
     }
-    #infoDiv{
+    & #infoDiv{
         border-bottom: 1px solid red !important;
     }
-    #edit{
+   & #edit{
         background-color: yellow !important;
     }
 }

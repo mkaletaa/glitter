@@ -6,7 +6,7 @@ export default function handler(req, res){
     else if(req.method==='POST'){
       const user = req.body.user
       console.warn(req.body)
-    const newUser = {
+    const newUser = { 
         uid: JSON.parse(req.body)[0],
         displayName: JSON.parse(req.body)[1],
         photoURL: JSON.parse(req.body)[2],

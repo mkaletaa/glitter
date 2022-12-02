@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { json } from 'stream/consumers';
 const {useState} = React;
 
-export default function dashboard() {
+export default function dashboard({users}:any) {
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
 
@@ -22,7 +23,18 @@ export default function dashboard() {
 
     const data = await response.json()
     console.log(data)
+    fetchComments()
   }
+  
+  const deleteComment = async (commentId:number)=>{
+    const response = await fetch(`/api/comments/${commentId}`, {
+      method: "DELETE",
+    })
+    const data = await response.json()
+    console.log('trdytd',data)
+    fetchComments()
+  }
+
 
   return (
     <>
@@ -33,9 +45,14 @@ export default function dashboard() {
         {
           comments.map(comment=>{
             // @ts-ignore
-            return <div key={comment.id}>{comment.text}</div>
+            return <div key={comment.id}>{comment.text} 
+            {/* @ts-ignore */}
+            <button onClick={e=>deleteComment(comment.id)}>delete</button>
+            </div>
           })
         }
+
+        {users.map((user:any)=>{return<><p key={user.id}>{user.name}</p></>})}
       </div>
       <div className="rightPanel">
         <button onClick={e=>fetchComments()}>load comments</button>
@@ -44,4 +61,14 @@ export default function dashboard() {
       </div>
     </>
   )
+}
+
+export async function getStaticProps(){
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  const data = await response.json()
+  return {
+    props: {
+      users: data
+    }
+  }
 }

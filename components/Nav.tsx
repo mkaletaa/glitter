@@ -21,6 +21,7 @@ const route = useRouter()
 
 function Theme(){
   document.querySelector('body')?.classList.toggle('light')
+  document.querySelector('#main')?.classList.toggle('light')
   // document.querySelector('#main')?.classList.toggle('module.light')
 }
 

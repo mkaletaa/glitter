@@ -2,7 +2,7 @@ import {comments} from '../../../data/comments'
 
 export default function handler(req, res){
     if(req.method==='GET')
-    res.status(200).json(comments)
+    res.status(200).json(comments) 
     else if(req.method==='POST'){
       const comment = req.body.comment
 
@@ -10,7 +10,7 @@ export default function handler(req, res){
         id: Date.now(),
         text: comment,
     }
-    users.push(newComment)
+    comments.push(newComment)
     res.status(201).json(newComment)
   }
 }
