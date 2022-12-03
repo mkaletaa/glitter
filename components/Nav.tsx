@@ -68,7 +68,7 @@ function Theme(){
 
 
       <Tooltip title="Settings" placement="right" className='smDisappear'>
-        <IconButton style={iconColor}>
+        <IconButton style={iconColor} onClick={e=>route.push(`/dashboard`)}>
           <SettingsRoundedIcon />
         </IconButton>
       </Tooltip>

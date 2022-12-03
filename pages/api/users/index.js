@@ -1,8 +1,31 @@
 import {users} from '../../../data/users'
+import {getFirestore, collection, getDocs, query, where} from 'firebase/firestore'
+const db = getFirestore()
+const colRef = collection(db, 'users')
+const q = query(colRef, where("uid", "==", `ZQ2YlBxJ03Wua1gkQCSPujTedVO2`))
+
 
 export default function handler(req, res){
     if(req.method==='GET')
-    res.status(200).json(users)
+    {
+
+      getDocs(q)
+      .then((snapshot)=>{
+              res.status(201).json(snapshot.docs[0].data())
+          })
+          .catch(err=>{
+              res.status(201).json(err.message)
+          })
+
+
+    }
+
+
+
+
+
+
+
     else if(req.method==='POST'){
       const user = req.body.user
       console.warn(req.body)

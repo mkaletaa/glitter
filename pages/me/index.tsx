@@ -7,14 +7,14 @@ import { auth } from '../../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import UpdateProfile from '../../components/UpdateProfile';
 import profile from '../../styles/profile.module.scss'
+import {useQuery} from 'react-query'
+import axios from 'axios'
 
 
 export default function Userprofile() {
   const router = useRouter()
   //logged user
   const [user, loading] = useAuthState(auth)
-  //uid of searched user; it appears in addres url
-  const userUid  = user?.uid
   //searched user
   const [userprof, setUserprof] = useState<any>('')
 
@@ -32,41 +32,26 @@ export default function Userprofile() {
 
 
 
-  const db = getFirestore()
-  const colRef = collection(db, 'users')
-  const q1 = query(colRef, where("uid", "==", `${userUid}`))
 
-
-
-    //reading data
-    useEffect(()=>{
-      fetchtDocs()
-    //run code inside useEffect every time when url changes
-    }, [userUid])
-    
-    useEffect(()=>{
-      setTimeout(()=>{
-    //setTimeout is needed, because, fetching data from firebase is too slow and updated
-    //user data didn't appear in the UI
-      fetchtDocs()
-      }, 1000)
-    //run code inside useEffect every time when url changes
-    }, [router.query.modal])
-
-    //TODO może tę funkcję wziąć jako useCallback zamist setTimeout
-     function fetchtDocs(){
-      getDocs(q1)
-      .then((snapshot)=>{
-        snapshot.docs.forEach(doc=>{
-          setUserprof(doc.data())
-          console.log('ss',db)
-        })   
+//TODO: as user id not defined right after page reload maybe it would be a good idea 
+//to implement redux and store info about logged user so there is no need to use 
+//delayed useAuth every time page reloads
+    const {data} = useQuery('data', ()=>{ 
+      return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
       })
-      .catch(err=>{
-        console.error(err.message)
-      })
-     }
 
+  
+
+    useEffect(()=>{
+      console.log('DATA',data, )
+      // user?.uid==undefined ? 
+    }, [data])
+
+// useEffect(()=>{
+//   const {data} = useQuery('data', ()=>{ 
+//     return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+//     })
+// }, [router.query.modal])
 
   return (
     <>
@@ -78,15 +63,15 @@ export default function Userprofile() {
     <div style={{position: 'relative'}}>
       <Link href={`/me/?banner=x`} 
         as={`/me/banner`} >
-        <img src={userprof.banner} style={{width: '100%', height: '250px'}}></img>
+        <img src={data?.data.banner} style={{width: '100%', height: '250px'}}></img>
       </Link>
 
       <Link href={`/me/?avatar=x`} 
         as={`/me/avatar`} >
         <Avatar
           id={profile.avatar}
-          alt={`${userprof.displayName} avatar`}
-          src={userprof.photoURL} 
+          alt={`${data?.data.displayName} avatar`}
+          src={data?.data.photoURL} 
           sx={{ width: 150, height: 150 }}
         />
       </Link>
@@ -94,13 +79,13 @@ export default function Userprofile() {
 
     {router.query.avatar && (
         <Dialog open={true} onClose={()=>router.push('/me')}>
-          <img src={userprof.photoURL} style={{width: '30vw'}}></img>
+          <img src={data?.data.photoURL} style={{width: '30vw'}}></img>
         </Dialog>
         )}
 
     {router.query.banner && (
         <Dialog open={true} onClose={()=>router.push('/me')}>
-          <img src={userprof.banner} style={{width: '40vw'}}></img>
+          <img src={data?.data.banner} style={{width: '40vw'}}></img>
         </Dialog>
         )}
 
@@ -115,32 +100,32 @@ export default function Userprofile() {
     </div>
 
       {router.query.modal && (
-        <UpdateProfile user={user?.uid}/>
+        <UpdateProfile />
         )}
 
 
       <div id={profile.infoDiv}>
 
-        <strong>{userprof.displayName}</strong>
+        <strong>{data?.data.displayName}</strong>
         <br/>
-        <span>@{userprof.uid}</span>
+        <span>@{data?.data.uid}</span>
         <br/>
         <br/>
-        {userprof.bio}
+        {data?.data.bio}
 
       </div>
 
 
       <br></br>
-    {user?.uid===userprof.uid && !user && 'nie mój' }
-   
+    {/* {user?.uid===userprof.uid && !user && 'nie mój' } */}
+   <br></br>
 
 
 
     </div>
 
     <div className="rightPanel">
-    
+   {/* {data?.data.map((el:any)=>{return (el)})} */}
         <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
      
     </div>

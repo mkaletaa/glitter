@@ -1,17 +1,19 @@
 import * as React from 'react'
 import {useState, useEffect} from 'react'
-import { Dialog, DialogContent, TextField, DialogTitle, Avatar, Badge, DialogActions, Button, IconButton } from "@mui/material";
+import { Dialog, DialogContent, TextField, DialogTitle, Avatar, Badge, DialogActions, Button} from "@mui/material";
 import { useRouter } from "next/router";
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {getFirestore, collection, getDocs, query, where, updateDoc, doc} from 'firebase/firestore'
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import CancelIcon from '@mui/icons-material/Cancel';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { TransitionProps } from '@mui/material/transitions';
 import Slide from '@mui/material/Slide';
 import modal from '../styles/updateProfile.module.scss'
+import axios from 'axios'
+import {useQuery} from 'react-query'
+
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -22,7 +24,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function UpdateProfile(props: any) {
+export default function UpdateProfile() {
   const [bio, setBio] = useState('')
   const [photoURL, setPhotoURL] = useState<any>('')
   const [banner, setBanner] = useState('')
@@ -35,21 +37,32 @@ export default function UpdateProfile(props: any) {
   const colRef = collection(db, 'users')
   const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
 
+  const {data} = useQuery('data', ()=>{ 
+    return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+    })
+
+    useEffect(()=>{
+      setBio(data?.data.bio)
+      setPhotoURL(data?.data.photoURL)
+      setDisplayName(data?.data.displayName)
+      setBanner(data?.data.banner)
+    }, [data])
+    
      //read current user data
-        useEffect(()=>{
-          getDocs(q2)
-          .then((snapshot)=>{
+        // useEffect(()=>{
+        //   getDocs(q2)
+        //   .then((snapshot)=>{
           
-            setBio(snapshot.docs[0].data().bio)
-            setPhotoURL(snapshot.docs[0].data().photoURL)
-            setDisplayName(snapshot.docs[0].data().displayName)
-            setBanner(snapshot.docs[0].data().banner)
+        //     setBio(snapshot.docs[0].data().bio)
+        //     setPhotoURL(snapshot.docs[0].data().photoURL)
+        //     setDisplayName(snapshot.docs[0].data().displayName)
+        //     setBanner(snapshot.docs[0].data().banner)
           
-         })
-         .catch(err=>{
-           console.error(err.message)
-         })
-        }, [])
+        //  })
+        //  .catch(err=>{
+        //    console.error(err.message)
+        //  })
+        // }, [])
 
     //updating data   
     function updateProfile(){
@@ -69,11 +82,8 @@ export default function UpdateProfile(props: any) {
            console.error(err.message)
          })
 
-   }
+    }
 
-   useEffect(()=>{
-    console.log(photoURL)
-   }, [photoURL])
 
    const theme = useTheme();
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -147,7 +157,7 @@ export default function UpdateProfile(props: any) {
                   onChange={e=>setBanner(e.target.value)}
                   sx={{marginInline: 'auto', width: '500px'}}/>
                   
-                 <img src={banner} style={{width: '100%'}} />
+                 <img src={banner} style={{marginInline: 'auto', width: '500px'}} />
 
             </DialogContent>
 

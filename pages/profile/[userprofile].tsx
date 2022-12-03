@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
-import {getFirestore, collection, getDocs, query, where, updateDoc, doc} from 'firebase/firestore'
 import {Avatar, Button, Skeleton} from '@mui/material'
 import Link from "next/link";
 import { auth } from '../../utils/firebase-config'
@@ -8,7 +7,7 @@ import {useAuthState} from 'react-firebase-hooks/auth'
 import UpdateProfile from '../../components/UpdateProfile';
 import profile from '../../styles/profile.module.scss'
 import { useQuery } from 'react-query';
-
+import axios from 'axios'
 
 export default function Userprofile() {
   const router = useRouter()
@@ -16,60 +15,30 @@ export default function Userprofile() {
   const [user, loading] = useAuthState(auth)
   //uid of searched user; it appears in addres url
   const { userprofile : userUid } = router.query
-  //searched user
-  const [userprof, setUserprof] = useState<any>('')
-  //tells if data is fetched from firebase at this moment
-  const [isFetching, setIsFetching] = useState(true)
 
-  const db = getFirestore()
-  const colRef = collection(db, 'users')
-  const q1 = query(colRef, where("uid", "==", `${userUid}`))
+
+  // useEffect(()=>{
+  //   console.log('eerer',userUid, user?.uid)
+  //   if(userUid===user?.uid && userUid!==undefined )
+  //   {userUid === user?.uid &&  router.push(`/me`)}
+  // }, [])
 
   useEffect(()=>{
     console.log('eerer',userUid, user?.uid)
+    if(userUid===user?.uid && userUid!==undefined && loading===false )
     {userUid === user?.uid &&  router.push(`/me`)}
-  }, [])
+  }, [loading])
+
+
+
+
    
-
-
-    //reading data
-    useEffect(()=>{
-      getDocs(q1)
-      .then((snapshot)=>{
-        snapshot.docs.forEach(doc=>{
-          setUserprof(doc.data())
-         //  doc.data
-        })   
-        setIsFetching(false)
-      })
-      .catch(err=>{
-        console.error(err.message)
-        setIsFetching(false)
-      })
-    //run code inside useEffect every time when url changes
-    }, [userUid])
+  const {isLoading , data} = useQuery('data', ()=>{ 
+    return axios.get(`http://localhost:3000/api/users/${userUid}`)
+    })
 
 
     
-       //updating data  (actually not needed) 
-      // const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
-
-      //  function updateBio(){
-
-      //        getDocs(q2)
-      //        .then((snapshot)=>{
-      //         const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-      //               updateDoc(docRef, {
-      //                 bio: 'dupa'
-      //               })
-      //       })
-      //       .catch(err=>{
-      //         console.error(err.message)
-      //       })
-
-      // }
-
-
   return (
     <>
     <div className="topBarMain">d</div>
@@ -80,7 +49,7 @@ export default function Userprofile() {
     <div style={{position: 'relative'}}>
         {/* TODO: convert it to Image component */}
 
-      { isFetching ?
+      { isLoading ?
         <Skeleton
         variant="rectangular"
         sx={{ bgcolor: 'grey' }}
@@ -90,10 +59,10 @@ export default function Userprofile() {
     
            :
     
-        <img src={userprof.banner} style={{width: '100%', height: '250px'}}></img>
+        <img src={data?.data.banner} style={{width: '100%', height: '250px'}}></img>
       }
 
-       { isFetching ?
+       { isLoading ?
             <Skeleton
             id={profile.avatar}
             sx={{ bgcolor: 'grey.500' }}
@@ -107,8 +76,8 @@ export default function Userprofile() {
 
         <Avatar
           id={profile.avatar}
-          alt={`${userprof.displayName} avatar`}
-          src={userprof.photoURL} 
+          alt={`${data?.data.displayName} avatar`}
+          src={data?.data.photoURL} 
           sx={{ width: 150, height: 150 }}
         />  }
 
@@ -125,7 +94,7 @@ export default function Userprofile() {
     
     <div id={profile.infoDiv}>
 
-      {isFetching ?
+      {isLoading ?
       <>
         <Skeleton sx={{ bgcolor: 'grey' }} style={{width: '50%'}} >
         </Skeleton>
@@ -138,20 +107,20 @@ export default function Userprofile() {
       </>
       :
       <>
-        <strong>{userprof.displayName}</strong>
+        <strong>{data?.data.displayName}</strong>
 
         <br/>
-        <span>@{userprof.uid}</span>
+        <span>@{data?.data.uid}</span>
         <br/>
         <br/>
-        {userprof.bio}
+        {data?.data.bio}
       </>
       }
 
     </div>
 
 
-    {user?.uid===userprof.uid ? 'mój' : 'nie mój'}
+    {user?.uid===data?.data.uid ? 'mój' : 'nie mój'}
  
 
 
