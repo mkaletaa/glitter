@@ -4,10 +4,11 @@ import {Avatar, Button, Skeleton} from '@mui/material'
 import Link from "next/link";
 import { auth } from '../../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
-import UpdateProfile from '../../components/UpdateProfile';
+import {getFirestore, collection, getDocs, query, where, updateDoc, doc} from 'firebase/firestore'
 import profile from '../../styles/profile.module.scss'
 import { useQuery } from 'react-query';
 import axios from 'axios'
+import Observers from '../../components/Observers'
 
 export default function Userprofile() {
   const router = useRouter()
@@ -15,8 +16,8 @@ export default function Userprofile() {
   const [user, loading] = useAuthState(auth)
   //uid of searched user; it appears in addres url
   const { userprofile : userUid } = router.query
-
-
+  const [refetch, setRefetch] = useState<number>(100)
+  const [obsNr, setObsNr] = useState(0)
   // useEffect(()=>{
   //   console.log('eerer',userUid, user?.uid)
   //   if(userUid===user?.uid && userUid!==undefined )
@@ -31,12 +32,48 @@ export default function Userprofile() {
 
 
 
-
+  
    
   const {isLoading , data} = useQuery('data', ()=>{ 
     return axios.get(`http://localhost:3000/api/users/${userUid}`)
+    },
+    {
+      refetchInterval: refetch
     })
 
+   useEffect(()=>{
+    if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
+    setRefetch(0)
+    setObsNr(data?.data.observesNr)
+   },[data])
+    
+   //this function updates user's account data
+    function observe(){
+      console.log('ss')
+      const db = getFirestore()
+      const colRef = collection(db, 'users')
+      const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
+     
+      getDocs(q2)
+      .then((snapshot)=>{
+        console.log(snapshot.docs[0].data().observes)
+
+       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
+             updateDoc(docRef, {
+               observes: [...snapshot.docs[0].data().observes, 
+               {displayName: data?.data.displayName,
+                uid:data?.data.uid,
+                id:data?.data.id,
+                photoURL:data?.data.photoURL}
+              ],
+              observesNr: snapshot.docs[0].data().observesNr+1
+             })
+     })
+     .catch(err=>{
+       console.error(err.message)
+     })
+
+    }
 
     
   return (
@@ -85,10 +122,11 @@ export default function Userprofile() {
 
     <div id={profile.editDiv} >
 
-        <Button
+       {user && <Button
          variant="outlined"
          style={{fontWeight: 'bold'}}
-         id={profile.edit}>Observe</Button>
+         id={profile.edit}
+         onClick={e=>observe()}>Follow</Button>}
 
     </div>
     
@@ -117,8 +155,11 @@ export default function Userprofile() {
       </>
       }
 
+      <br></br>
+    <Observers obsNr={obsNr}/>
     </div>
-
+    { data?.data.observesNr}
+    <br/>
 
     {user?.uid===data?.data.uid ? 'mój' : 'nie mój'}
  

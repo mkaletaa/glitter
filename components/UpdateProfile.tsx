@@ -166,7 +166,7 @@ export default function UpdateProfile() {
                 <Button sx={{color: 'red'}}
                  onClick={() => {router.push(`/me`) }} >Cancel</Button>
                 <Button 
-                onClick={e=>{updateProfile(); router.push(`/me`)}}  
+                onClick={e=>{updateProfile();  router.push(`/me`)}}  
                 autoFocus>Submit</Button>
             </DialogActions>
   </Dialog>

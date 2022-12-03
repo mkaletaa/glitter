@@ -80,7 +80,9 @@ export default function LoginAlert() {
         photoURL,
         displayName,
         bio: 'this is bio',
-        banner: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
+        banner: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+        observes: [],
+        observesNr: 0
       }).then(()=>{
         //wyszukaj teraz usera po jego uid i dodaj id
         console.log('addId()')

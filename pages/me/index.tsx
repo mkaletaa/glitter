@@ -8,7 +8,7 @@ import UpdateProfile from '../../components/UpdateProfile';
 import profile from '../../styles/profile.module.scss'
 import {useQuery} from 'react-query'
 import axios from 'axios'
-import Observers from '../../components/observers'
+import Observers from '../../components/Observers'
 
 export default function Userprofile() {
   const router = useRouter()
@@ -16,6 +16,8 @@ export default function Userprofile() {
   const [user, loading] = useAuthState(auth)
   //searched user
   const [userprof, setUserprof] = useState<any>('')
+
+  const [refetch, setRefetch] = useState<number>(100)
 
   useEffect(()=>{
     {!user && !loading && router.push('/')}
@@ -37,14 +39,18 @@ export default function Userprofile() {
 //delayed useAuth every time page reloads
     const {data} = useQuery('data', ()=>{ 
       return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+      },
+      {
+        refetchInterval: refetch
       })
 
-  
+      useEffect(()=>{
+        console.warn('wdewdwe')
+        if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
+        setRefetch(0)
+       },[data])
 
-    useEffect(()=>{
-      console.log('DATA',data, )
-      // user?.uid==undefined ? 
-    }, [data])
+
 
 // useEffect(()=>{
 //   const {data} = useQuery('data', ()=>{ 
@@ -111,9 +117,11 @@ export default function Userprofile() {
         <br/>
         <br/>
         {data?.data.bio}
+        <br/>
+
+        <Observers/>
 
       </div>e
-        <Observers/>
       <br></br>
     {/* {user?.uid===userprof.uid && !user && 'nie mój' } */}
    <br></br>

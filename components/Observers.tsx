@@ -24,10 +24,11 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function UpdateProfile() {
-    const [open, setOpen] = useState(true)
+//TODO: zmienić typ 
+export default function Observers({obsNr}:any) {
+    const [open, setOpen] = useState(false)
  
-
+console.log(obsNr)
 //   const db = getFirestore()
 //   const colRef = collection(db, 'users')
 //   const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
@@ -42,12 +43,15 @@ export default function UpdateProfile() {
    const theme = useTheme();
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  return (
+  return (<>
+  <Button onClick={e=>setOpen(true)}>Followers ({obsNr})</Button>
+
+  
     <Dialog
     id={modal.overlay}
     fullScreen={fullScreen}
     TransitionComponent={Transition}
-    open={false}
+    open={open}
     onClose={() => {
       setOpen(false)
     }}  >
@@ -69,8 +73,8 @@ export default function UpdateProfile() {
             <DialogActions id={modal.dialogActions}>
                 <Button 
                 onClick={e=>{setOpen(false)}}  
-                autoFocus>Submit</Button>
+                autoFocus>Close</Button>
             </DialogActions>
   </Dialog>
-  )
+ </> )
 }
