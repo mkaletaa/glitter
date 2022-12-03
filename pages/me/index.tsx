@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
-import {getFirestore, collection, getDocs, query, where} from 'firebase/firestore'
 import {Avatar, Button, Dialog} from '@mui/material'
 import Link from "next/link";
 import { auth } from '../../utils/firebase-config'
@@ -9,7 +8,7 @@ import UpdateProfile from '../../components/UpdateProfile';
 import profile from '../../styles/profile.module.scss'
 import {useQuery} from 'react-query'
 import axios from 'axios'
-
+import Observers from '../../components/observers'
 
 export default function Userprofile() {
   const router = useRouter()
@@ -113,9 +112,8 @@ export default function Userprofile() {
         <br/>
         {data?.data.bio}
 
-      </div>
-
-
+      </div>e
+        <Observers/>
       <br></br>
     {/* {user?.uid===userprof.uid && !user && 'nie mój' } */}
    <br></br>

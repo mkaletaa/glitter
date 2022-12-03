@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Avatar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip} from'@mui/material'
+import {Avatar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip} from '@mui/material'
 import { auth } from '../utils/firebase-config'
 
 type LogoutDialogProps = {
