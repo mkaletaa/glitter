@@ -25,20 +25,13 @@ const Transition = React.forwardRef(function Transition(
 });
 
 //TODO: zmienić typ 
-export default function Observers({isObsNr, uid}:any) {
+export default function Observes({obsNr}:any) {
     const [open, setOpen] = useState(false)
+ 
+//   const db = getFirestore()
+//   const colRef = collection(db, 'users')
+//   const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
 
-
-  // const db = getFirestore()
-  // const colRef = collection(db, 'users')
-  // const q = query(colRef, where("uid", "==", `${uid}`))
-
-  const {isLoading , data} = useQuery('data', ()=>{ 
-    return axios.get(`http://localhost:3000/api/users/${uid}`)
-    })
-
-   
-    
 //   const {data} = useQuery('data', ()=>{ 
 //     return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
 //     })
@@ -50,7 +43,7 @@ export default function Observers({isObsNr, uid}:any) {
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (<>
-  <Button onClick={e=>setOpen(true)}>Followers ({isObsNr})</Button>
+  <Button onClick={e=>setOpen(true)}>Follows ({obsNr})</Button>
 
   
     <Dialog
@@ -70,13 +63,8 @@ export default function Observers({isObsNr, uid}:any) {
 
             <DialogContent id={modal.dialogContent}>
               <br></br>
-ss sdccccccccccccccccccccccccccccccccc
-{/* {data?.data.id} */}
-                   {/* {data ? data?.data.isObservedBy.map((el:any)=>{
-                    return (
-                      <div key={Date.now()}>{el.id}</div>
-                    )
-                   }) : null} */}
+
+                   dc
 
             </DialogContent>
 

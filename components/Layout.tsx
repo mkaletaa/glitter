@@ -7,21 +7,7 @@ type LayoutProps = {
 
 export default function Layout({children}: LayoutProps) {
   
-// console.log(user)
-  // if (typeof window != "undefined") { 
-  //   console.log(window.scrollY)
-  //   }
 
-  //   const rightPanel = useRef<HTMLDivElement>(null)
-    
-  //   const handleScroll = (scroll:any) => {
-  //     console.log('eeded')
-  //     window?.scrollBy(0, document.querySelector('.rightPanel')?.scrollTop)
-  //   };
-
-  //   useEffect(()=>{
-  //     window?.addEventListener('scroll', e=>console.log('body'))
-  //   }, [])
 
   return (
     <>

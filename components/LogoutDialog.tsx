@@ -9,7 +9,6 @@ type LogoutDialogProps = {
 
 //TODO: ogarnąć typ propsów
 export default function LogoutDialog(props:any) {
-    console.log(typeof props.name)
     const [open, setOpen] = useState(false)
   return (
     <>

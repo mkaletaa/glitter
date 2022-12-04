@@ -9,6 +9,7 @@ import profile from '../../styles/profile.module.scss'
 import {useQuery} from 'react-query'
 import axios from 'axios'
 import Observers from '../../components/Observers'
+import Observes from '../../components/Observes'
 
 export default function Userprofile() {
   const router = useRouter()
@@ -45,7 +46,6 @@ export default function Userprofile() {
       })
 
       useEffect(()=>{
-        console.warn('wdewdwe')
         if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
         setRefetch(0)
        },[data])
@@ -119,7 +119,8 @@ export default function Userprofile() {
         {data?.data.bio}
         <br/>
 
-        <Observers/>
+        <Observers isObsNr={data?.data.isObservedByNr}/>
+        <Observes obsNr={data?.data.observesNr}/>
 
       </div>e
       <br></br>

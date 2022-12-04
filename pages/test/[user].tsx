@@ -10,11 +10,11 @@ export default function user() {
     <>
           <Link href={`/test/user/?modal=x`} 
       as={`/test/user/2`} >
-        <button onClick={e=>console.log('dede',router.query.image)}>open modal</button>
+        <button >open modal</button>
       </Link>
 
       {router.query.modal && (
-        <UpdateProfile user={'ede'}/>
+        <UpdateProfile />
       )}
     </>
   )

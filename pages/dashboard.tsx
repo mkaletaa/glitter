@@ -25,7 +25,6 @@ export default function dashboard({users}:any) {
     })
 
     const data = await response.json()
-    console.log(data)
     fetchComments()
   }
   
@@ -34,7 +33,6 @@ export default function dashboard({users}:any) {
       method: "DELETE",
     })
     const data = await response.json()
-    console.log('trdytd',data)
     fetchComments()
   }
 
@@ -47,9 +45,6 @@ export default function dashboard({users}:any) {
     return axios.get('http://localhost:3000/api/users/ZQ2YlBxJ03Wua1gkQCSPujTedVO2')
   })
 
-  useEffect(()=>{
-    console.log(data, 'dta')
-  }, [data])
 
   return (
     <>

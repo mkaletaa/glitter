@@ -21,8 +21,6 @@ export default function LoginAlert() {
         // const q =  query(colRef, where("uid", "==", `${result.user.uid}`))
         // getDocs(q)
         // .then((snapshot)=>{
-        //             console.log('snapshot', snapshot.docs[0]===undefined)
-        //             console.log('snapshot', result)
         //             snapshot.docs.forEach(doc=>{
         //               if(snapshot.docs[0]===undefined){
         //                   alert('adiing1')
@@ -44,9 +42,8 @@ export default function LoginAlert() {
                     let users:any = []
                     snapshot.docs.forEach(doc=>{
                       users.push({...doc.data(), id: doc.id})
-                      console.log('doc.data', doc.data())
                     })
-                    console.log('this is a list of users: ', users)
+
                     const isUser = users.some((a:any)=>{return a.uid===result.user.uid})
 
                     //if user does not exist in the DB add them 
@@ -82,10 +79,11 @@ export default function LoginAlert() {
         bio: 'this is bio',
         banner: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
         observes: [],
-        observesNr: 0
+        observesNr: 0,
+        isObservedBy: [],
+        isObservedByNr: 0
       }).then(()=>{
         //wyszukaj teraz usera po jego uid i dodaj id
-        console.log('addId()')
            addId(uid)
          })
     }
@@ -94,11 +92,9 @@ export default function LoginAlert() {
     function addId(uid:string){
 
       const q = query(colRef, where("uid", "==", `${uid}`))
-      console.log('addId2()', uid)
 
       getDocs(q)
       .then((snapshot)=>{
-        console.log('DOC', snapshot.docs[0].id)
       
         const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
               updateDoc(docRef, {

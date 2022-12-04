@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react'
-import { useRouter } from 'next/router'
-import {Avatar, Button, Skeleton} from '@mui/material'
-import Link from "next/link";
-import { auth } from '../../utils/firebase-config'
-import {useAuthState} from 'react-firebase-hooks/auth'
-import {getFirestore, collection, getDocs, query, where, updateDoc, doc} from 'firebase/firestore'
-import profile from '../../styles/profile.module.scss'
+import { Avatar, Button, Skeleton } from '@mui/material';
+import axios from 'axios';
+import { collection, doc, getDocs, getFirestore, query, updateDoc, where } from 'firebase/firestore';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
-import axios from 'axios'
-import Observers from '../../components/Observers'
+import Observers from '../../components/Observers';
+import Observes from '../../components/Observes';
+import profile from '../../styles/profile.module.scss';
+import { auth } from '../../utils/firebase-config';
 
 export default function Userprofile() {
   const router = useRouter()
@@ -17,23 +17,19 @@ export default function Userprofile() {
   //uid of searched user; it appears in addres url
   const { userprofile : userUid } = router.query
   const [refetch, setRefetch] = useState<number>(100)
+  //nr of follows
   const [obsNr, setObsNr] = useState(0)
-  // useEffect(()=>{
-  //   console.log('eerer',userUid, user?.uid)
-  //   if(userUid===user?.uid && userUid!==undefined )
-  //   {userUid === user?.uid &&  router.push(`/me`)}
-  // }, [])
+  //nr of followers
+  const [isObsNr, setIsObsNr] = useState(0)
+  const [showFolBtn, setFolBtn] = useState(true)
+
 
   useEffect(()=>{
-    console.log('eerer',userUid, user?.uid)
     if(userUid===user?.uid && userUid!==undefined && loading===false )
     {userUid === user?.uid &&  router.push(`/me`)}
   }, [loading])
 
 
-
-  
-   
   const {isLoading , data} = useQuery('data', ()=>{ 
     return axios.get(`http://localhost:3000/api/users/${userUid}`)
     },
@@ -44,30 +40,45 @@ export default function Userprofile() {
    useEffect(()=>{
     if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
     setRefetch(0)
+    setIsObsNr(data?.data.isObservedByNr)
     setObsNr(data?.data.observesNr)
+
    },[data])
     
+   const {isLoading: userIsLoading , data: userData} = useQuery('userData', ()=>{ 
+    return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+    },
+    {
+      refetchInterval: refetch
+    })
+
+
+    useEffect(()=>{
+         //check if user follows this account or not
+         if(!isLoading && userData && userData?.data!=="Cannot read properties of undefined (reading 'data')"){
+         let x = userData?.data.observes.some((a:string)=>{return (a===data?.data.uid)})
+         setFolBtn(x)
+        }
+
+    }, [userData, isLoading])
+
    //this function updates user's account data
-    function observe(){
-      console.log('ss')
-      const db = getFirestore()
-      const colRef = collection(db, 'users')
-      const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
-     
-      getDocs(q2)
+   const db = getFirestore()
+   const colRef = collection(db, 'users')
+   const q1 = query(colRef, where("uid", "==", `${user?.uid}`))
+
+    function observe(){   
+      getDocs(q1)
       .then((snapshot)=>{
-        console.log(snapshot.docs[0].data().observes)
+  
 
        const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
              updateDoc(docRef, {
-               observes: [...snapshot.docs[0].data().observes, 
-               {displayName: data?.data.displayName,
-                uid:data?.data.uid,
-                id:data?.data.id,
-                photoURL:data?.data.photoURL}
-              ],
+              observes: [...snapshot.docs[0].data().observes, data?.data.uid],
               observesNr: snapshot.docs[0].data().observesNr+1
              })
+
+            //  addFolower()
      })
      .catch(err=>{
        console.error(err.message)
@@ -75,6 +86,65 @@ export default function Userprofile() {
 
     }
 
+    ///this function updates account of a user who we visit
+    function addFolower(){
+      const q2 = query(colRef, where("uid", "==", `${data?.data.uid}`))
+      getDocs(q2)
+      .then((snapshot)=>{
+       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
+    
+       setIsObsNr(prev=>prev+1)
+             updateDoc(docRef, {
+              isObservedBy: [...snapshot.docs[0].data().isObservedBy, user?.uid],
+              isObservedByNr: snapshot.docs[0].data().isObservedByNr+1
+             })
+             observe()
+     })
+     .catch(err=>{
+       console.error(err.message)
+     })
+
+    }
+
+    ///this function updates account of a user who we visit
+    function removeFolower(){
+      const q2 = query(colRef, where("uid", "==", `${data?.data.uid}`))
+      getDocs(q2)
+      .then((snapshot)=>{
+       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
+
+       setIsObsNr(prev=>prev-1)
+             updateDoc(docRef, {
+              isObservedBy: snapshot.docs[0].data().isObservedBy.filter((a:string)=>{
+                return(a!==user?.uid)
+              }),
+              isObservedByNr: snapshot.docs[0].data().isObservedByNr-1
+             })
+             unobserve()
+     })
+     .catch(err=>{
+       console.error(err.message)
+     })
+    }
+
+   //this function updates user's account data
+    function unobserve(){
+      getDocs(q1)
+      .then((snapshot)=>{
+
+       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
+             updateDoc(docRef, {
+              observes: snapshot.docs[0].data().observes.filter((a:string)=>{
+                return(a!==data?.data.uid)
+              }),
+              observesNr: snapshot.docs[0].data().observesNr-1
+             })
+
+     })
+     .catch(err=>{
+       console.error(err.message)
+     })
+    }
     
   return (
     <>
@@ -122,12 +192,18 @@ export default function Userprofile() {
 
     <div id={profile.editDiv} >
 
-       {user && <Button
+       {user  && !showFolBtn && <Button
+         variant="contained"
+         style={{fontWeight: 'bold'}}
+         id={profile.edit}
+         onClick={e=>{addFolower(); setFolBtn(prev=>!prev)}}>Follow</Button>}
+            <br/>
+            <br/>
+       {user && showFolBtn && <Button
          variant="outlined"
          style={{fontWeight: 'bold'}}
          id={profile.edit}
-         onClick={e=>observe()}>Follow</Button>}
-
+         onClick={e=>{removeFolower(); setFolBtn(prev=>!prev)}}>Unfollow</Button>}
     </div>
     
     <div id={profile.infoDiv}>
@@ -156,9 +232,11 @@ export default function Userprofile() {
       }
 
       <br></br>
-    <Observers obsNr={obsNr}/>
+      {/* źle */}
+    <Observers isObsNr={isObsNr} uid={data?.data.uid}/>
+    <Observes obsNr={obsNr}/>
     </div>
-    { data?.data.observesNr}
+    
     <br/>
 
     {user?.uid===data?.data.uid ? 'mój' : 'nie mój'}
@@ -169,7 +247,6 @@ export default function Userprofile() {
 
     <div className="rightPanel">
 
-        <button onClick={()=>console.log()}>update bio</button>
         <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
  
     </div>
