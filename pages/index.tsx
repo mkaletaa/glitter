@@ -25,18 +25,18 @@ export default function index() {
       let docRef = doc(db, 'posts', `${snapshot.docs[0].id}`)
       let date = Date.now()
             updateDoc(docRef, {
-                [date]: {
-                content: newPost,
-                likes: 0,
+                [date]: [
+                newPost,
+                0,
                 date
-              }
+                ]
             }).then(()=> setNewPost(''))
           }
 
       else{ let date = Date.now()
         addDoc(colRef, {
           uid: user?.uid,
-          [date]: {content: newPost, likes: 0, date}
+          [date]: [newPost, 0, date]
         }).then(()=> setNewPost(''))
       }
 

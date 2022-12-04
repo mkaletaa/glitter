@@ -130,7 +130,7 @@ export default function Userprofile() {
     {/* {user?.uid===userprof.uid && !user && 'nie mój' } */}
    <br></br>
 
-        {user?.uid && <Posts uid={user?.uid}/>}
+        {/* {user?.uid && <Posts uid={user?.uid}/>} */}
 
     </div>
 

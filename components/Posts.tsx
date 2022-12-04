@@ -12,14 +12,15 @@ export default function Posts({uid}:any) {
   const db = getFirestore()
   const colRef = collection(db, 'posts')
   const q = query(colRef, where("uid", "==", `${uid}`))
-  const [posts, setPosts] = useState<any>({date: 123123123, content: 'sds'})
+  const [posts, setPosts] = useState<any>([])
 
   getDocs(q)
   .then((snapshot)=>{
       if(snapshot.docs[0].data() !== undefined)
          {
           // console.log('DATAAA', snapshot.docs[0].data()[1670159330206].date)
-          setPosts(snapshot.docs[0].data())
+          setPosts(snapshot.docs[0].data().filter((a:any)=>{return(typeof(a)!=='string')}))
+
          }
       })
       
@@ -30,9 +31,9 @@ useEffect(()=>{
 
   return (
     <div 
-    >Posts
+    >
       {/* {posts && posts.map((post:any)=>{return (<div key={post.date}>{post.content}</div>)})} */}
-
+    {posts}
       {/* {posts.map((a:any)=>{return (<div key={a.date}>{a.content}</div>)})} */}
     </div>
   )
