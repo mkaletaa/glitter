@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {useState, useEffect} from 'react'
-import { Dialog, DialogContent, TextField, DialogTitle, Avatar, Badge, DialogActions, Button} from "@mui/material";
+import { Dialog, DialogContent, TextField, DialogTitle, Avatar, Badge, DialogActions, Button, Chip} from "@mui/material";
 import { useRouter } from "next/router";
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
@@ -43,8 +43,10 @@ export default function Observes({obsNr}:any) {
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (<>
-  <Button onClick={e=>setOpen(true)}>Follows ({obsNr})</Button>
-
+  {/* <Button onClick={e=>setOpen(true)}>Follows ({obsNr})</Button> */}
+  <Chip
+    label={`follows: ${obsNr}`}
+  onClick={(e:any)=>setOpen(true)}></Chip>
   
     <Dialog
     id={modal.overlay}

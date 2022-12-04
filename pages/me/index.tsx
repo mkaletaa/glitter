@@ -10,6 +10,7 @@ import {useQuery} from 'react-query'
 import axios from 'axios'
 import Observers from '../../components/Observers'
 import Observes from '../../components/Observes'
+import Posts from '../../components/Posts'
 
 export default function Userprofile() {
   const router = useRouter()
@@ -32,31 +33,29 @@ export default function Userprofile() {
     {!user && !loading && router.push('/')}
   }, [loading])
 
+  function onSuccess(){
+    if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined){
+      setRefetch(100)
+      setTimeout(()=>{
+        setRefetch(0)
+      }, 200)
+    }
+  }
 
-
-
-//TODO: as user id not defined right after page reload maybe it would be a good idea 
-//to implement redux and store info about logged user so there is no need to use 
-//delayed useAuth every time page reloads
+//TODO: for some reason refetch does not work properly when reload the page
     const {data} = useQuery('data', ()=>{ 
       return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
       },
       {
-        refetchInterval: refetch
+        refetchInterval: refetch,
+        onSuccess,
       })
 
-      useEffect(()=>{
-        if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
-        setRefetch(0)
-       },[data])
+       
+       useEffect(()=>{
+         console.log('data', data?.data)
+        },[])
 
-
-
-// useEffect(()=>{
-//   const {data} = useQuery('data', ()=>{ 
-//     return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
-//     })
-// }, [router.query.modal])
 
   return (
     <>
@@ -104,9 +103,15 @@ export default function Userprofile() {
       </Link>
     </div>
 
+      <div id={profile.chips}>
+        <Observers isObsNr={data?.data.isObservedByNr} uid={user?.uid}/>
+        <Observes obsNr={data?.data.observesNr}/>
+      </div>
+
       {router.query.modal && (
         <UpdateProfile />
         )}
+
 
 
       <div id={profile.infoDiv}>
@@ -119,15 +124,13 @@ export default function Userprofile() {
         {data?.data.bio}
         <br/>
 
-        <Observers isObsNr={data?.data.isObservedByNr}/>
-        <Observes obsNr={data?.data.observesNr}/>
 
       </div>e
       <br></br>
     {/* {user?.uid===userprof.uid && !user && 'nie mój' } */}
    <br></br>
 
-
+        {user?.uid && <Posts uid={user?.uid}/>}
 
     </div>
 

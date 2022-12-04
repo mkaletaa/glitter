@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import LogoutDialog from './LogoutDialog'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -19,8 +19,13 @@ const [isDrawerOpen, setDrawerOpen] = useState(false)
 const iconColor = {color: 'white'}
 const route = useRouter()
 
+
+useEffect(()=>{
+  document.querySelector('body')?.classList.add('light')
+
+})
+
 function Theme(){
-  document.querySelector('body')?.classList.toggle('light')
   document.querySelector('#main')?.classList.toggle('light')
   // document.querySelector('#main')?.classList.toggle('module.light')
 }

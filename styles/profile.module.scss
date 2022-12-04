@@ -12,6 +12,7 @@
 #editDiv{
     height: 75px;
     position: relative;
+    // background-color: red;
 }
 
 #edit{
@@ -21,8 +22,26 @@
     translate: 0 -50%;
 }
 
+#chips{
+    // position: absolute;
+    float: right;
+    width: fit-content;
+    margin-right: 30px;
+    margin-top: 10px;
+    translate: 0 -50%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+
+    * {
+        width: fit-content
+    }
+    // background-color: red;
+}
+
 #infoDiv{
-    padding: 20px;
+    padding-inline: 20px;
+    margin-top: 10px;
     border-bottom: 1px solid rgb($light, .3);
 
     strong{

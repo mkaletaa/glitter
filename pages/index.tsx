@@ -1,40 +1,53 @@
-import React from 'react'
-import {getFirestore, collection, getDocs, addDoc, deleteDoc, doc} from 'firebase/firestore'
-
+import React, {useState, useRef} from 'react'
+import {getFirestore, collection, getDocs, addDoc, deleteDoc, doc, query, where, updateDoc} from 'firebase/firestore'
+import {TextField, Button} from "@mui/material"
+import { auth } from '../utils/firebase-config'
+import {useAuthState} from 'react-firebase-hooks/auth'
+import Posts from '../components/Posts'
 
 
 export default function index() {
+  const [user, loading] = useAuthState(auth)
+  const [newPost, setNewPost] = useState('') 
   const db = getFirestore()
-  const colRef = collection(db, 'books')
+  const colRef = collection(db, 'posts')
 
-  getDocs(colRef)
+
+  function publish(){
+    //check if this user has alreade published anything
+    const q = query(colRef, where("uid", "==", `${user?.uid}`))
+
+    if(!/^\s*$/.test(newPost))
+    getDocs(q)
     .then((snapshot)=>{
-      let books:any = []
-      snapshot.docs.forEach(doc=>{
-        books.push({...doc.data(), id: doc.id})
-      })
+    
+      if(snapshot.docs[0]){
+      let docRef = doc(db, 'posts', `${snapshot.docs[0].id}`)
+      let date = Date.now()
+            updateDoc(docRef, {
+                [date]: {
+                content: newPost,
+                likes: 0,
+                date
+              }
+            }).then(()=> setNewPost(''))
+          }
+
+      else{ let date = Date.now()
+        addDoc(colRef, {
+          uid: user?.uid,
+          [date]: {content: newPost, likes: 0, date}
+        }).then(()=> setNewPost(''))
+      }
+
     })
     .catch(err=>{
       console.error(err.message)
     })
 
-    function add(){
+  }
 
-      addDoc(colRef, {
-        title: 'book2',
-        id: 'qwsqws'
-      })
-      .then(()=>{
 
-      })
-
-    }
-
-    function deletebook(){
-      const docRef = doc(db, 'books', 'EYIeaeLln0voX2X8a42S')
-
-      deleteDoc(docRef)
-    }
 
   // function writeUserData(userId:string, name:string, email:string, imageUrl:number) {
   //   const db = getDatabase();
@@ -54,8 +67,22 @@ export default function index() {
 
       <div className="main" >
 
-        <button onClick={()=>add()}>click</button>
-        <button onClick={()=>deletebook()}>click</button>
+     {user && <div className="newPost">
+        <TextField
+        id='newPost'
+        multiline
+        value={newPost}
+        onChange={e=>setNewPost(e.target.value)}
+        placeholder='create a new post'
+        sx={{width: '100%'}}
+        />
+      <br/>
+      <Button
+        variant='contained'
+        onClick={e=>publish()}
+      >publish</Button>
+      </div>}
+
 
 
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae qui delectus vero? Delectus, libero sunt a fugiat nesciunt facilis ab in, ducimus, voluptas deleniti ex architecto dicta ad voluptatum molestiae!

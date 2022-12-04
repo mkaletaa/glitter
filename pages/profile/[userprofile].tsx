@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import Observers from '../../components/Observers';
 import Observes from '../../components/Observes';
+import Posts from '../../components/Posts'
 import profile from '../../styles/profile.module.scss';
 import { auth } from '../../utils/firebase-config';
 
@@ -39,7 +40,9 @@ export default function Userprofile() {
 
    useEffect(()=>{
     if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
-    setRefetch(0)
+    setTimeout(()=>{
+      setRefetch(0)
+    }, 1000)
     setIsObsNr(data?.data.isObservedByNr)
     setObsNr(data?.data.observesNr)
 
@@ -70,15 +73,11 @@ export default function Userprofile() {
     function observe(){   
       getDocs(q1)
       .then((snapshot)=>{
-  
-
        const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
              updateDoc(docRef, {
               observes: [...snapshot.docs[0].data().observes, data?.data.uid],
               observesNr: snapshot.docs[0].data().observesNr+1
              })
-
-            //  addFolower()
      })
      .catch(err=>{
        console.error(err.message)
@@ -206,6 +205,11 @@ export default function Userprofile() {
          onClick={e=>{removeFolower(); setFolBtn(prev=>!prev)}}>Unfollow</Button>}
     </div>
     
+    <div id={profile.chips}>
+        <Observers isObsNr={isObsNr} uid={data?.data.uid}/>
+        <Observes obsNr={obsNr}/>
+      </div>
+      
     <div id={profile.infoDiv}>
 
       {isLoading ?
@@ -232,9 +236,7 @@ export default function Userprofile() {
       }
 
       <br></br>
-      {/* źle */}
-    <Observers isObsNr={isObsNr} uid={data?.data.uid}/>
-    <Observes obsNr={obsNr}/>
+      
     </div>
     
     <br/>
@@ -242,7 +244,7 @@ export default function Userprofile() {
     {user?.uid===data?.data.uid ? 'mój' : 'nie mój'}
  
 
-
+      <Posts/>
     </div>
 
     <div className="rightPanel">

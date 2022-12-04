@@ -28,3 +28,11 @@ body{
   color: $dark;
   background: $light
 }
+
+
+#newPost{
+  textarea{
+    color: white !important;
+    background-color: white;
+  }
+}
