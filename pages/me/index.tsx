@@ -123,7 +123,7 @@ export default function Userprofile() {
 
         {/* {user?.uid && <Posts uid={user?.uid}/>} */}
 
-          <Posts/>
+       { user &&  <Posts uid={user?.uid}/>}
     </div>
 
     <div className="rightPanel">

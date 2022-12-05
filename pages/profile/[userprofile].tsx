@@ -247,7 +247,7 @@ export default function Userprofile() {
     {user?.uid===data?.data.uid ? 'mój' : 'nie mój'}
  
 
-      {/* <Posts/> */}
+     {userData?.data.uid && <Posts uid={userData?.data.uid}/>}
     </div>
 
     <div className="rightPanel">

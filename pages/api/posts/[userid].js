@@ -2,18 +2,24 @@ import {getFirestore, collection, getDocs, query, where} from 'firebase/firestor
 
 
 const db = getFirestore()
-const colRef = collection(db, 'posts')
 
 export default function handler(req, res){
-  
-    const q = query(colRef, where("uid", "==", `${req.query.userid}`))
+    
+    const colRef = collection(db, `posts_${req.query.userid}`)
+
 
     if(req.method==='GET'){
-        getDocs(q)
+        getDocs(colRef)
         .then((snapshot)=>{
-            if(snapshot.docs[0].data() === undefined)
+            let posts = []
+            if(snapshot.docs[0] === undefined)
                 res.status(201).json('undefined')
-                res.status(201).json(snapshot.docs[0].data())
+            else{
+                snapshot.docs.forEach(post=>{
+                    posts.push(post.data())
+                })
+                    res.status(201).json(posts)
+                }
             })
             .catch(err=>{
                 res.status(201).json(err.message)

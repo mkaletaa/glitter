@@ -14,15 +14,14 @@ export default function index() {
 
 
   function publish(){
-    //check if this user has already published anything
-
     if(!/^\s*$/.test(newPost)){
     let date = Date.now()
     addDoc(colRef, {
       // uid: user?.uid,
-      [date]: [newPost, 0, date]
+      text: newPost,
+      likes: 0,
+      date
     }).then(()=> setNewPost(''))}
-
   }
 
 // alert('dusp')
