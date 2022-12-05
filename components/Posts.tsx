@@ -10,30 +10,32 @@ import {useAuthState} from 'react-firebase-hooks/auth'
 export default function Posts({uid}:any) {
   const [user, laoding] = useAuthState(auth)
   const db = getFirestore()
-  const colRef = collection(db, 'posts')
-  const q = query(colRef, where("uid", "==", `${uid}`))
+  const colRef = collection(db, `posts_${user?.uid}`)
+  // const q = query(colRef, where("uid", "==", `${uid}`))
   const [posts, setPosts] = useState<any>([])
 
-  getDocs(q)
+  getDocs(colRef)
   .then((snapshot)=>{
-      if(snapshot.docs[0].data() !== undefined)
-         {
+    snapshot.forEach((post)=>{
+      setPosts([...posts, post])
+    })
+      // if(!snapshot.docs[0].data())
+        //  {
           // console.log('DATAAA', snapshot.docs[0].data()[1670159330206].date)
-          setPosts(snapshot.docs[0].data().filter((a:any)=>{return(typeof(a)!=='string')}))
+          // setPosts(snapshot.docs[0].data())
 
-         }
+        //  }
       })
       
 useEffect(()=>{
-  // console.warn(posts)
+  console.log(posts)
 }, [posts])
 
 
   return (
-    <div 
-    >
+    <div >
       {/* {posts && posts.map((post:any)=>{return (<div key={post.date}>{post.content}</div>)})} */}
-    {posts}
+            {/* post: {user && posts[0]} */}
       {/* {posts.map((a:any)=>{return (<div key={a.date}>{a.content}</div>)})} */}
     </div>
   )

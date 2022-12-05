@@ -40,14 +40,14 @@ export default function Userprofile() {
       && data!==undefined)
       setPollingTime(0)
   }
-//TODO: variable should not be in the link, try to mess with refetchInterval
+// variable should not be in the link, try to mess with refetchInterval
     const {data, refetch, isFetching} = useQuery('data', ()=>{ 
       return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
       },{
         refetchInterval: pollingTime,
         onSuccess
       })
-        
+        // console.log('test')
   return (
     <>
     <div className="topBarMain">dd</div>
@@ -85,13 +85,13 @@ export default function Userprofile() {
         )}
 
     <div id={profile.editDiv} >
-      <Link href={`/me/?modal=x`} 
+      {user && <Link href={`/me/?modal=x`} 
       as={`/me/settings`} >
         <Button
          variant="outlined"
          style={{fontWeight: 'bold'}}
          id={profile.edit}>edit your profile</Button>
-      </Link>
+      </Link>}
     </div>
 
       <div id={profile.chips}>
@@ -123,6 +123,7 @@ export default function Userprofile() {
 
         {/* {user?.uid && <Posts uid={user?.uid}/>} */}
 
+          <Posts/>
     </div>
 
     <div className="rightPanel">

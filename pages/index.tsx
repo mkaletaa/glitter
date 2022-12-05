@@ -10,40 +10,18 @@ export default function index() {
   const [user, loading] = useAuthState(auth)
   const [newPost, setNewPost] = useState('') 
   const db = getFirestore()
-  const colRef = collection(db, 'posts')
+  const colRef = collection(db, `posts_${user?.uid}`)
 
 
   function publish(){
-    //check if this user has alreade published anything
-    const q = query(colRef, where("uid", "==", `${user?.uid}`))
+    //check if this user has already published anything
 
-    if(!/^\s*$/.test(newPost))
-    getDocs(q)
-    .then((snapshot)=>{
-    
-      if(snapshot.docs[0]){
-      let docRef = doc(db, 'posts', `${snapshot.docs[0].id}`)
-      let date = Date.now()
-            updateDoc(docRef, {
-                [date]: [
-                newPost,
-                0,
-                date
-                ]
-            }).then(()=> setNewPost(''))
-          }
-
-      else{ let date = Date.now()
-        addDoc(colRef, {
-          uid: user?.uid,
-          [date]: [newPost, 0, date]
-        }).then(()=> setNewPost(''))
-      }
-
-    })
-    .catch(err=>{
-      console.error(err.message)
-    })
+    if(!/^\s*$/.test(newPost)){
+    let date = Date.now()
+    addDoc(colRef, {
+      // uid: user?.uid,
+      [date]: [newPost, 0, date]
+    }).then(()=> setNewPost(''))}
 
   }
 

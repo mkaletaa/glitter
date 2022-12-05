@@ -21,7 +21,7 @@ export default function Userprofile() {
   const [obsNr, setObsNr] = useState(0)
   //nr of followers
   const [isObsNr, setIsObsNr] = useState(0)
-  const [showFolBtn, setFolBtn] = useState(true)
+  const [showFolBtn, setFolBtn] = useState(false)
 
 
   useEffect(()=>{
@@ -30,39 +30,30 @@ export default function Userprofile() {
   }, [loading])
 
 
+  /////////////
+  const [pollingTime, setPollingTime] = useState<number>(1000)
+  //teching data about user to know if they observe the profile
   const {isLoading , data} = useQuery('data', ()=>{ 
     return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
     },{
+      refetchInterval: pollingTime,
       onSuccess,
-      // refetchInterval: 100
     })
-
-  //  useEffect(()=>{
-  //   console.log('e')
-  //   if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
-  //   setTimeout(()=>{
-  //     setRefetch(0)
-  //   }, 1000)
-  //   setIsObsNr(data?.data.isObservedByNr)
-  //   setObsNr(data?.data.observesNr)
-
-  //  },[data])
-  const [refetch, setRefetch] = useState<number>(1000)
 
    function onSuccess(){
     console.log('dataa', userUid)
     if(userData?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined){
       //TODO: zamienić userData na na dane zalogowanego tak, bo tutaj jest sprawdzane czy profil obserwuje samego siebie EDIT: chyba już działa mimo to
       if(data?.data.uid!==userUid && data?.data.uid!==undefined){
-        console.log('X', data?.data.uid, data?.data.observes)
       let x = data?.data.observes.some((a:any)=>{return (a===userData?.data.uid)})
       setFolBtn(x)}
+
       //titaj raz podaj uid użytkownika, a raz profilu, wtf
-      setRefetch(1000)
+      setPollingTime(1000)
       setIsObsNr(userData?.data.isObservedByNr)
       setObsNr(userData?.data.observesNr)
       setTimeout(()=>{
-        setRefetch(0)
+        setPollingTime(0)
       }, 200)
     }
   }
@@ -71,10 +62,10 @@ export default function Userprofile() {
     return axios.get(`http://localhost:3000/api/users/${userUid}`)
     },
     {
-      refetchInterval: refetch,
+      refetchInterval: pollingTime,
       onSuccess,
     })
-
+///////////////////////////////
 
 
    //this function updates user's account data
