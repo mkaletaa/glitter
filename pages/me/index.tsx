@@ -19,7 +19,6 @@ export default function Userprofile() {
   //searched user
   const [userprof, setUserprof] = useState<any>('')
 
-  const [refetchms, setRefetch] = useState<number>(100)
 
   useEffect(()=>{
     {!user && !loading && router.push('/')}
@@ -33,31 +32,22 @@ export default function Userprofile() {
     {!user && !loading && router.push('/')}
   }, [loading])
 
+
+
+  const [pollingTime, setPollingTime] = useState(100)
   function onSuccess(){
-    if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined){
-      console.log('DATA', data?.data)
-      setRefetch(1000)
-      setTimeout(()=>{
-        setRefetch(0)
-      }, 200)
-    }
+    if(data?.data!=="Cannot read properties of undefined (reading 'data')" 
+      && data!==undefined)
+      setPollingTime(0)
   }
-
-//TODO: for some reason refetch does not work properly when reload the page
-    const {data, refetch} = useQuery('data', ()=>{ 
+//TODO: variable should not be in the link, try to mess with refetchInterval
+    const {data, refetch, isFetching} = useQuery('data', ()=>{ 
       return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
-      },
-      {
-        refetchInterval: refetchms,
-        onSuccess,
+      },{
+        refetchInterval: pollingTime,
+        onSuccess
       })
-
-       
-       useEffect(()=>{
-         console.log('data', data?.data)
-        },[])
-
-
+        
   return (
     <>
     <div className="topBarMain">dd</div>

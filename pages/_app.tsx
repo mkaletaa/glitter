@@ -8,7 +8,10 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 
 const queryClient = new QueryClient()
 
+
 export default function App({ Component, pageProps }: AppProps) {
+
+
 const router = useRouter()
 
 if(router.asPath =='/xxx')  {

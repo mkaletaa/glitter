@@ -17,7 +17,6 @@ export default function Userprofile() {
   const [user, loading] = useAuthState(auth)
   //uid of searched user; it appears in addres url
   const { userprofile : userUid } = router.query
-  const [refetch, setRefetch] = useState<number>(1000)
   //nr of follows
   const [obsNr, setObsNr] = useState(0)
   //nr of followers
@@ -48,6 +47,7 @@ export default function Userprofile() {
   //   setObsNr(data?.data.observesNr)
 
   //  },[data])
+  const [refetch, setRefetch] = useState<number>(1000)
 
    function onSuccess(){
     console.log('dataa', userUid)

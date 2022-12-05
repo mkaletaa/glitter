@@ -168,7 +168,7 @@ export default function UpdateProfile({refetch}:any) {
                  onClick={() => {router.push(`/me`) }} >Cancel</Button>
                 <Button 
                 onClick={e=>{updateProfile();  router.push(`/me`); 
-                  setTimeout( refetch, 500)
+                  setTimeout( refetch, 1000)
                 }}  
                 autoFocus>Submit</Button>
             </DialogActions>
