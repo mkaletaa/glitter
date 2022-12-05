@@ -19,7 +19,7 @@ export default function Userprofile() {
   //searched user
   const [userprof, setUserprof] = useState<any>('')
 
-  const [refetch, setRefetch] = useState<number>(100)
+  const [refetchms, setRefetch] = useState<number>(100)
 
   useEffect(()=>{
     {!user && !loading && router.push('/')}
@@ -35,7 +35,8 @@ export default function Userprofile() {
 
   function onSuccess(){
     if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined){
-      setRefetch(100)
+      console.log('DATA', data?.data)
+      setRefetch(1000)
       setTimeout(()=>{
         setRefetch(0)
       }, 200)
@@ -43,11 +44,11 @@ export default function Userprofile() {
   }
 
 //TODO: for some reason refetch does not work properly when reload the page
-    const {data} = useQuery('data', ()=>{ 
+    const {data, refetch} = useQuery('data', ()=>{ 
       return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
       },
       {
-        refetchInterval: refetch,
+        refetchInterval: refetchms,
         onSuccess,
       })
 
@@ -109,12 +110,12 @@ export default function Userprofile() {
       </div>
 
       {router.query.modal && (
-        <UpdateProfile />
+        <UpdateProfile refetch={refetch} />
         )}
 
 
 
-      <div id={profile.infoDiv}>
+      <div id={profile.infoDiv} >
 
         <strong>{data?.data.displayName}</strong>
         <br/>

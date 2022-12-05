@@ -35,8 +35,13 @@ export default function Observers({isObsNr, uid}:any) {
 
   const {isLoading , data} = useQuery('data', ()=>{ 
     return axios.get(`http://localhost:3000/api/users/${uid}`)
+    },{
+      onSuccess
     })
 
+    function onSuccess(){
+      console.log(uid)
+    }
    
     
 //   const {data} = useQuery('data', ()=>{ 

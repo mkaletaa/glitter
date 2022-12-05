@@ -24,7 +24,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function UpdateProfile() {
+export default function UpdateProfile({refetch}:any) {
   const [bio, setBio] = useState('')
   const [photoURL, setPhotoURL] = useState<any>('')
   const [banner, setBanner] = useState('')
@@ -46,6 +46,7 @@ export default function UpdateProfile() {
       setPhotoURL(data?.data.photoURL)
       setDisplayName(data?.data.displayName)
       setBanner(data?.data.banner)
+      console.log('s')
     }, [data])
     
      //read current user data
@@ -89,13 +90,13 @@ export default function UpdateProfile() {
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Dialog
+    <Dialog 
     id={modal.overlay}
     fullScreen={fullScreen}
     TransitionComponent={Transition}
     open={true}
     onClose={() => {
-      router.push(`/me`);
+      router.push(`/me`); 
     }}  >
 
 
@@ -166,7 +167,9 @@ export default function UpdateProfile() {
                 <Button sx={{color: 'red'}}
                  onClick={() => {router.push(`/me`) }} >Cancel</Button>
                 <Button 
-                onClick={e=>{updateProfile();  router.push(`/me`)}}  
+                onClick={e=>{updateProfile();  router.push(`/me`); 
+                  setTimeout( refetch, 500)
+                }}  
                 autoFocus>Submit</Button>
             </DialogActions>
   </Dialog>

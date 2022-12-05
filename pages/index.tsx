@@ -47,7 +47,7 @@ export default function index() {
 
   }
 
-
+// alert('dusp')
 
   // function writeUserData(userId:string, name:string, email:string, imageUrl:number) {
   //   const db = getDatabase();

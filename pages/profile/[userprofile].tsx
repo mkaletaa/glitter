@@ -2,7 +2,7 @@ import { Avatar, Button, Skeleton } from '@mui/material';
 import axios from 'axios';
 import { collection, doc, getDocs, getFirestore, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import Observers from '../../components/Observers';
@@ -17,7 +17,7 @@ export default function Userprofile() {
   const [user, loading] = useAuthState(auth)
   //uid of searched user; it appears in addres url
   const { userprofile : userUid } = router.query
-  const [refetch, setRefetch] = useState<number>(100)
+  const [refetch, setRefetch] = useState<number>(1000)
   //nr of follows
   const [obsNr, setObsNr] = useState(0)
   //nr of followers
@@ -32,38 +32,50 @@ export default function Userprofile() {
 
 
   const {isLoading , data} = useQuery('data', ()=>{ 
+    return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+    },{
+      onSuccess,
+      // refetchInterval: 100
+    })
+
+  //  useEffect(()=>{
+  //   console.log('e')
+  //   if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
+  //   setTimeout(()=>{
+  //     setRefetch(0)
+  //   }, 1000)
+  //   setIsObsNr(data?.data.isObservedByNr)
+  //   setObsNr(data?.data.observesNr)
+
+  //  },[data])
+
+   function onSuccess(){
+    console.log('dataa', userUid)
+    if(userData?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined){
+      //TODO: zamienić userData na na dane zalogowanego tak, bo tutaj jest sprawdzane czy profil obserwuje samego siebie EDIT: chyba już działa mimo to
+      if(data?.data.uid!==userUid && data?.data.uid!==undefined){
+        console.log('X', data?.data.uid, data?.data.observes)
+      let x = data?.data.observes.some((a:any)=>{return (a===userData?.data.uid)})
+      setFolBtn(x)}
+      //titaj raz podaj uid użytkownika, a raz profilu, wtf
+      setRefetch(1000)
+      setIsObsNr(userData?.data.isObservedByNr)
+      setObsNr(userData?.data.observesNr)
+      setTimeout(()=>{
+        setRefetch(0)
+      }, 200)
+    }
+  }
+    
+   const {isLoading: userIsLoading , data: userData} = useQuery('userData', ()=>{ 
     return axios.get(`http://localhost:3000/api/users/${userUid}`)
     },
     {
-      refetchInterval: refetch
-    })
-
-   useEffect(()=>{
-    if(data?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined)
-    setTimeout(()=>{
-      setRefetch(0)
-    }, 1000)
-    setIsObsNr(data?.data.isObservedByNr)
-    setObsNr(data?.data.observesNr)
-
-   },[data])
-    
-   const {isLoading: userIsLoading , data: userData} = useQuery('userData', ()=>{ 
-    return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
-    },
-    {
-      refetchInterval: refetch
+      refetchInterval: refetch,
+      onSuccess,
     })
 
 
-    useEffect(()=>{
-         //check if user follows this account or not
-         if(!isLoading && userData && userData?.data!=="Cannot read properties of undefined (reading 'data')"){
-         let x = userData?.data.observes.some((a:string)=>{return (a===data?.data.uid)})
-         setFolBtn(x)
-        }
-
-    }, [userData, isLoading])
 
    //this function updates user's account data
    const db = getFirestore()
@@ -155,7 +167,7 @@ export default function Userprofile() {
     <div style={{position: 'relative'}}>
         {/* TODO: convert it to Image component */}
 
-      { isLoading ?
+      { userIsLoading ?
         <Skeleton
         variant="rectangular"
         sx={{ bgcolor: 'grey' }}
@@ -165,10 +177,10 @@ export default function Userprofile() {
     
            :
     
-        <img src={data?.data.banner} style={{width: '100%', height: '250px'}}></img>
+        <img src={userData?.data.banner} style={{width: '100%', height: '250px'}}></img>
       }
 
-       { isLoading ?
+       { userIsLoading ?
             <Skeleton
             id={profile.avatar}
             sx={{ bgcolor: 'grey.500' }}
@@ -182,8 +194,8 @@ export default function Userprofile() {
 
         <Avatar
           id={profile.avatar}
-          alt={`${data?.data.displayName} avatar`}
-          src={data?.data.photoURL} 
+          alt={`${userData?.data.displayName} avatar`}
+          src={userData?.data.photoURL} 
           sx={{ width: 150, height: 150 }}
         />  }
 
@@ -206,13 +218,13 @@ export default function Userprofile() {
     </div>
     
     <div id={profile.chips}>
-        <Observers isObsNr={isObsNr} uid={data?.data.uid}/>
+        <Observers isObsNr={isObsNr} uid={userData?.data.uid}/>
         <Observes obsNr={obsNr}/>
       </div>
       
     <div id={profile.infoDiv}>
 
-      {isLoading ?
+      {userIsLoading ?
       <>
         <Skeleton sx={{ bgcolor: 'grey' }} style={{width: '50%'}} >
         </Skeleton>
@@ -225,13 +237,13 @@ export default function Userprofile() {
       </>
       :
       <>
-        <strong>{data?.data.displayName}</strong>
+        <strong>{userData?.data.displayName}</strong>
 
         <br/>
-        <span>@{data?.data.uid}</span>
+        <span>@{userData?.data.uid}</span>
         <br/>
         <br/>
-        {data?.data.bio}
+        {userData?.data.bio}
       </>
       }
 
@@ -244,7 +256,7 @@ export default function Userprofile() {
     {user?.uid===data?.data.uid ? 'mój' : 'nie mój'}
  
 
-      <Posts/>
+      {/* <Posts/> */}
     </div>
 
     <div className="rightPanel">
