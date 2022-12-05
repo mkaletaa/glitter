@@ -60,7 +60,7 @@ export default function Posts({uid}:any) {
         </div>)
       }) } */}
       <br></br>
-      {posts}
+      {posts ? 'a' : 's'}
  
     </div>
   )
