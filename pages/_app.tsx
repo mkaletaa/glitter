@@ -21,11 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   });
 const router = useRouter()
 
-if(router.asPath =='/xxx')  {
-  return (
-    <Component {...pageProps} />
-  )
-}
+
 
   return(
     <>
@@ -41,4 +37,14 @@ if(router.asPath =='/xxx')  {
     </QueryClientProvider>
     </>
   ) 
+
+  if(router.asPath =='/me/settings')  {
+    return (
+      <QueryClientProvider client={queryClient} >
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    )
+  }
+
+
 }

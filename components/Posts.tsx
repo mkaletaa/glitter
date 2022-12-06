@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import posts from '../styles/posts.module.scss'
-// import '../styles/q.scss'
 import { collection, doc, getDocs, getFirestore, query, deleteDoc, where, updateDoc } from 'firebase/firestore';
 import axios from 'axios'
 import { useQuery } from 'react-query';

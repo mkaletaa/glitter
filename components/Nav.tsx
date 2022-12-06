@@ -21,13 +21,13 @@ const iconColor = {color: 'white'}
 const route = useRouter()
 
 
-// useEffect(()=>{
-//   document.querySelector('body')?.classList.add('light')
-
-// })
+useEffect(()=>{
+  document.querySelector('body')?.classList.add('light')
+})
 
 function Theme(){
-  document.querySelector('#main')?.classList.toggle('light')
+  document.querySelector('body')?.classList.toggle('light')
+  document.querySelector('body')?.classList.toggle('dark')
   // document.querySelector('#main')?.classList.toggle('module.light')
 }
 
@@ -93,7 +93,7 @@ function onSuccess(){
         </IconButton>
       </Tooltip>
 
-      {/* <button onClick={e=>Theme()}>theme</button> */}
+      <button onClick={e=>Theme()}>theme</button>
 
         {user && !loading && //TODO: don't pass avatar from firebase auth but database
         <LogoutDialog imagesrc={data?.data.photoURL} name={data?.data.displayName} />}

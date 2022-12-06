@@ -1,4 +1,4 @@
-import {getFirestore, collection, getDocs, query, where} from 'firebase/firestore'
+import {getFirestore, collection, getDocs, query, orderBy, limit} from 'firebase/firestore'
 
 
 const db = getFirestore()
@@ -6,10 +6,10 @@ const db = getFirestore()
 export default function handler(req, res){
     
     const colRef = collection(db, `posts_${req.query.userid}`)
-
+    const q = query(colRef, orderBy("id"), limit(5));
 
     if(req.method==='GET'){
-        getDocs(colRef)
+        getDocs(q)
         .then((snapshot)=>{
             let posts = []
             if(snapshot.docs[0] === undefined)

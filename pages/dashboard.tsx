@@ -66,12 +66,12 @@ export default function dashboard({users}:any) {
 eee: {data?.data.displayName}
         {users.map((user:any)=>{return<><p key={user.id}>{user.name}</p></>})}
       </div>
-      <div className="rightPanel">
+      {/* <div className="rightPanel">
         <button onClick={e=>fetchComments()}>load comments</button>
         <input type="text" value={comment} onChange={e=>setComment(e.target.value)} />
         <button onClick={e=>submitComment()}>Submit</button>
         <button onClick={e=>incrementCount()}>increment</button>
-      </div>
+      </div> */}
     </>
   )
 }

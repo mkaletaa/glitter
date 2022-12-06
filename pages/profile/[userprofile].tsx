@@ -42,8 +42,12 @@ export default function Userprofile() {
 
    function onSuccess(){
     console.log('dataa', userUid)
-    if(userData?.data!=="Cannot read properties of undefined (reading 'data')" && data!==undefined){
-      //TODO: zamienić userData na na dane zalogowanego tak, bo tutaj jest sprawdzane czy profil obserwuje samego siebie EDIT: chyba już działa mimo to
+    if(userData?.data!=="Cannot read properties of undefined (reading 'data')" 
+      && userData!==undefined
+      && data?.data!=="Cannot read properties of undefined (reading 'data')"
+      && data!==undefined 
+      ){
+
       if(data?.data.uid!==userUid && data?.data.uid!==undefined){
       let x = data?.data.observes.some((a:any)=>{return (a===userData?.data.uid)})
       setFolBtn(x)}
@@ -228,11 +232,7 @@ export default function Userprofile() {
       :
       <>
         <strong>{userData?.data.displayName}</strong>
-
-        {/* <br/> */}
         <span>@{userData?.data.uid}</span>
-        {/* <br/> */}
-        {/* <br/> */}
         <p>{userData?.data.bio}</p>
       </>
       }
@@ -248,11 +248,6 @@ export default function Userprofile() {
      {userData?.data.uid && <Posts uid={userData?.data.uid}/>}
     </div>
 
-    <div className="rightPanel">
-
-        <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
- 
-    </div>
     </>
   )
 }

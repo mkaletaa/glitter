@@ -18,7 +18,7 @@ export default function index() {
   function publish(){
     if(!/^\s*$/.test(newPost)){
       setPublishProgress(true)
-    let id = Date.now()
+    let id = 9999999999999 - Date.now()
     const date = JSON.stringify(new Date().getDate()) + '-' +
                 JSON.stringify(new Date().getMonth()+1) + '-' +
                 JSON.stringify(new Date().getFullYear())
@@ -101,17 +101,7 @@ export default function index() {
       </div>
 
 
-      <div className="rightPanel" style={{color: 'red'}} >
-        {/* <div> */}
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat volu Lorem 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum veritatis delectus laudantium ratione incidunt suscipit obcaecati voluptatum voluptatibus quidem ea nostrum dicta sunt, adipisci id, ullam repellendus accusamus, sed beatae?
-        Rem, non quae. Commodi vitae velit, hic ullam mollitia, delectus reprehenderit, dolore magnam expedita nam itaque culpa. Repudiandae temporibus vel ullam suscipit sequi aliquam, soluta dolorem inventore tenetur, nisi impedit?
-        Recusandae, soluta earum obcaecati, ut repellat nemo veritatis iste dolorem voluptatibus aliquid eum quae eius, laboriosam dolorum fugiat ipsam. Hic id vel pariatur dolore libero, architecto dignissimos facilis atque nemo.
-        Nemo eaque ducimus hic voluptatibus voluptatum tempora ipsum quis sit veniam! Ipsa, nesciunt quibusdam! Rerum velit reiciendis error obcaecati esse inventore, qui alias aut odio quos quaerat minus nisi corporis.
-        Voluptates amet numquam nostrum nam saepe quasi reiciendis nesciunt rem cupiditate corrupti eius laboriosam harum delectus minima debitis repudiandae, quis beatae incidunt obcaecati consequatur placeat illum nulla. Eum, quae tatibus aliquid eum quae eius, laboriosam dolorum fugiat ipsam. Hic id vel pariatur dolore libero, architecto dignissimos facilis atque nemo.
-        Nemo eaque ducimus hic voluptatibus voluptatum tempora ipsum quis sit veniam! Ipsa, nesciunt quibusdam! Rerum velit reiciendis error obcaecati esse inventore, qui alias aut odio quos quaerat minus nisi corporis.
-        Voluptates amet numquam nostrum nam saepe quasi reiciendis nesciunt rem cupiditate corrupti eius laboriosam harum delectus minima debitis repudiandae, quis beatae incidunt obcaecati consequatur placeat illum nulla. Eum, quae 
-        {/* </div> */}
-      </div></>
+
+      </>
   )
 }

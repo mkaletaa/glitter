@@ -124,11 +124,7 @@ export default function Userprofile() {
        { user &&  <Posts uid={user?.uid}/>}
     </div>
 
-    <div className="rightPanel">
-   {/* {data?.data.map((el:any)=>{return (el)})} */}
-        <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
-     
-    </div>
+ 
     </>
   )
 }
