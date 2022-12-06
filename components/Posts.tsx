@@ -112,7 +112,7 @@ export default function Posts({uid}:any) {
                 <Link href={`/profile/${fetchedUser?.data.uid}`}>
                   <strong>{fetchedUser?.data.displayName}</strong> </Link>
                   <span>@{fetchedUser?.data.uid}</span>
-                  <p style={{fontSize: post.text.length<=40 ? '30px' : '17px' }}>
+                  <p style={{fontSize: post.text.length<=50 ? '30px' : '20px' }}>
                     {post.text}</p>
               </div>
               <div className={posts.postOptions}>    
