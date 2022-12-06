@@ -3,3 +3,9 @@
     display: grid;
     
 }
+
+.likes{
+    &:hover{
+        color: red
+    }
+}

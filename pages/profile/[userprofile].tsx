@@ -4,12 +4,12 @@ import { collection, doc, getDocs, getFirestore, query, updateDoc, where } from 
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../utils/firebase-config';
 import { useQuery } from 'react-query';
 import Observers from '../../components/Observers';
 import Observes from '../../components/Observes';
 import Posts from '../../components/Posts'
 import profile from '../../styles/profile.module.scss';
-import { auth } from '../../utils/firebase-config';
 
 export default function Userprofile() {
   const router = useRouter()

@@ -20,7 +20,9 @@ export default function index() {
       // uid: user?.uid,
       text: newPost,
       likes: 0,
-      date
+      isLikedBy: [],
+      date,
+      author: user?.uid
     }).then(()=> setNewPost(''))}
   }
 
