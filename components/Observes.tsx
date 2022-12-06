@@ -46,7 +46,8 @@ export default function Observes({obsNr}:any) {
   {/* <Button onClick={e=>setOpen(true)}>Follows ({obsNr})</Button> */}
   <Chip
     label={`follows: ${obsNr}`}
-  onClick={(e:any)=>setOpen(true)}></Chip>
+  // onClick={(e:any)=>setOpen(true)}
+  ></Chip>
   
     <Dialog
     id={modal.overlay}

@@ -57,8 +57,8 @@ export default function Observers({isObsNr, uid}:any) {
   return (<>
   <Chip
     label={`followers: ${isObsNr}`}
-  onClick={(e:any)=>setOpen(true)}></Chip>
-  {/* <Button onClick={e=>setOpen(true)}>Followers ({isObsNr})</Button> */}
+  // onClick={(e:any)=>setOpen(true)}
+  ></Chip>
 
   
     <Dialog

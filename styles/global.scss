@@ -19,20 +19,20 @@ a {
 
 
 body{
-  color: $light;
-  background: $dark;
+  color: $dark;
+  background: $light;
   transition: color .5s, background-color .5s 
 }
 
-.light{
-  color: $dark;
-  background: $light
-}
+// .light{
+//   color: $dark;
+//   background: $light
+// }
 
 
-#newPost{
-  textarea{
-    color: white !important;
-    background-color: white;
-  }
-}
+// #newPost{
+//   textarea{
+//     color: white !important;
+//     background-color: white;
+//   }
+// }

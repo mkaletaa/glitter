@@ -6,12 +6,19 @@ import Layout from '../components/Layout'
 import {useRouter} from 'next/router'
 import { QueryClientProvider, QueryClient } from 'react-query'
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+
 const queryClient = new QueryClient()
 
 
 export default function App({ Component, pageProps }: AppProps) {
-
-
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 const router = useRouter()
 
 if(router.asPath =='/xxx')  {
@@ -23,11 +30,14 @@ if(router.asPath =='/xxx')  {
   return(
     <>
     <QueryClientProvider client={queryClient} >
+    {/* <ThemeProvider theme={darkTheme}> */}
+      {/* <CssBaseline /> */}
       <LoginAlert></LoginAlert>
 
       <Layout>
         <Component {...pageProps} />
-      </Layout>
+      </Layout>    
+      {/* </ThemeProvider> */}
     </QueryClientProvider>
     </>
   ) 

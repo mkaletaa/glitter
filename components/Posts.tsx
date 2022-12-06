@@ -112,7 +112,8 @@ export default function Posts({uid}:any) {
                 <Link href={`/profile/${fetchedUser?.data.uid}`}>
                   <strong>{fetchedUser?.data.displayName}</strong> </Link>
                   <span>@{fetchedUser?.data.uid}</span>
-                  <p>{post.text}</p>
+                  <p style={{fontSize: post.text.length<=40 ? '30px' : '17px' }}>
+                    {post.text}</p>
               </div>
               <div className={posts.postOptions}>    
 
@@ -159,7 +160,7 @@ export default function Posts({uid}:any) {
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           >
             <Alert onClose={e=>{setAuthorAlert(false); setLackUserAlert(false); setOtherAlert(false)}}  severity="error" sx={{ width: '100%' }} variant="filled">
-              {authorAlert && "You can't like your own post!"}
+              {authorAlert && "You can't like your own posts!"}
               {lackUserAlert && "You have to sign in to like the posts"}
               {otherAlert && "Something went wrong. Try again later"}
             </Alert>

@@ -23,11 +23,6 @@
     display: grid;
     gap: 10px;
     color: white
-
-}
-
-.bio{
-    width: 50%
 }
 
 #avkDiv{
@@ -36,4 +31,24 @@
     margin-inline: auto;
     gap: 10px;
     align-items: center;
+}
+
+#avatar{
+    width: 124px;
+    height: 124px
+}
+
+.textField{
+    margin-inline: auto;
+    width: 500px;
+}
+
+@media (max-width: 600px){
+    #avkDiv, .textField{
+        width: 100%;
+    }
+
+    #avkDiv{
+         flex-direction: column;
+    }
 }

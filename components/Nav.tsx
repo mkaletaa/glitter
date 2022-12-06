@@ -21,10 +21,10 @@ const iconColor = {color: 'white'}
 const route = useRouter()
 
 
-useEffect(()=>{
-  document.querySelector('body')?.classList.add('light')
+// useEffect(()=>{
+//   document.querySelector('body')?.classList.add('light')
 
-})
+// })
 
 function Theme(){
   document.querySelector('#main')?.classList.toggle('light')

@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react'
 import {getFirestore, collection, getDocs, addDoc, deleteDoc, doc, query, where, updateDoc} from 'firebase/firestore'
 import {TextField, Button} from "@mui/material"
+import CircularProgress from '@mui/material/CircularProgress';
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import Posts from '../components/Posts'
@@ -9,12 +10,14 @@ import Posts from '../components/Posts'
 export default function index() {
   const [user, loading] = useAuthState(auth)
   const [newPost, setNewPost] = useState('') 
+  const [publishProgress, setPublishProgress] = useState(false)
   const db = getFirestore()
   const colRef = collection(db, `posts_${user?.uid}`)
 
 
   function publish(){
     if(!/^\s*$/.test(newPost)){
+      setPublishProgress(true)
     let id = Date.now()
     const date = JSON.stringify(new Date().getDate()) + '-' +
                 JSON.stringify(new Date().getMonth()+1) + '-' +
@@ -27,7 +30,7 @@ export default function index() {
       date,
       id,
       author: user?.uid
-    }).then(()=> setNewPost(''))}
+    }).then(()=> {setNewPost(''); setPublishProgress(false)})}
 
   }
 
@@ -65,7 +68,9 @@ export default function index() {
       <Button
         variant='contained'
         onClick={e=>publish()}
-      >publish</Button>
+      >
+        {publishProgress ? <CircularProgress color="secondary" /> : 'publish'}
+        </Button>
       </div>}
 
 

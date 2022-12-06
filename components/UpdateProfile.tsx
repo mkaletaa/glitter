@@ -120,8 +120,7 @@ export default function UpdateProfile({refetch}:any) {
                       <Badge>
                         <FileUploadIcon 
                         style={{position: 'absolute', zIndex: '2'}}></FileUploadIcon>
-                      <Avatar src={photoURL} 
-                      sx={{ width: 124, height: 124}}></Avatar>
+                      <Avatar src={photoURL} id={modal.avatar} />
                       </Badge>
                     </label>
 
@@ -130,7 +129,7 @@ export default function UpdateProfile({refetch}:any) {
                       multiline
                       className={modal.textField}
                       onChange={e=>setPhotoURL(e.target.value)}
-                      style={{marginInline: 'auto', width: '100%'}}/>
+                      sx={ {width: '100%'}}/>
                         
                     {/* <input  id='avk-upload' type="file" style={{display: 'none'}} accept=".jpg, .jpeg, .png"
                     onChange={(e:any)=>setPhotoURL(e.target.files)} /> */}
@@ -141,14 +140,14 @@ export default function UpdateProfile({refetch}:any) {
                   value={displayName}
                   className={modal.textField}
                   onChange={e=>setDisplayName(e.target.value)}
-                  style={{marginInline: 'auto', width: '500px'}}/>
+                  />
 
               <TextField label={'bio'}
                   value={bio}
                   multiline
                   className={modal.textField}
                   onChange={e=>setBio(e.target.value)}
-                  style={{marginInline: 'auto', width: '500px'}}/>
+                  />
 
 
                 <TextField label={'banner URL'}
@@ -156,9 +155,9 @@ export default function UpdateProfile({refetch}:any) {
                   multiline
                   className={modal.textField}
                   onChange={e=>setBanner(e.target.value)}
-                  sx={{marginInline: 'auto', width: '500px'}}/>
+                  />
                   
-                 <img src={banner} style={{marginInline: 'auto', width: '500px'}} />
+                 <img src={banner} className={modal.textField} />
 
             </DialogContent>
 
@@ -170,7 +169,7 @@ export default function UpdateProfile({refetch}:any) {
                 onClick={e=>{updateProfile();  router.push(`/me`); 
                   setTimeout( refetch, 1000)
                 }}  
-                autoFocus>Submit</Button>
+                autoFocus>Update</Button>
             </DialogActions>
   </Dialog>
   )

@@ -74,7 +74,7 @@ export default function LoginAlert() {
       alert('adiing')
       addDoc(colRef, {
         uid,
-        photoURL,
+        photoURL: 'https://avatars.githubusercontent.com/u/20715958?v=4',
         displayName,
         bio: 'this is bio',
         banner: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
