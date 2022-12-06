@@ -4,9 +4,16 @@
     position: absolute;
     translate: 0 -50%;
     left: 30px;
-    box-shadow: 0 0 0px 5px $dark;
+    box-shadow: 0 0 0px 3px $dark;
     z-index: 1;
     background-color: $dark;
+    width: 150px;
+    height: 150px;
+
+    @media(max-width: 500px){
+    width: 100px;
+    height: 100px;
+    }
 }
 
 #editDiv{
@@ -42,13 +49,19 @@
 #infoDiv{
     padding-inline: 20px;
     margin-top: 10px;
-    border-bottom: 1px solid rgb($light, .3);
-
+    border-bottom: 1px solid rgb($dark, .3);
+    *{
+        word-break: break-all;
+        display: block
+    }
     strong{
         font-size: 25px;
     }
     span{
         color: grey
+    }
+    p{
+        font-size: 20px;
     }
 }
 

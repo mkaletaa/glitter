@@ -11,7 +11,8 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import {IconButton, Tooltip, Drawer } from '@mui/material';
 import { ThemeContext } from '@emotion/react'
-
+import {useQuery} from 'react-query'
+import axios from 'axios'
 
 export default function Nav() {
 const [user, loading] = useAuthState(auth)
@@ -29,6 +30,20 @@ function Theme(){
   document.querySelector('#main')?.classList.toggle('light')
   // document.querySelector('#main')?.classList.toggle('module.light')
 }
+
+const [pollingTime, setPollingTime] = useState(100)
+function onSuccess(){
+  if(data?.data!=="Cannot read properties of undefined (reading 'data')" 
+    && data!==undefined)
+    setPollingTime(0)
+}
+// variable should not be in the link, try to mess with refetchInterval
+  const {data, isFetching} = useQuery('data', ()=>{ 
+    return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+    },{
+      refetchInterval: pollingTime,
+      onSuccess
+    })
 
   return (
     <>
@@ -78,10 +93,10 @@ function Theme(){
         </IconButton>
       </Tooltip>
 
-      <button onClick={e=>Theme()}>theme</button>
+      {/* <button onClick={e=>Theme()}>theme</button> */}
 
         {user && !loading && //TODO: don't pass avatar from firebase auth but database
-        <LogoutDialog imagesrc={user?.photoURL} name={user?.displayName} />}
+        <LogoutDialog imagesrc={data?.data.photoURL} name={data?.data.displayName} />}
     </div>
     </>
   )

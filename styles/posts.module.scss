@@ -1,7 +1,46 @@
-#feed{
-    background-color: red;
-    display: grid;
-    
+@use "./colors" as *;
+
+$padding: 10px;
+
+.post{
+    border-bottom: 1px solid rgb($dark, .3);
+    padding: $padding;
+    word-wrap: break-word;
+    .postOptions{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+        .date{
+            // align-self: start;
+            position: absolute;
+            left: $padding;
+            color: gray;
+        }
+    }
+
+    .postContent{
+        word-break: break-all;
+        display: grid;
+        grid-template-columns: 50px 1fr;
+        padding-right: $padding;
+
+        .postAvatar{
+            grid-row: 1/span 4;
+
+        }
+
+        strong, span, p{
+            margin-left: $padding
+        }
+        p{
+            margin-bottom: 0;
+            font-size: 30px;
+        }
+        span{
+            color: grey
+        }
+    }
 }
 
 .likes{

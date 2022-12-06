@@ -15,15 +15,20 @@ export default function index() {
 
   function publish(){
     if(!/^\s*$/.test(newPost)){
-    let date = Date.now()
+    let id = Date.now()
+    const date = JSON.stringify(new Date().getDate()) + '-' +
+                JSON.stringify(new Date().getMonth()+1) + '-' +
+                JSON.stringify(new Date().getFullYear())
     addDoc(colRef, {
       // uid: user?.uid,
       text: newPost,
       likes: 0,
       isLikedBy: [],
       date,
+      id,
       author: user?.uid
     }).then(()=> setNewPost(''))}
+
   }
 
 // alert('dusp')

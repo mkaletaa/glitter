@@ -67,7 +67,6 @@ export default function Userprofile() {
           id={profile.avatar}
           alt={`${data?.data.displayName} avatar`}
           src={data?.data.photoURL} 
-          sx={{ width: 150, height: 150 }}
         />
       </Link>
     </div>  
@@ -108,18 +107,17 @@ export default function Userprofile() {
       <div id={profile.infoDiv} >
 
         <strong>{data?.data.displayName}</strong>
-        <br/>
+        {/* <br/> */}
         <span>@{data?.data.uid}</span>
-        <br/>
-        <br/>
-        {data?.data.bio}
-        <br/>
+        {/* <br/> */}
+        {/* <br/> */}
+        <p>{data?.data.bio}</p>
+        {/* <br/> */}
 
 
-      </div>e
-      <br></br>
+      </div>
     {/* {user?.uid===userprof.uid && !user && 'nie mój' } */}
-   <br></br>
+
 
         {/* {user?.uid && <Posts uid={user?.uid}/>} */}
 

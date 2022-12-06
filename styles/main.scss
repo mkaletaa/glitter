@@ -7,7 +7,7 @@ $brp_2: 500px;
 
 
 .homeContainer{
-    width: 90vw;
+    width: 90%;
     max-width: 1500px;
     margin-inline: auto;
     display: grid;
@@ -72,7 +72,7 @@ $brp_2: 500px;
     grid-row: 1/ 3;
     background-color: $dark;
     transition: .5s;
-    
+    z-index: 9;
     button{
         transition: .5s;
     }
