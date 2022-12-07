@@ -21,6 +21,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { pureFinalPropsSelectorFactory } from 'react-redux/es/connect/selectorFactory'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 export default function Nav({mode}:any) {
 const [user, loading] = useAuthState(auth)
@@ -28,20 +30,23 @@ const [isDrawerOpen, setDrawerOpen] = useState(false)
 const iconColor = {color: 'white'}
 const route = useRouter()
 
-const [switchMode, setSwitchMode] = useState('dark')
+const [switchMode, setSwitchMode] = useState<any>('dark')
 useEffect(()=>{
   //TODO: localstorage
   document.querySelector('body')?.classList.add('dark')
+
 }, [])
 
 function Theme(){
-  mode()
-  setSwitchMode(switchMode==='dark' ? 'light' : 'dark')
   document.querySelector('body')?.classList.toggle('dark')
   document.querySelector('body')?.classList.toggle('light')
+    mode()
+
+  // setSwitchMode(switchMode==='dark' ? 'light' : 'dark')
 }
 
-const MaterialUISwitch = styled(Switch)(({ switchMode }:any) => ({
+
+const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 7,
@@ -59,12 +64,12 @@ const MaterialUISwitch = styled(Switch)(({ switchMode }:any) => ({
       },
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: switchMode === 'dark' ? '#8796A5' : '#aab4be',
+        backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
       },
     },
   },
   '& .MuiSwitch-thumb': {
-    backgroundColor: switchMode === 'dark' ? '#003892' : '#001e3c',
+    backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
     width: 32,
     height: 32,
     '&:before': {
@@ -83,12 +88,10 @@ const MaterialUISwitch = styled(Switch)(({ switchMode }:any) => ({
   },
   '& .MuiSwitch-track': {
     opacity: 1,
-    backgroundColor: switchMode === 'dark' ? '#8796A5' : '#aab4be',
+    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
     borderRadius: 20 / 2,
   },
 }));
-
-
 
 
 
@@ -156,14 +159,11 @@ function onSuccess(){
       </Tooltip>
 
 
-    <FormControlLabel
-    labelPlacement="top"
-        control={
-    <Switch onClick={e=>Theme()}></Switch>
-        }
-      label="theme"/>
 
-     <MaterialUISwitch sx={{ m: 1 }} onClick={e=>Theme()} defaultChecked />
+    <Switch onClick={e=>Theme()}></Switch>
+      
+
+     <MaterialUISwitch sx={{ m: 1 }} onChange={e=>Theme()} defaultChecked />
   
    
 

@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const {useState} = React
   const [mode, setMode] = useState<any>('dark')
-  const darkTheme = createTheme({
+  const theme = createTheme({
     palette: {
       mode: mode,
     },
@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return(
     <>
     <QueryClientProvider client={queryClient} >
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <LoginAlert></LoginAlert>
 

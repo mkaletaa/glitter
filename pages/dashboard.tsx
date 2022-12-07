@@ -4,46 +4,33 @@ const {useState} = React;
 const {useEffect} = React;
 import {useQuery} from 'react-query'
 import axios from 'axios'
+import {getFirestore, collection, setDoc, getDocs, query, where, updateDoc, doc} from 'firebase/firestore'
+import {useCollectionData} from 'react-firebase-hooks/firestore'
 
 export default function dashboard({users}:any) {
-  const [comments, setComments] = useState([])
-  const [comment, setComment] = useState('')
 
-  const fetchComments = async () => {
-    const response = await fetch('/api/comments')
-    const data = await response.json()
-    setComments(data)
-  }
+  const db = getFirestore()
+  const query  = collection(db, 'test/h3aNJe6Ismsac6L9crOr/doc')
 
-  const submitComment = async ()=> {
-    const response = await fetch('/api/comments', {
-      method: 'POST',
-      body: JSON.stringify({comment}),
-      headers: {
-        'Content-Type' : 'application/json'
-      } 
-    })
-
-    const data = await response.json()
-    fetchComments()
-  }
-  
-  const deleteComment = async (commentId:number)=>{
-    const response = await fetch(`/api/comments/${commentId}`, {
-      method: "DELETE",
-    })
-    const data = await response.json()
-    fetchComments()
-  }
-
-  const incrementCount = async ()=>{
-    const registerCount = ()=> fetch('/api/increment')
-    registerCount()
-  }
-
-  const {data} = useQuery('q', ()=>{
-    return axios.get('http://localhost:3000/api/users/ZQ2YlBxJ03Wua1gkQCSPujTedVO2')
-  })
+  const [docs, loading, error] = useCollectionData(query)
+  console.log(docs)
+      getDocs(query)
+        .then((snapshot)=>{
+            let posts:any = []
+            
+                snapshot.docs.forEach(post=>{
+                    posts.push(post.data())
+                })
+                    console.log(snapshot.docs[0].data())
+                
+            })
+      function setD(){
+        setDoc(doc(db, "posts/useruid/useruidposts/idposta"), {
+          name: "Los Angeles",
+          state: "CA",
+          country: "USA"
+        });
+      }
 
 
   return (
@@ -52,26 +39,9 @@ export default function dashboard({users}:any) {
       <div className="topBarRight">right</div>
 
       <div className="main">
-        {
-          comments.map(comment=>{
-            // @ts-ignore
-            return <div key={comment.id}>{comment.text} 
-            {/* @ts-ignore */}
-            <button onClick={e=>deleteComment(comment.id)}>delete</button>
-            </div>
-          })
-        }
-        <br></br>
-        <br></br>
-eee: {data?.data.displayName}
-        {users.map((user:any)=>{return<><p key={user.id}>{user.name}</p></>})}
+   <button onClick={e=>setD()}>setDoc</button>
       </div>
-      {/* <div className="rightPanel">
-        <button onClick={e=>fetchComments()}>load comments</button>
-        <input type="text" value={comment} onChange={e=>setComment(e.target.value)} />
-        <button onClick={e=>submitComment()}>Submit</button>
-        <button onClick={e=>incrementCount()}>increment</button>
-      </div> */}
+
     </>
   )
 }

@@ -3,7 +3,7 @@ import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import {Button, Snackbar, Alert} from '@mui/material'
-import {getFirestore, collection, getDocs, addDoc, query, where, updateDoc, doc} from 'firebase/firestore'
+import {getFirestore, collection, getDocs, setDoc, query, where, updateDoc, doc} from 'firebase/firestore'
 
 export default function LoginAlert() {
     const [user, loading] = useAuthState(auth)
@@ -15,28 +15,7 @@ export default function LoginAlert() {
     const GoogleLogin = async ()=>{
       try{
         const result = await signInWithPopup(auth, googleProvider)
-        
-        //check if this user already exists in the database
-        //nie działa chyba dlatego, że q powstaje zanim powstanie result
-        // const q =  query(colRef, where("uid", "==", `${result.user.uid}`))
-        // getDocs(q)
-        // .then((snapshot)=>{
-        //             snapshot.docs.forEach(doc=>{
-        //               if(snapshot.docs[0]===undefined){
-        //                   alert('adiing1')
 
-        //                 const uid = result.user.uid
-        //                 const photoURL = result.user.photoURL
-        //                 const displayName = result.user.displayName
-        //                 addUserToDb({uid, photoURL, displayName})
-        //               }
-        //             })   
-        //           })
-        //           .catch(err=>{
-        //             console.error(err.message)
-        //           })
-            
-            //check if this user already exists in the database
                   getDocs(colRef)
                   .then((snapshot)=>{
                     let users:any = []
@@ -71,8 +50,9 @@ export default function LoginAlert() {
     }
 
     function addUserToDb({uid, photoURL, displayName}: addUserType){
-      alert('adiing')
-      addDoc(colRef, {
+
+      console.log(uid, photoURL, displayName)
+      setDoc(doc(db, 'users', `${uid}`),{
         uid,
         photoURL: 'https://avatars.githubusercontent.com/u/20715958?v=4',
         displayName,
@@ -82,30 +62,10 @@ export default function LoginAlert() {
         observesNr: 0,
         isObservedBy: [],
         isObservedByNr: 0
-      }).then(()=>{
-        //wyszukaj teraz usera po jego uid i dodaj id
-           addId(uid)
-         })
-    }
-
-
-    function addId(uid:string){
-
-      const q = query(colRef, where("uid", "==", `${uid}`))
-
-      getDocs(q)
-      .then((snapshot)=>{
-      
-        const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-              updateDoc(docRef, {
-                id: snapshot.docs[0].id
-              })
-      
-      })
-      .catch(err=>{
-        console.error(err.message)
       })
     }
+
+
 
   
   return (
