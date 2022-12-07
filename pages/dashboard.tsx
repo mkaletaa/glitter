@@ -13,7 +13,7 @@ export default function dashboard({users}:any) {
   const query  = collection(db, 'test/h3aNJe6Ismsac6L9crOr/doc')
 
   const [docs, loading, error] = useCollectionData(query)
-  console.log(docs)
+  // console.log(docs)
       getDocs(query)
         .then((snapshot)=>{
             let posts:any = []
@@ -24,6 +24,12 @@ export default function dashboard({users}:any) {
                     console.log(snapshot.docs[0].data())
                 
             })
+
+
+
+
+
+
       function setD(){
         setDoc(doc(db, "posts/useruid/useruidposts/idposta"), {
           name: "Los Angeles",
