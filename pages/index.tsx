@@ -13,32 +13,19 @@ export default function index() {
   const [newPost, setNewPost] = useState('') 
   const [publishProgress, setPublishProgress] = useState(false)
   const db = getFirestore()
-  const colRef = collection(db, `posts_${user?.uid}`)
+
 
 
   function publish(){
     if(!/^\s*$/.test(newPost)){
       setPublishProgress(true)
 
-    const docRef = doc(db, 'posts', `${user?.uid}`)
-    getDoc(docRef)
-        .then((doc:any)=>{
-          console.log(doc.data())
-          if(doc.data()!==undefined){
-            let posts = doc.data()
-            addPost(posts)
-          }
-         })
-  }
-
-  function addPost(posts:any){
     let id = 9999999999999 - Date.now()
     const date = JSON.stringify(new Date().getDate()) + '-' +
                 JSON.stringify(new Date().getMonth()+1) + '-' +
                 JSON.stringify(new Date().getFullYear())
-    setDoc(doc(db, `posts/${user?.uid}`), 
-    {  ...posts,
-      [`${id}`] :{
+    setDoc(doc(db, `posts/${user?.uid}/posts/${id}`), 
+    {  
       uid: user?.uid,
       text: newPost,
       likes: 0,
@@ -46,8 +33,10 @@ export default function index() {
       date,
       id,
       author: user?.uid
+    
+    }).then(()=> {setNewPost(''); setPublishProgress(false)})
+  
     }
-    }).then(()=> {setNewPost(''); setPublishProgress(false)})}
   }
 
 // alert('dusp')

@@ -46,20 +46,24 @@ export default function Posts({uid}:any) {
   })
 
   function onSuccess(){
-    console.log('sukces')
+    console.log(fetchedPosts?.data)
     if(fetchedPosts?.data!==undefined || fetchedUser?.data!==undefined)
     setRefetchTime(0)
   }
 
+  // useEffect(()=>{
+  //   console.log('qwert', data)
+  // }, [data])
+
   function deletePostFn(){
     const db = getFirestore()
-    const colRef = collection(db, `posts_${uid}`)
+    const colRef = collection(db, `posts/${uid}/posts/${deletePost}`)
     const q = query(colRef, where("date", "==", deletePost))
 
+    const docRef = doc(db, `posts/${uid}/posts`, `${deletePost}`)
+          deleteDoc(docRef).then(()=>{setRefetchTime(10)})
     getDocs(q)
     .then((snapshot)=>{
-      const docRef = doc(db, `posts_${uid}`, `${snapshot.docs[0].id}`)
-            deleteDoc(docRef).then(()=>{setRefetchTime(10)})
     })
   }
 

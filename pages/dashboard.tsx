@@ -10,9 +10,9 @@ import {useCollectionData} from 'react-firebase-hooks/firestore'
 export default function dashboard({users}:any) {
 
   const db = getFirestore()
-  const query  = collection(db, 'test/h3aNJe6Ismsac6L9crOr/doc')
+  const query  = collection(db, 'posts/ZQ2YlBxJ03Wua1gkQCSPujTedVO2/posts')
 
-  const [docs, loading, error] = useCollectionData(query)
+  // const [docs, loading, error] = useCollectionData(query)
   // console.log(docs)
       getDocs(query)
         .then((snapshot)=>{
@@ -21,17 +21,12 @@ export default function dashboard({users}:any) {
                 snapshot.docs.forEach(post=>{
                     posts.push(post.data())
                 })
-                    console.log(snapshot.docs[0].data())
+                    console.log(posts)
                 
             })
 
-
-
-
-
-
       function setD(){
-        setDoc(doc(db, "posts/useruid/useruidposts/idposta"), {
+        setDoc(doc(db, "posts/useruid/posts/idposta"), {
           name: "Los Angeles",
           state: "CA",
           country: "USA"
