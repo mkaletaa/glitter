@@ -3,7 +3,7 @@
 $padding: 10px;
 
 .post{
-    border-bottom: 1px solid rgb($dark, .3);
+    border-bottom: 1px solid grey;
     padding: $padding;
     // word-wrap: break-word;
     // word-break: break-word;
@@ -13,7 +13,7 @@ $padding: 10px;
         justify-content: flex-end;
         align-items: center;
         position: relative;
-        border-top: 1px solid rgb($dark, .1);
+        border-top: 1px solid rgba(128, 128, 128, .3);
         padding-top: $padding;
         margin-top: $padding;
         .date{
@@ -21,6 +21,10 @@ $padding: 10px;
             position: absolute;
             left: $padding;
             color: gray;
+        }
+
+        button{
+            color: $secondary
         }
     }
 

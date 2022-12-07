@@ -3,13 +3,15 @@ $light: snow;
 // $light: rgb(255, 255, 240);
 
 .light{
-    --primary: snow;
-    --secondary: rgb(21, 32, 43)
+    --primary: rgb(255, 250, 250);
+    --secondary: rgb(21, 32, 43);
+    --topbarbg: rgba(255, 250, 250, .5)
 }
 .dark{
     --primary: rgb(21, 32, 43);
-    --secondary: snow
+    --secondary: rgb(255, 250, 250);
+    --topbarbg: rgba(21, 32, 43, .5)
 }
 
 $primary: var(--primary);
-$secondary: var(--secondary)
+$secondary: var(--secondary);

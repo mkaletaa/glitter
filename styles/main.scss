@@ -19,7 +19,7 @@ $brp_2: 500px;
         width: 100%;
     }
     .main{
-        border: 1px solid rgb($secondary, .3);
+        border: 1px solid grey;
     }
 
 
@@ -106,7 +106,7 @@ $brp_2: 500px;
 }
 
 @mixin topBars{
-    background-color: rgba($primary, .5);
+    background-color: var(--topbarbg);
     position: sticky; // See link
     top: 0; //to make it stick to the top of the screen
     height: 100%; // make the height equal to 100 view height

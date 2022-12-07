@@ -11,6 +11,7 @@ $brp: 370px;
     background-color: $dark;
     width: 150px;
     height: 150px;
+    transition: box-shadow .5s;
 
     @media(max-width: 500px){
     width: 100px;

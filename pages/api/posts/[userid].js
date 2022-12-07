@@ -6,7 +6,8 @@ const db = getFirestore()
 export default function handler(req, res){
     
     const colRef = collection(db, `posts_${req.query.userid}`)
-    const q = query(colRef, orderBy("id"), limit(5));
+    //można jeszcze ustawić limit
+    const q = query(colRef, orderBy("id"));
 
     if(req.method==='GET'){
         getDocs(q)

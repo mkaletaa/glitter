@@ -3,18 +3,18 @@ import Nav from '../components/Nav'
 import RightPanel from '../components/RightPanel'
 
 type LayoutProps = {
-  children: React.ReactNode
+  children: React.ReactNode,
+  mode: Function
 }
 
-export default function Layout({children}: LayoutProps) {
-
+export default function Layout({children, mode}: LayoutProps) {
 
 
   return (
     <>
      <div className="homeContainer" >
 
-      <Nav></Nav>
+      <Nav mode={mode}></Nav>
 
       {children}
        

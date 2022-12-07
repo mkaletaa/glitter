@@ -1,4 +1,4 @@
-@use "./colors" as *;
+// @use "./colors" as *;
 
 html,
 body {
@@ -15,12 +15,13 @@ a {
 
 * {
   box-sizing: border-box;
+  // transition: color .5s, background-color .5s;
 }
 
 
 body{
-  color: $secondary;
-  background: $primary;
+  color: var(--secondary);
+  background: var(--primary);
   transition: color .5s, background-color .5s 
 }
 
