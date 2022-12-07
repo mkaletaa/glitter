@@ -37,6 +37,8 @@ $brp_2: 500px;
 
         .main{
             margin-bottom: $nav_height;
+            border-left: none;
+            border-right: none;
         }
 
         .nav{
@@ -49,6 +51,7 @@ $brp_2: 500px;
            top: auto;
            height: $nav_height;
            position: fixed;
+           background-color: var(--primary2);
             .smDisappear{
                 display: none
             }
@@ -159,3 +162,4 @@ $brp_2: 500px;
 //         }
 //     }
 // }
+

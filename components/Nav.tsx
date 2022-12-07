@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import LogoutDialog from './LogoutDialog'
+import Notifications from './Notifications'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
@@ -26,7 +26,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 export default function Nav({mode}:any) {
 const [user, loading] = useAuthState(auth)
-const [isDrawerOpen, setDrawerOpen] = useState(false)
 const iconColor = {color: 'white'}
 const route = useRouter()
 
@@ -114,13 +113,7 @@ function onSuccess(){
   return (
     <>
 
-          <Drawer
-            anchor='left'
-            open={isDrawerOpen}
-            onClose={()=>setDrawerOpen(false)}>
-            rtrtrdslorem
-            Lorem ipsum dolor sit a
-          </Drawer>
+
 
 
     <div className='nav'>
@@ -132,15 +125,11 @@ function onSuccess(){
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Notifications" placement="right">
-        <IconButton style={iconColor}>
-          <NotificationsRoundedIcon/>
-        </IconButton>
-      </Tooltip>
+              <Notifications iconColor={iconColor}/>
 
 
       <Tooltip title="Messages" placement="right">
-        <IconButton style={iconColor} onClick={()=>setDrawerOpen(true)} >
+        <IconButton style={iconColor}  >
           <EmailRoundedIcon/>
         </IconButton>
       </Tooltip>

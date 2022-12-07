@@ -172,7 +172,7 @@ export default function Userprofile() {
     
            :
     
-        <img src={userData?.data.banner} style={{width: '100%', height: '250px'}}></img>
+        <img id={profile.banner} src={userData?.data.banner}></img>
       }
 
        { userIsLoading ?

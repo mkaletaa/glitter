@@ -58,7 +58,7 @@ export default function Userprofile() {
     <div style={{position: 'relative'}}>
       <Link href={`/me/?banner=x`} 
         as={`/me/banner`} >
-        <img src={data?.data.banner} style={{width: '100%', height: '250px'}}></img>
+        <img id={profile.banner} src={data?.data.banner} ></img>
       </Link>
 
       <Link href={`/me/?avatar=x`} 

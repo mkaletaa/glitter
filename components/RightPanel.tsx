@@ -34,7 +34,7 @@ export default function RightPanel() {
                 <Avatar sx={{width: '80px', height: '80px'}}
                   src={'https://www.befunky.com/images/wp/wp-2020-07-glitter-final-1-scaled.jpg?auto=avif,webp&format=jpg&width=944'}/>
                   <div className={right.recInfo}>
-                    <b>Joanna Swędzipięta</b>
+                    <b>Jolanta Swędzipięta</b>
                     <span>kawa czy herbata?</span>
                   </div>
               </ListItemButton></Link>
@@ -47,11 +47,14 @@ export default function RightPanel() {
                   src={'https://avatars.githubusercontent.com/u/20715958?v=4'}/>
                   <div className={right.recInfo}>
                     <b>Mikołaj Kaleta</b>
-                    <span>koduję</span>
+                    <span>Twóca Glittera. Pozdrawiam wszystkich.</span>
                   </div>
               </ListItemButton></Link>
              
             </List>
+
+            
+          <p id={right.p}>Glitter® 2022</p>
 
     </div>
   )

@@ -1,14 +1,17 @@
 .cards{
     margin: auto;
     background-color: var(--primary2);
-    border-radius: 15px
+    border-radius: 15px;
+    transition:  background-color .5s
 }
 
 .header{
-    background-color: rgba(0, 0, 0, 0);
+    background-color: var(--primary2);
     text-align: center;
     font-size: 17px;
     font-weight: bold;
+    transition: color .5s, background-color .5s
+
 }
 
 .recInfo{
@@ -29,4 +32,11 @@
         line-height: 15px;
         opacity: .8
     }
+}
+
+#p{
+    // background-color: red;
+    text-align: center;
+    opacity: .8
+
 }
