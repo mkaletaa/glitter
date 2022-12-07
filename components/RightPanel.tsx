@@ -1,38 +1,56 @@
 import React, {useEffect} from 'react'
 import { useRouter } from 'next/router';
 import right from '../styles/rightPanel.module.scss'
-import {Card, List, ListItemButton, Avatar} from '@mui/material'
+import {List, ListItemButton, Avatar, ListSubheader, Divider} from '@mui/material'
+import Link from 'next/link'
 
 export default function RightPanel() {
   const router = useRouter()
 
 
   return (
-    <div className='rightPanel'  >RightPanel
-
-    <button onClick={e=>router.push('/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2')}>goooo</button>
-      
-        <Card   className={right.cards}>
-
-       Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum suscipit necessitatibus accusamus neque aliquid deserunt cumque eum excepturi, molestias itaque voluptatum corrupti quam aperiam quasi perspiciatis vitae dolorum tenetur odit.
-            dede</Card>
+    <div className='rightPanel'  >
 
             <List className={right.cards}>
-              Recommended people:
-              <ListItemButton>ded</ListItemButton>
-              <ListItemButton>ded</ListItemButton>
-              <ListItemButton>ded</ListItemButton>
-              <ListItemButton>ded</ListItemButton>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium earum doloremque quas? Cupiditate nostrum illum quae iste repudiandae nihil, aperiam asperiores quam, sit aut sequi, dolore ea veniam magnam. Nemo.
-              Dolorem recusandae ratione enim nemo ea, nisi magni cupiditate voluptates, at consectetur consequuntur est neque a ullam dignissimos libero fugiat quas sequi? Magnam doloremque fugiat quis neque eligendi error libero!
-              Consequuntur, mollitia! Natus officia enim fugit placeat dolores, repellat tempore quidem iusto, illum repudiandae accusantium praesentium neque exercitationem quisquam obcaecati corporis, alias necessitatibus modi repellendus non! Eius veniam dolore distinctio.
-              Minus, eligendi? Culpa reprehenderit sed error alias, vitae dolorem harum sint tempore eum. In omnis, architecto ullam ipsam perferendis nisi maiores quasi molestiae maxime, hic nemo iusto repellat illum animi.
-              Minus, inventore ex sint dolores quaerat minima nulla, totam nesciunt laboriosam nobis iure libero aliquid! Laudantium saepe iure ab recusandae eum amet! Itaque autem nostrum eum velit facere maxime obcaecati!
-              Quibusdam error repellat, veritatis dicta rerum quos voluptatum ducimus vel nostrum illum officiis consectetur nemo eaque repudiandae suscipit esse eos. Nam pariatur, optio quae beatae fugiat illum excepturi maxime quibusdam!
-              Quos minima aut alias, ab dicta, nulla aliquid ea repellat libero quae, nihil eligendi unde rerum officiis ullam minus maxime expedita consequatur consequuntur recusandae explicabo officia. Unde voluptatibus distinctio optio.
-              Ipsum, cupiditate quo! Assumenda doloremque sed dolor totam hic deserunt! Accusamus excepturi amet asperiores voluptatum. Numquam provident iste voluptate perspiciatis, molestiae laudantium obcaecati exercitationem cupiditate laboriosam culpa vel placeat reprehenderit!
-              Labore ipsum consequatur ipsam doloremque sunt pariatur quis ducimus obcaecati eos, dolor ullam minima et exercitationem atque quibusdam error neque itaque libero officiis corrupti. Est obcaecati explicabo corrupti rerum eveniet.
-              Ducimus quo praesentium dolor fugit. Repellat non temporibus quasi tempora dolorum! Odio facere, assumenda optio enim voluptatum minus accusamus. Nulla incidunt asperiores sequi dolore molestias sunt explicabo ea voluptate dignissimos.
+     
+              <ListSubheader className={right.header}>Recommended for you:</ListSubheader>
+
+              <Divider></Divider>
+
+              <Link href={'/profile/zdzislawpaleta'}>
+              <ListItemButton>
+                <Avatar sx={{width: '80px', height: '80px'}}
+                  src={'https://www.swiatobrazu.pl/picture/i/y9k/w3p/4sl/1c368_s_660_0_0_0_0_0_0_y9kw3p4slxfhmeyqeu9p65oooik7kwn7yvxqcq8mbdxpii6n35100feemocycox0.jpeg'}/>
+                  <div className={right.recInfo}>
+                    <b>Zdzisław Paleta</b>
+                    <span>Witam serdecznie na moim profilu</span>
+                  </div>
+              </ListItemButton></Link>
+
+                <Divider></Divider>
+
+              <Link href={'/profile/ZQ2YlBxJ03Wua1gkQCSPujTedVO2'}>
+              <ListItemButton>
+                <Avatar sx={{width: '80px', height: '80px'}}
+                  src={'https://www.befunky.com/images/wp/wp-2020-07-glitter-final-1-scaled.jpg?auto=avif,webp&format=jpg&width=944'}/>
+                  <div className={right.recInfo}>
+                    <b>Joanna Swędzipięta</b>
+                    <span>kawa czy herbata?</span>
+                  </div>
+              </ListItemButton></Link>
+ 
+                <Divider></Divider>
+
+              <Link href={'/profile/V76dW2lLHec1OFAbxRJdxnXJtbM2'}>
+              <ListItemButton>
+                <Avatar sx={{width: '80px', height: '80px'}}
+                  src={'https://avatars.githubusercontent.com/u/20715958?v=4'}/>
+                  <div className={right.recInfo}>
+                    <b>Mikołaj Kaleta</b>
+                    <span>koduję</span>
+                  </div>
+              </ListItemButton></Link>
+             
             </List>
 
     </div>

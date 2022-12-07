@@ -1,6 +1,32 @@
-
-
 .cards{
     margin: auto;
-    background-color: lightgrey;
+    background-color: var(--primary2);
+    border-radius: 15px
+}
+
+.header{
+    background-color: rgba(0, 0, 0, 0);
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.recInfo{
+    // background-color: red;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+
+    b{
+        text-align: center;
+        line-height: 18px;
+    }
+
+    span{
+        text-align: center;
+        line-height: 15px;
+        opacity: .8
+    }
 }

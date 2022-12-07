@@ -32,7 +32,7 @@ export default function Userprofile() {
 
   /////////////
   const [pollingTime, setPollingTime] = useState<number>(1000)
-  //teching data about user to know if they observe the profile
+  //feching data about user to know if they observe the profile
   const {isLoading , data} = useQuery('data', ()=>{ 
     return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
     },{
@@ -41,7 +41,7 @@ export default function Userprofile() {
     })
 
    function onSuccess(){
-    console.log('dataa', userUid)
+    console.log('dataa', userData)
     if(userData?.data!=="Cannot read properties of undefined (reading 'data')" 
       && userData!==undefined
       && data?.data!=="Cannot read properties of undefined (reading 'data')"
@@ -242,7 +242,8 @@ export default function Userprofile() {
     
     <br/>
 
-    {user?.uid===data?.data.uid ? 'mój' : 'nie mój'}
+    {user?.uid===userData?.data.uid ? 'mój' : 'nie mój'}
+
  
 
      {userData?.data.uid && <Posts uid={userData?.data.uid}/>}

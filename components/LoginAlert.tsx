@@ -54,10 +54,10 @@ export default function LoginAlert() {
       console.log(uid, photoURL, displayName)
       setDoc(doc(db, 'users', `${uid}`),{
         uid,
-        photoURL: 'https://avatars.githubusercontent.com/u/20715958?v=4',
+        photoURL,
         displayName,
         bio: 'this is bio',
-        banner: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+        banner: 'https://t4.ftcdn.net/jpg/00/99/16/73/360_F_99167308_3p5oJqnG1EatfGL4X2iJ0C9h4dRy03it.jpg',
         observes: [],
         observesNr: 0,
         isObservedBy: [],
