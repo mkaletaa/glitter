@@ -15,14 +15,14 @@ import {useQuery} from 'react-query'
 import axios from 'axios'
 
 
-import { styled } from '@mui/material/styles';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch, { SwitchProps } from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { pureFinalPropsSelectorFactory } from 'react-redux/es/connect/selectorFactory'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
+// import FormGroup from '@mui/material/FormGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Stack from '@mui/material/Stack';
+// import Typography from '@mui/material/Typography';
+// import { pureFinalPropsSelectorFactory } from 'react-redux/es/connect/selectorFactory'
+// import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 export default function Nav({mode}:any) {
 const [user, loading] = useAuthState(auth)
