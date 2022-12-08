@@ -45,7 +45,7 @@ export default function Notifications({iconColor}:any) {
            <div id={notifications.notifications}>
 
         
-             {empty ? <div id={notifications.empty}>You haven't received any notifications yet 
+             {empty ? <div id={notifications.empty}>You have not received any notifications yet 
              <DraftsIcon style={{position: 'absolute', fontSize: '200px', left: '50%',
             top: '50%', translate: '-50% -50%', opacity: '.1'}}></DraftsIcon>
              </div> :
