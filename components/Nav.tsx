@@ -33,7 +33,7 @@ const router = useRouter()
 useEffect(()=>{
   //TODO: localstorage
   document.querySelector('body')?.classList.add('dark')
-
+alert('test')
 }, [])
 
 function Theme(){
