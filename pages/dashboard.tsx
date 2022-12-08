@@ -7,7 +7,7 @@ import axios from 'axios'
 import {getFirestore, collection, setDoc, getDocs, query, where, updateDoc, doc} from 'firebase/firestore'
 import {useCollectionData} from 'react-firebase-hooks/firestore'
 
-export default function dashboard({users}:any) {
+export default function Dashboard({users}:any) {
 
   const db = getFirestore()
   const query  = collection(db, 'posts/ZQ2YlBxJ03Wua1gkQCSPujTedVO2/posts')

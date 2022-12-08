@@ -8,7 +8,7 @@ import Posts from '../components/Posts'
 import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 
-export default function index() {
+export default function Index() {
   const [user, loading] = useAuthState(auth)
   const [newPost, setNewPost] = useState('') 
   const [publishProgress, setPublishProgress] = useState(false)

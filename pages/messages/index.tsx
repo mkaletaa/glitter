@@ -3,7 +3,7 @@ import MessagesPanel from '../../components/MessagesPanel'
 
 
 
-export default function index() {
+export default function Index() {
 
     const [sm, setSm] = useState<boolean>()
     useEffect(() => {
