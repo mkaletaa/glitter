@@ -10,6 +10,7 @@ export default function handler(req, res){
 // {
 //     res.status(201).json('gettq')
 
+res.status(201).json('snapshot.docs[0].data()')
 // }else{
     getDocs(q)
     .then((snapshot)=>{
