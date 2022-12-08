@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Tooltip, IconButton, Drawer, Divider, List, ListItemButton, Badge} from '@mui/material'
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+import DraftsIcon from '@mui/icons-material/Drafts';                   
 import notifications from '../styles/notifications.module.scss'
 
 type typeProps={
@@ -44,7 +45,10 @@ export default function Notifications({iconColor}:any) {
            <div id={notifications.notifications}>
 
         
-             {empty ? <div id={notifications.empty}>You haven't received any notifications yet</div> :
+             {empty ? <div id={notifications.empty}>You haven't received any notifications yet 
+             <DraftsIcon style={{position: 'absolute', fontSize: '200px', left: '50%',
+            top: '50%', translate: '-50% -50%', opacity: '.1'}}></DraftsIcon>
+             </div> :
 
                 <List>
                   <ListItemButton>
