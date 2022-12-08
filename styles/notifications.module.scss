@@ -16,7 +16,7 @@
     }
 }
 
-#span{
+#badge{
     font-size: 15px !important;
     position: absolute;
     background-color: red;
@@ -29,4 +29,14 @@
     // font-weight: bold;
     // text-align: center;
     // line-height: 12px;
+}
+
+#empty{
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    opacity: .5;
+    position: relative;
+    top: 50%;
+    translate: 0 -50%;
 }

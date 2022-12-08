@@ -54,8 +54,8 @@ export default function index() {
 
   return (
     <>
-     <div className='topBarMain'>cececec</div>
-     <div className='topBarRight'>right</div>
+     <div className='topBarMain'></div>
+     <div className='topBarRight'></div>
  
 
       <div className="main" >

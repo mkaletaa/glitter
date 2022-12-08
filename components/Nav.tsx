@@ -27,7 +27,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 export default function Nav({mode}:any) {
 const [user, loading] = useAuthState(auth)
 const iconColor = {color: 'white'}
-const route = useRouter()
+const router = useRouter()
 
 // const [switchMode, setSwitchMode] = useState<any>('dark')
 useEffect(()=>{
@@ -119,7 +119,7 @@ function onSuccess(){
     <div className='nav'>
 
       <Tooltip title="Home" placement="right"
-        onClick={e=>route.push('/')}>
+        onClick={e=>router.push('/')}>
         <IconButton style={iconColor}>
           <HomeRoundedIcon/>
         </IconButton>
@@ -128,7 +128,7 @@ function onSuccess(){
               <Notifications iconColor={iconColor}/>
 
 
-      <Tooltip title="Messages" placement="right">
+      <Tooltip onClick={e=>router.push('/messages')} title="Messages" placement="right">
         <IconButton style={iconColor}  >
           <EmailRoundedIcon/>
         </IconButton>
@@ -136,7 +136,7 @@ function onSuccess(){
 
 
       <Tooltip title="Profile" placement="right">
-        <IconButton onClick={e=>route.push(`/me`)} style={iconColor}>
+        <IconButton onClick={e=>router.push(`/me`)} style={iconColor}>
           <PersonRoundedIcon/>
         </IconButton>
       </Tooltip>

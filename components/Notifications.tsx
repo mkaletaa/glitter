@@ -10,11 +10,12 @@ type typeProps={
 
 export default function Notifications({iconColor}:any) {
     const [isDrawerOpen, setDrawerOpen] = useState(false)
+    const [empty, setEmpty] = useState(true)
   return (
     <>
     <Tooltip title="Notifications" placement="right">
       <Badge> 
-        <span id={notifications.span}/>
+      {!empty && <span id={notifications.badge}/>}
         <IconButton style={iconColor} onClick={()=>setDrawerOpen(true)}>
           <NotificationsRoundedIcon/>
         </IconButton>
@@ -43,11 +44,14 @@ export default function Notifications({iconColor}:any) {
            <div id={notifications.notifications}>
 
         
-        <List>
-          <ListItemButton>
-            dede
-          </ListItemButton>
-        </List>
+             {empty ? <div id={notifications.empty}>You haven't received any notifications yet</div> :
+
+                <List>
+                  <ListItemButton>
+                  dede
+                  </ListItemButton>
+                </List>
+              }
                 
            </div>
 
