@@ -30,7 +30,7 @@ export default function Posts({uid}:any) {
   // }, [])
   const [refetchTime, setRefetchTime] = useState(100)
   const {data: fetchedUser} = useQuery('avatar', ()=>{
-    return axios.get(`http://localhost:3000/api/users/${uid}`)
+    return axios.get(`https://glitterapp-axkq87msu-mkaletaa.vercel.app/api/users/${uid}`)
   },{
     refetchInterval: refetchTime,
     onSuccess,
@@ -38,7 +38,7 @@ export default function Posts({uid}:any) {
   })
 
   const {data: fetchedPosts} = useQuery('dataa', ()=>{
-    return axios.get(`http://localhost:3000/api/posts/${uid}`)
+    return axios.get(`https://glitterapp-axkq87msu-mkaletaa.vercel.app/api/posts/${uid}`)
   },{
     refetchInterval: refetchTime,
     onSuccess,

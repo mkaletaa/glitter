@@ -42,7 +42,7 @@ export default function Userprofile() {
   }
 // variable should not be in the link, try to mess with refetchInterval
     const {data, refetch, isFetching} = useQuery('data', ()=>{ 
-      return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+      return axios.get(`https://glitterapp-axkq87msu-mkaletaa.vercel.app/api/users/${user?.uid}`)
       },{
         refetchInterval: pollingTime,
         onSuccess
