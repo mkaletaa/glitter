@@ -38,7 +38,8 @@ export default function UpdateProfile({refetch}:any) {
   const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
 
   const {data} = useQuery('data', ()=>{ 
-    return axios.get(`https://glitterapp-axkq87msu-mkaletaa.vercel.app/api/users/${user?.uid}`)
+    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${user?.uid}`)
+    // return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
     })
 
     useEffect(()=>{

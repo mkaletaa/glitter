@@ -34,7 +34,8 @@ export default function Observers({isObsNr, uid}:any) {
   // const q = query(colRef, where("uid", "==", `${uid}`))
 
   const {isLoading , data} = useQuery('data', ()=>{ 
-    return axios.get(`http://localhost:3000/api/users/${uid}`)
+    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${uid}`)
+    // return axios.get(`http://localhost:3000/api/users/${uid}`)
     },{
       onSuccess
     })

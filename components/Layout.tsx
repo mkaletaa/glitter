@@ -12,7 +12,7 @@ type LayoutProps = {
 
 export default function Layout({children, mode}: LayoutProps) {
   const router = useRouter()
-
+  console.warn(router)
   return (
     <>
      <div className="homeContainer" >

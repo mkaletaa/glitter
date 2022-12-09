@@ -34,7 +34,7 @@ export default function Userprofile() {
   const [pollingTime, setPollingTime] = useState<number>(1000)
   //feching data about user to know if they observe the profile
   const {isLoading , data} = useQuery('data', ()=>{ 
-    return axios.get(`https://glitterapp-axkq87msu-mkaletaa.vercel.app/api/users/${user?.uid}`)
+    return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
     },{
       refetchInterval: pollingTime,
       onSuccess,
@@ -63,7 +63,8 @@ export default function Userprofile() {
   }
     
    const {isLoading: userIsLoading , data: userData} = useQuery('userData', ()=>{ 
-    return axios.get(`https://glitterapp-axkq87msu-mkaletaa.vercel.app/api/users/${userUid}`)
+    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${userUid}`)
+    // return axios.get(`http://localhost:3000/api/users/${userUid}`)
     },
     {
       refetchInterval: pollingTime,
