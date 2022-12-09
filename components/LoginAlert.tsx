@@ -51,7 +51,6 @@ export default function LoginAlert() {
 
     function addUserToDb({uid, photoURL, displayName}: addUserType){
 
-      console.log(uid, photoURL, displayName)
       setDoc(doc(db, 'users', `${uid}`),{
         uid,
         photoURL,

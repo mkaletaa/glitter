@@ -97,7 +97,6 @@ function Theme(){
 
 const [pollingTime, setPollingTime] = useState(100)
 function onSuccess(){
-  console.log('dataaa', data)
   if(data?.data!=="Cannot read properties of undefined (reading 'data')" 
     && data?.data!==undefined)
     setPollingTime(0)

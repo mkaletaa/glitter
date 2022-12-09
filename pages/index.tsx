@@ -54,7 +54,7 @@ export default function Index() {
 
   return (
     <>
-     <div className='topBarMain'></div>
+     <div className='topBarMain'>{process.env.NEXT_PUBLIC_URL}</div>
      <div className='topBarRight'></div>
  
 

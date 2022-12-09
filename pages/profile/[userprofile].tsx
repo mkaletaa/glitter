@@ -41,7 +41,6 @@ export default function Userprofile() {
     })
 
    function onSuccess(){
-    console.log('dataa', userData)
     if(userData?.data!=="Cannot read properties of undefined (reading 'data')" 
       && userData!==undefined
       && data?.data!=="Cannot read properties of undefined (reading 'data')"

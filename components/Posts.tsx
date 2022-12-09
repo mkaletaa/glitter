@@ -23,11 +23,7 @@ export default function Posts({uid}:any) {
   // const q = query(colRef, where("uid", "==", `${uid}`))
 
 
-  // useEffect(()=>{
-  //   setInterval(()=>{
-  //     console.log(userUid)
-  //   }, 500)
-  // }, [])
+
   const [refetchTime, setRefetchTime] = useState(100)
   const {data: fetchedUser} = useQuery('avatar', ()=>{
     return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${uid}`)
@@ -35,7 +31,6 @@ export default function Posts({uid}:any) {
   },{
     refetchInterval: refetchTime,
     onSuccess,
-    onError: ()=>console.log('error')
   })
 
   const {data: fetchedPosts} = useQuery('dataa', ()=>{
@@ -44,18 +39,14 @@ export default function Posts({uid}:any) {
   },{
     refetchInterval: refetchTime,
     onSuccess,
-    onError: ()=>console.log('error')
   })
 
   function onSuccess(){
-    console.log(fetchedPosts?.data)
     if(fetchedPosts?.data!==undefined || fetchedUser?.data!==undefined)
     setRefetchTime(0)
   }
 
-  // useEffect(()=>{
-  //   console.log('qwert', data)
-  // }, [data])
+
 
   function deletePostFn(){
     const db = getFirestore()

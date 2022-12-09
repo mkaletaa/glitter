@@ -49,7 +49,7 @@ export default function Userprofile() {
         refetchInterval: pollingTime,
         onSuccess
       })
-        // console.log('test')
+   
   return (
     <>
     <div className="topBarMain">dd</div>

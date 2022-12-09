@@ -47,7 +47,6 @@ export default function UpdateProfile({refetch}:any) {
       setPhotoURL(data?.data.photoURL)
       setDisplayName(data?.data.displayName)
       setBanner(data?.data.banner)
-      console.log('s')
     }, [data])
     
      //read current user data
