@@ -154,8 +154,8 @@ export default function Userprofile() {
     
   return (
     <>
-    <div className="topBarMain">d</div>
-    <div className='topBarRight'>right</div>
+    <div className="topBarMain"></div>
+    <div className='topBarRight'></div>
 
     <div className="main">
     
