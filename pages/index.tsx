@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import Posts from '../components/Posts'
-import { sortAndDeduplicateDiagnostics } from 'typescript';
+
 
 
 export default function Index() {
@@ -35,6 +35,19 @@ export default function Index() {
       author: user?.uid
     
     }).then(()=> {setNewPost(''); setPublishProgress(false)})
+
+
+    setDoc(doc(db, `allposts/${id}`), 
+    {  
+      uid: user?.uid,
+      text: newPost,
+      likes: 0,
+      isLikedBy: [],
+      date,
+      id,
+      author: user?.uid
+    
+    })
   
     }
   }
@@ -78,6 +91,7 @@ export default function Index() {
         </Button>
       </div>}
 
+      <Posts></Posts>
 
 
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae qui delectus vero? Delectus, libero sunt a fugiat nesciunt facilis ab in, ducimus, voluptas deleniti ex architecto dicta ad voluptatum molestiae!
