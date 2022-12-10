@@ -67,7 +67,7 @@ export default function Index() {
 
   return (
     <>
-     <div className='topBarMain'>URL:{process.env.NEXT_PUBLIC_URL}</div>
+     <div className='topBarMain'>qq URL:{process.env.NEXT_PUBLIC_URL}</div>
      <div className='topBarRight'></div>
  
 
