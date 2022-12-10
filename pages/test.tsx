@@ -13,17 +13,18 @@ const [par, setPar] = useState(0)
     // alert(pageParam)
     setPar(prev=>prev+1)
     console.log('pageparam', pageParam)
-    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/ZQ2YlBxJ03Wua1gkQCSPujTedVO2/posts/${par}`)
+    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/test?page=1&size=3`)
   }
 
   const {data, isLoading, hasNextPage, fetchNextPage} = useInfiniteQuery(
     ['colors'],
       fetchPosts,{
-      refetchInterval: 1000,
+    //   refetchInterval: 1000,
       getNextPageParam: (_lastPage, pages)=>{
        return pages.length+1
       },
-      // onSuccess: ()=>{console.log('data', data?.pages[1].data[0].text)}
+      onSuccess: ()=>{console.log('data', data?.pages[0].data)},
+      onError: ()=>{console.log('error')}
     }
   )
 
@@ -38,7 +39,6 @@ const [par, setPar] = useState(0)
 
       <div className="main">
         <button  onClick={fetchNextPage}>setDoc</button>
-        {par}
           {
             data?.pages[0].data.map((a:any)=>{return (<div key={a.id}>{a.text}</div>)})
           }

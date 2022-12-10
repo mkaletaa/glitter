@@ -14,6 +14,7 @@ export default function handler(req, res){
             // res.status(201).json(snapshot.docs[0].data())
             if(snapshot.docs[0].data() === undefined)
                 res.status(201).json('undefined')
+                // res.status(201).json(req.query.userid)
                 res.status(201).json(snapshot.docs[0].data())
             })
             .catch(err=>{

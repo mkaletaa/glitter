@@ -9,10 +9,9 @@
 .header{
     background-color: var(--primary2) !important;
     text-align: center;
-    font-size: 17px;
-    font-weight: bold;
+    font-size: 17px !important;
+    font-weight: bold !important;
     transition: color .5s, background-color .5s
-
 }
 
 .recInfo{

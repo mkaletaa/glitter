@@ -91,7 +91,7 @@ export default function Index() {
         </Button>
       </div>}
 
-      <Posts></Posts>
+      <Posts uid={null}></Posts>
 
 
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae qui delectus vero? Delectus, libero sunt a fugiat nesciunt facilis ab in, ducimus, voluptas deleniti ex architecto dicta ad voluptatum molestiae!

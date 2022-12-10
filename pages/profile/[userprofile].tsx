@@ -49,15 +49,15 @@ export default function Userprofile() {
 
       if(data?.data.uid!==userUid && data?.data.uid!==undefined){
       let x = data?.data.observes.some((a:any)=>{return (a===userData?.data.uid)})
+      console.log('q')
       setFolBtn(x)}
-
       //titaj raz podaj uid użytkownika, a raz profilu, wtf
-      setPollingTime(1000)
+      setPollingTime(100)
       setIsObsNr(userData?.data.isObservedByNr)
       setObsNr(userData?.data.observesNr)
       setTimeout(()=>{
         setPollingTime(0)
-      }, 200)
+      }, 1000)
     }
   }
     
@@ -72,85 +72,42 @@ export default function Userprofile() {
 ///////////////////////////////
 
 
+const db = getFirestore()
    //this function updates user's account data
-   const db = getFirestore()
-   const colRef = collection(db, 'users')
-   const q1 = query(colRef, where("uid", "==", `${user?.uid}`))
 
-    function observe(){   
-      getDocs(q1)
-      .then((snapshot)=>{
-       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-             updateDoc(docRef, {
-              observes: [...snapshot.docs[0].data().observes, data?.data.uid],
-              observesNr: snapshot.docs[0].data().observesNr+1
-             })
-     })
-     .catch(err=>{
-       console.error(err.message)
-     })
+  function follow(){
+    const docRef = doc(db, `users`, `${user?.uid}`)
+    updateDoc(docRef,{
+      observes: [...data?.data.observes, userData?.data.uid],
+            observesNr: data?.data.observesNr+1
+    }).then(()=>setPollingTime(100))
 
-    }
+    const docRef2 = doc(db, `users`, `${userData?.data.uid}`)
+    updateDoc(docRef2,{
+      isObservedBy: [...userData?.data.isObservedBy, user?.uid],
+      isObservedByNr: userData?.data.isObservedByNr+1
+    }).then(()=>setPollingTime(100))
+   }
+   
 
-    ///this function updates account of a user who we visit
-    function addFolower(){
-      const q2 = query(colRef, where("uid", "==", `${data?.data.uid}`))
-      getDocs(q2)
-      .then((snapshot)=>{
-       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-    
-       setIsObsNr(prev=>prev+1)
-             updateDoc(docRef, {
-              isObservedBy: [...snapshot.docs[0].data().isObservedBy, user?.uid],
-              isObservedByNr: snapshot.docs[0].data().isObservedByNr+1
-             })
-             observe()
-     })
-     .catch(err=>{
-       console.error(err.message)
-     })
-
-    }
-
-    ///this function updates account of a user who we visit
-    function removeFolower(){
-      const q2 = query(colRef, where("uid", "==", `${data?.data.uid}`))
-      getDocs(q2)
-      .then((snapshot)=>{
-       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-
-       setIsObsNr(prev=>prev-1)
-             updateDoc(docRef, {
-              isObservedBy: snapshot.docs[0].data().isObservedBy.filter((a:string)=>{
-                return(a!==user?.uid)
-              }),
-              isObservedByNr: snapshot.docs[0].data().isObservedByNr-1
-             })
-             unobserve()
-     })
-     .catch(err=>{
-       console.error(err.message)
-     })
-    }
-
-   //this function updates user's account data
-    function unobserve(){
-      getDocs(q1)
-      .then((snapshot)=>{
-
-       const docRef = doc(db, 'users', `${snapshot.docs[0].id}`)
-             updateDoc(docRef, {
-              observes: snapshot.docs[0].data().observes.filter((a:string)=>{
+   function unfollow(){
+     const docRef = doc(db, `users`, `${user?.uid}`)
+     updateDoc(docRef,{
+       observes: data?.data.observes.filter((a:string)=>{
+                      return(a!==userData?.data.uid)
+                    }),
+             observesNr: data?.data.observesNr-1
+     }).then(()=>setPollingTime(1000))
+    //  setPollingTime(1000)
+     const docRef2 = doc(db, `users`, `${userData?.data.uid}`)
+     updateDoc(docRef2,{
+       isObservedBy: userData?.data.isObservedBy.filter((a:string)=>{
                 return(a!==data?.data.uid)
-              }),
-              observesNr: snapshot.docs[0].data().observesNr-1
-             })
+            }),
+       isObservedByNr: userData?.data.isObservedByNr-1
+     }).then(()=>setPollingTime(1000))
+   }
 
-     })
-     .catch(err=>{
-       console.error(err.message)
-     })
-    }
     
   return (
     <>
@@ -201,14 +158,14 @@ export default function Userprofile() {
          variant="contained"
          style={{fontWeight: 'bold'}}
          id={profile.edit}
-         onClick={e=>{addFolower(); setFolBtn(prev=>!prev)}}>Follow</Button>}
+         onClick={e=>{follow();}}>Follow</Button>}
             <br/>
             <br/>
        {user && showFolBtn && <Button
          variant="outlined"
          style={{fontWeight: 'bold'}}
          id={profile.edit}
-         onClick={e=>{removeFolower(); setFolBtn(prev=>!prev)}}>Unfollow</Button>}
+         onClick={e=>{unfollow();}}>Unfollow</Button>}
     </div>
     
     <div id={profile.chips}>
@@ -240,9 +197,9 @@ export default function Userprofile() {
       
     </div>
     
-    <br/>
+    {/* <br/> */}
 
-    {user?.uid===userData?.data.uid ? 'mój' : 'nie mój'}
+
 
  
 

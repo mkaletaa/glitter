@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Avatar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip} from '@mui/material'
 import { auth } from '../utils/firebase-config'
 
@@ -6,6 +6,8 @@ type LogoutDialogProps = {
     imagesrc: string,
     name: string
 }
+
+
 
 //TODO: ogarnąć typ propsów
 export default function LogoutDialog(props:any) {

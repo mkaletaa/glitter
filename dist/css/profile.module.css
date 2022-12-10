@@ -1,0 +1,105 @@
+.light {
+  --primary: rgb(255, 250, 250);
+  --secondary: rgb(21, 32, 43);
+  --topbarbg: rgba(255, 250, 250, .5);
+  --primary2: rgb(229, 229, 229);
+}
+
+.dark {
+  --primary: rgb(21, 32, 43);
+  --secondary: rgb(255, 250, 250);
+  --topbarbg: rgba(21, 32, 43, .5);
+  --primary2: rgb(39, 49, 60) ;
+}
+
+#banner {
+  width: 100%;
+  aspect-ratio: 5/2;
+}
+
+#avatar {
+  position: absolute;
+  translate: 0 -50%;
+  left: 30px;
+  box-shadow: 0 0 0px 2px var(--secondary);
+  z-index: 1;
+  background-color: rgb(21, 32, 43);
+  width: 150px;
+  height: 150px;
+  transition: box-shadow 0.5s;
+}
+@media (max-width: 500px) {
+  #avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+#editDiv {
+  height: 75px;
+  position: relative;
+}
+
+#edit {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  translate: 0 -50%;
+}
+@media (max-width: 370px) {
+  #edit {
+    width: 135px;
+    height: 30px;
+    font-size: 0.6em;
+    right: 20px;
+  }
+}
+
+#chips {
+  float: right;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: 30px;
+  margin-top: 10px;
+  translate: 0 -50%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+#chips * {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+@media (max-width: 370px) {
+  #chips {
+    width: 100%;
+    margin-right: 0;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+#infoDiv {
+  padding-inline: 20px;
+  margin-top: 10px;
+}
+#infoDiv * {
+  word-break: break-word;
+  display: block;
+}
+#infoDiv strong {
+  font-size: 25px;
+}
+@media (max-width: 370px) {
+  #infoDiv strong {
+    margin-top: 45px;
+  }
+}
+#infoDiv span {
+  color: grey;
+}
+#infoDiv p {
+  font-size: 20px;
+}/*# sourceMappingURL=profile.module.css.map */

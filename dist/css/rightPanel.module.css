@@ -1,0 +1,37 @@
+.cards {
+  margin: auto;
+  background-color: var(--primary2);
+  border-radius: 15px;
+  transition: background-color 0.5s;
+  max-width: 500px;
+}
+
+.header {
+  background-color: var(--primary2) !important;
+  text-align: center;
+  font-size: 17px !important;
+  font-weight: bold !important;
+  transition: color 0.5s, background-color 0.5s;
+}
+
+.recInfo {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+.recInfo b {
+  text-align: center;
+  line-height: 18px;
+}
+.recInfo span {
+  text-align: center;
+  line-height: 15px;
+  opacity: 0.8;
+}
+
+#p {
+  text-align: center;
+  opacity: 0.8;
+}/*# sourceMappingURL=rightPanel.module.css.map */

@@ -1,6 +1,7 @@
 import {getFirestore, collection, getDocs, addDoc, query, where, updateDoc, doc} from 'firebase/firestore'
 const db = getFirestore()
 const colRef = collection(db, 'users')
+import {comments} from '../../data/comments'
 
 export default function handler(req, res){
   const q = query(colRef, where("uid", "==", 'V76dW2lLHec1OFAbxRJdxnXJtbM2'))
@@ -10,7 +11,7 @@ export default function handler(req, res){
 // {
 //     res.status(201).json('gettq')
 
-res.status(201).json('snapshot.docs[0].data()')
+res.status(201).json(comments)
 // }else{
     getDocs(q)
     .then((snapshot)=>{
