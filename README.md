@@ -1,3 +1,8 @@
+Glitter is a Twitter-like social media platform where you can write posts, follow friends and send direct messages. 
+Tech stack: JavaScript, TypeScript, React, Next, Sass, MUI, Firebase.
+
+Click <a href=''>here</a> if you want to visit this website.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
