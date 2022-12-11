@@ -52,7 +52,7 @@ export default function Userprofile() {
    
   return (
     <>
-    <div className="topBarMain"></div>
+    <div className="topBarMain">My profile</div>
     <div className='topBarRight'></div>
 
     <div className="main">

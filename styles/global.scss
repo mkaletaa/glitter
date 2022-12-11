@@ -31,9 +31,9 @@ body{
 // }
 
 
-// #newPost{
-//   textarea{
-//     color: white !important;
-//     background-color: white;
-//   }
-// }
+.newPost{
+    transition: .5s;
+    color: white !important;
+    background-color: var(--primary2);
+    display: flex
+}

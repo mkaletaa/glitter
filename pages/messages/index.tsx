@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import MessagesPanel from '../../components/MessagesPanel'
-
-
+// const mailbox = require("../../public/mailbox.svg") as string;
+import Image from 'next/image';
+import { scopedCssBaselineClasses } from '@mui/material';
+import scss from '../../styles/messages.module.scss'
 
 export default function Index() {
 
@@ -23,12 +25,17 @@ export default function Index() {
 
   return (
         <>
-            <div className='topBarMain'></div>
+            <div className='topBarMain'>Messages</div>
             <div className='topBarRight'></div>
 
-            <div className="main">
-                {sm ? <MessagesPanel/> : 
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, accusantium impedit deserunt sunt assumenda molestiae mollitia? Optio inventore magni cupiditate, vitae sequi necessitatibus nesciunt, neque corrupti iure, eveniet porro cum     Consectetur itaque exercitationem quis sed quam adipisci! Labore quod, sed ullam consequatur commodi ex vero doloribus voluptatum laborum totam cumque at. Omnis quibusdam fugit accusantium consequuntur cupiditate exercitationem, aliquid quos!'}
+            <div className="main messagesMain">
+                {sm ? 
+                <div style={{width: '100%', height: '100%', overflow: 'auto'}}>
+                <MessagesPanel/> 
+                </div>
+                : 
+                <Image src={require('../../public/mailbox.svg').default} alt='mailbox' className={scss.mailbox}></Image>
+                }
             </div>
         </>
   )

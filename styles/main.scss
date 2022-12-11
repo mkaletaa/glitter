@@ -127,7 +127,13 @@ $brp_2: 500px;
     @include topBars;
     border-left: 1px solid rgb($secondary, .3);
     border-right: 1px solid rgb($secondary, .3);
-    
+    font-weight: 600;
+    font-size: 20px;
+    padding-left: 20px;
+    line-height: 50px;
+//    display: flex;
+
+
     @media screen and (max-width: $brp_2) {
         grid-column: 1/2;  
     }
@@ -138,7 +144,7 @@ $brp_2: 500px;
 }
 
 
-@media (max-width: 500px){
+@media (max-width: $brp_2){
     $topBars_height: 45px;
     .rightPanel{
         top: $topBars_height
@@ -148,24 +154,13 @@ $brp_2: 500px;
     }
 }
 
-// .se$secondary{
-//     .topBarMain{
-//         border-left: 1px solid rgb($secondary, .3);
-//         border-right: 1px solid rgb($secondary, .3);
-//     }
-//     .topBarMain, .topBarRight{
-//         background-color: rgba($primary, .5);
-//     }
+.messagesMain{
+    height: calc(100vh - $topBars_height);
+    overflow-y: hidden;
 
-//     .main{
-//         border: 1px solid rgb($secondary, .3);
-//     }
-
-//     .nav{
-//         background-color: $primary;
-//         button{
-//             color: $secondary !important
-//         }
-//     }
-// }
+    @media (max-width: $brp_2){
+        $topBars_height: 45px;
+        height: calc(100vh - $topBars_height - $nav_height );
+    }
+}
 

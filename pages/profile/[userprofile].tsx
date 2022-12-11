@@ -111,7 +111,7 @@ const db = getFirestore()
     
   return (
     <>
-    <div className="topBarMain"></div>
+    <div className="topBarMain">{userData?.data.displayName}</div>
     <div className='topBarRight'></div>
 
     <div className="main">

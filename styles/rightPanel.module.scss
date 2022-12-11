@@ -4,6 +4,14 @@
     border-radius: 15px;
     transition:  background-color .5s;
     max-width: 500px;
+
+    @media(max-width: 1000px){
+        margin-top: 40px;
+    }
+    @media(max-width: 630px){
+        margin-top: 0px;
+        border-radius: 0;
+    }
 }
 
 .header{

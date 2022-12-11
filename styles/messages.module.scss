@@ -1,0 +1,70 @@
+#sendDiv{
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    width: 100%;
+    align-items: end;
+    position: relative;
+    bottom: 0
+}
+
+#messages{
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    display: grid;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    // grid-template-rows: min-content auto;
+    grid-auto-rows: min-content;
+    // background-color: red;
+}
+
+// .messageDiv{
+//     display: flex;;
+//     background-color: red;
+// }
+
+.message1, .message2{
+    width: fit-content;
+    font-size: 25px;
+    padding-inline: 10px;
+    max-width: 80%;
+    word-break: break-word;
+    line-height: 20px;
+    height: fit-content;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.message1{
+    // order: 2;
+    justify-self: right;
+    background-color: dodgerblue;
+    border-radius: 15px 3px 3px 15px ;
+    margin-right: 3px
+}
+
+.message2{
+    justify-self: left;
+    background-color: silver;
+    border-radius: 3px 15px 15px 3px ;
+    margin-left: 3px  ;
+    color: rgb(21, 32, 43);
+}
+
+
+#messages::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+ #messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px
+  }
+  
+.mailbox{
+    width: 50%;
+    margin-left: 50%;
+    margin-top: 50%;
+    translate: -50% -50%;
+    opacity: .5
+}

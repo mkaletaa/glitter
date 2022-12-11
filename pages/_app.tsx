@@ -53,3 +53,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
 
 }
+
+
+//TODO: ogarnąć topbary (napisy i ikony na małych); naprawić buga z righPanelem; ostylować button w nowym poście; dodać daty przy DMach; messagesPanel; strona startowa messages; błędy w konsoli, wyczyścić kod, przekierowanie z messages jeśli niezalogowany

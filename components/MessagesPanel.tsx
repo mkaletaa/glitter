@@ -11,6 +11,8 @@ export default function MessagesPanel() {
     <>
             <List className={right.cards}>
 
+            <ListSubheader className={right.header}>Contacts</ListSubheader>
+            <Divider/>
               <Link href={'/messages/zdzislawpaleta'}>
               <ListItemButton>
                 <Avatar sx={{width: '80px', height: '80px'}}
@@ -44,6 +46,7 @@ export default function MessagesPanel() {
                     <span>&nbsp;</span>
                   </div>
               </ListItemButton></Link>
+             
              
             </List>
     </>

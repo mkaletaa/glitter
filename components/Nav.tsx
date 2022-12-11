@@ -149,7 +149,7 @@ function onSuccess(){
       </Tooltip> */}
 
 
-    <Tooltip title="toggle theme" placement="right">
+    <Tooltip title="toggle theme" placement="right" className='smDisappear'>
       <Switch onClick={e=>Theme()}></Switch>
     </Tooltip>
       
