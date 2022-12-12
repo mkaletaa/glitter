@@ -16,14 +16,7 @@ export default function handler(req, res){
           .catch(err=>{
               res.status(201).json(err.message)
           })
-
     }
-
-
-
-
-
-
 
     else if(req.method==='POST'){
       const user = req.body.user
