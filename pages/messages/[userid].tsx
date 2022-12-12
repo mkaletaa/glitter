@@ -62,7 +62,7 @@ export default function Userid() {
 
 
   function send(){
-    if(!/^\s*$/.test(message)){
+    if(!/^\s*$/.test(message) && user){
 
       const sorted =  [user?.uid, interlocutor.userid].sort((a, b) => a?.localeCompare(b))
 
