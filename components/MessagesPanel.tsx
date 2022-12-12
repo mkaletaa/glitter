@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { useRouter } from 'next/router';
 import right from '../styles/rightPanel.module.scss'
 import {List, ListItemButton, Avatar, ListSubheader, Divider} from '@mui/material'
@@ -30,7 +30,7 @@ export default function MessagesPanel() {
                 <Avatar sx={{width: '80px', height: '80px'}}
                   src={'https://www.befunky.com/images/wp/wp-2020-07-glitter-final-1-scaled.jpg?auto=avif,webp&format=jpg&width=944'}/>
                   <div className={right.recInfo}>
-                    <b>Jolanta Swędzipięta</b>
+                    <b>Jolanta Zdyb</b>
                     <span>&nbsp;</span>
                   </div>
               </ListItemButton></Link>
@@ -46,7 +46,6 @@ export default function MessagesPanel() {
                     <span>&nbsp;</span>
                   </div>
               </ListItemButton></Link>
-             
              
             </List>
     </>

@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import MessagesPanel from '../../components/MessagesPanel'
-// const mailbox = require("../../public/mailbox.svg") as string;
 import Image from 'next/image';
-import { scopedCssBaselineClasses } from '@mui/material';
 import scss from '../../styles/messages.module.scss'
 
 export default function Index() {
@@ -34,7 +32,12 @@ export default function Index() {
                 <MessagesPanel/> 
                 </div>
                 : 
+                <>
+                <div id={scss.div}>
+                    Choose the person you want to contact from the list on the right.
+                </div>
                 <Image src={require('../../public/mailbox.svg').default} alt='mailbox' className={scss.mailbox}></Image>
+                </>
                 }
             </div>
         </>

@@ -5,11 +5,9 @@ import LoginAlert from '../components/LoginAlert'
 import Layout from '../components/Layout'
 import {useRouter} from 'next/router'
 import { QueryClientProvider, QueryClient } from 'react-query'
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import * as React from 'react'
-
 const queryClient = new QueryClient()
 
 
@@ -42,17 +40,4 @@ export default function App({ Component, pageProps }: AppProps) {
     </QueryClientProvider>
     </>
   ) 
-
-  if(router.asPath =='/me/settings')  {
-    return (
-      <QueryClientProvider client={queryClient} >
-        <Component {...pageProps} />
-      </QueryClientProvider>
-    )
-  }
-
-
 }
-
-
-//TODO: ogarnąć topbary (napisy i ikony na małych); naprawić buga z righPanelem; ostylować button w nowym poście; dodać daty przy DMach; messagesPanel; strona startowa messages; błędy w konsoli, wyczyścić kod, przekierowanie z messages jeśli niezalogowany

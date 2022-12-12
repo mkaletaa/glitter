@@ -16,31 +16,20 @@ import axios from 'axios'
 
 
 import Switch, { SwitchProps } from '@mui/material/Switch';
-// import { styled } from '@mui/material/styles';
-// import FormGroup from '@mui/material/FormGroup';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Stack from '@mui/material/Stack';
-// import Typography from '@mui/material/Typography';
-// import { pureFinalPropsSelectorFactory } from 'react-redux/es/connect/selectorFactory'
-// import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 export default function Nav({mode}:any) {
 const [user, loading] = useAuthState(auth)
 const iconColor = {color: 'white'}
 const router = useRouter()
 
-// const [switchMode, setSwitchMode] = useState<any>('dark')
 useEffect(()=>{
-  //TODO: localstorage
   document.querySelector('body')?.classList.add('dark')
-
 }, [])
 
 function Theme(){
   document.querySelector('body')?.classList.toggle('dark')
   document.querySelector('body')?.classList.toggle('light')
     mode()
-
   // setSwitchMode(switchMode==='dark' ? 'light' : 'dark')
 }
 
@@ -102,9 +91,8 @@ function onSuccess(){
     setPollingTime(0)
 }
 
-  const {data, isFetching} = useQuery('data', ()=>{ 
+  const {data} = useQuery('data', ()=>{ 
     return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${user?.uid}`)
-    // return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
     },{
       refetchInterval: pollingTime,
       onSuccess
@@ -112,9 +100,6 @@ function onSuccess(){
 
   return (
     <>
-
-
-
 
     <div className='nav'>
 
@@ -141,23 +126,12 @@ function onSuccess(){
         </IconButton>
       </Tooltip>
 
-
-      {/* <Tooltip title="Settings" placement="right" className='smDisappear'>
-        <IconButton style={iconColor} onClick={e=>route.push(`/dashboard`)}>
-          <SettingsRoundedIcon />
-        </IconButton>
-      </Tooltip> */}
-
-
     <Tooltip title="toggle theme" placement="right" className='smDisappear'>
       <Switch onClick={e=>Theme()}></Switch>
     </Tooltip>
       
-
      {/* <MaterialUISwitch sx={{ m: 1 }} onChange={e=>Theme()} defaultChecked /> */}
   
-   
-
         {user && !loading && 
         <LogoutDialog imagesrc={data?.data.photoURL} name={data?.data.displayName} />}
     </div>

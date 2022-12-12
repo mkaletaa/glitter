@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import {Button, Snackbar, Alert} from '@mui/material'
-import {getFirestore, collection, getDocs, setDoc, query, where, updateDoc, doc} from 'firebase/firestore'
+import {getFirestore, collection, getDocs, setDoc, doc} from 'firebase/firestore'
 
 export default function LoginAlert() {
     const [user, loading] = useAuthState(auth)
@@ -65,8 +65,6 @@ export default function LoginAlert() {
     }
 
 
-
-  
   return (
     <>
     {!user && !loading &&

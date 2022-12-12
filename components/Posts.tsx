@@ -21,9 +21,6 @@ export default function Posts({uid}:any) {
   //this points at a post that needs to be deleted
   const [user, laoding] = useAuthState(auth)
   const db = getFirestore()
-  // const q = query(colRef, where("uid", "==", `${uid}`))
-
-
 
   const [refetchTime, setRefetchTime] = useState(100)
   const {data: fetchedPosts} = useQuery('dataa', ()=>{
@@ -57,8 +54,6 @@ export default function Posts({uid}:any) {
   }
 
 
-
-
   const [lackUserAlert, setLackUserAlert] = useState(false)
   const [authorAlert, setAuthorAlert] = useState(false)
   const [otherAlert, setOtherAlert] = useState(false)
@@ -68,7 +63,6 @@ export default function Posts({uid}:any) {
     const docRef = doc(db, `posts/${author}/posts`, `${id}`)
     const docRef2 = doc(db, `allposts`, `${id}`)
 
-    // const q = query(colRef, where("date", "==", e))
 
     if(!user) setLackUserAlert(true)
     else if(user.uid===author) setAuthorAlert(true)
@@ -100,8 +94,6 @@ export default function Posts({uid}:any) {
   }
 
 
-
-
   return (
     <div >
 
@@ -111,7 +103,6 @@ export default function Posts({uid}:any) {
 
              
                   <Post uid={post.uid} text={post.text} date={post.date} author={post.author} isLikeBy={post.isLikedBy} userUID={user?.uid} />
-            
             
                   
             <div className={posts.postOptions}>    

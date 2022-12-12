@@ -1,6 +1,6 @@
 import { Avatar, Button, Skeleton } from '@mui/material';
 import axios from 'axios';
-import { collection, doc, getDocs, getFirestore, query, updateDoc, where } from 'firebase/firestore';
+import { doc, getFirestore, updateDoc} from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -51,7 +51,6 @@ export default function Userprofile() {
       let x = data?.data.observes.some((a:any)=>{return (a===userData?.data.uid)})
       console.log('q')
       setFolBtn(x)}
-      //titaj raz podaj uid użytkownika, a raz profilu, wtf
       setPollingTime(100)
       setIsObsNr(userData?.data.isObservedByNr)
       setObsNr(userData?.data.observesNr)
@@ -63,7 +62,6 @@ export default function Userprofile() {
     
    const {isLoading: userIsLoading , data: userData} = useQuery('userData', ()=>{ 
     return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${userUid}`)
-    // return axios.get(`http://localhost:3000/api/users/${userUid}`)
     },
     {
       refetchInterval: pollingTime,
@@ -71,10 +69,8 @@ export default function Userprofile() {
     })
 ///////////////////////////////
 
-
 const db = getFirestore()
    //this function updates user's account data
-
   function follow(){
     const docRef = doc(db, `users`, `${user?.uid}`)
     updateDoc(docRef,{
@@ -117,7 +113,6 @@ const db = getFirestore()
     <div className="main">
     
     <div style={{position: 'relative'}}>
-        {/* TODO: convert it to Image component */}
 
       { userIsLoading ?
         <Skeleton
@@ -194,15 +189,7 @@ const db = getFirestore()
       </>
       }
 
-      
     </div>
-    
-    {/* <br/> */}
-
-
-
- 
-
      {userData?.data.uid && <Posts uid={userData?.data.uid}/>}
     </div>
 

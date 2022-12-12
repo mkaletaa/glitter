@@ -1,13 +1,10 @@
-import React, {useState, useRef} from 'react'
-import {getFirestore, collection, getDocs, getDoc, setDoc, deleteDoc, doc, query, where, updateDoc} from 'firebase/firestore'
+import React, {useState} from 'react'
+import {getFirestore, setDoc, doc} from 'firebase/firestore'
 import {TextField, Button} from "@mui/material"
 import CircularProgress from '@mui/material/CircularProgress';
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import Posts from '../components/Posts'
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-
-
 
 export default function Index() {
   const [user, loading] = useAuthState(auth)
@@ -15,8 +12,6 @@ export default function Index() {
   const [publishProgress, setPublishProgress] = useState(false)
   const [publishBtn, setPublishBtn] = useState(false)
   const db = getFirestore()
-
-
 
   function publish(){
     if(!/^\s*$/.test(newPost)){
@@ -54,31 +49,19 @@ export default function Index() {
     }
   }
 
-// alert('dusp')
-
-  // function writeUserData(userId:string, name:string, email:string, imageUrl:number) {
-  //   const db = getDatabase();
-  //   alert('de')
-  //   set(ref(db, 'users/' + userId), {
-  //     username: name,
-  //     email: email,
-  //     profile_picture : imageUrl
-  //   });
-  // }
-
 
   return (
     <>
      <div className='topBarMain'>
        <span>Home</span>
-       {/* <HomeRoundedIcon style={{float: 'right', marginTop: '20px'}}></HomeRoundedIcon> */}
      </div>
      <div className='topBarRight'></div>
  
-
       <div className="main" >
 
-     {user && <div className="newPost">
+     {user && 
+     <div className="newPost">
+
         <TextField
         id='newPost'
         multiline
@@ -101,9 +84,6 @@ export default function Index() {
       <Posts uid={null}></Posts>
 
       </div>
-
-
-
       </>
   )
 }

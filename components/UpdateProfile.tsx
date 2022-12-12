@@ -39,7 +39,6 @@ export default function UpdateProfile({refetch}:any) {
 
   const {data} = useQuery('data', ()=>{ 
     return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${user?.uid}`)
-    // return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
     })
 
     useEffect(()=>{
@@ -49,22 +48,7 @@ export default function UpdateProfile({refetch}:any) {
       setBanner(data?.data.banner)
     }, [data])
     
-     //read current user data
-        // useEffect(()=>{
-        //   getDocs(q2)
-        //   .then((snapshot)=>{
-          
-        //     setBio(snapshot.docs[0].data().bio)
-        //     setPhotoURL(snapshot.docs[0].data().photoURL)
-        //     setDisplayName(snapshot.docs[0].data().displayName)
-        //     setBanner(snapshot.docs[0].data().banner)
-          
-        //  })
-        //  .catch(err=>{
-        //    console.error(err.message)
-        //  })
-        // }, [])
-
+   
     //updating data   
     function updateProfile(){
 
@@ -85,7 +69,6 @@ export default function UpdateProfile({refetch}:any) {
 
     }
 
-
    const theme = useTheme();
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -102,9 +85,6 @@ export default function UpdateProfile({refetch}:any) {
 
             <DialogTitle id={modal.dialogTitle} >
                 <span>Edit your profile</span>
-                {/* <IconButton sx={{float: 'right'}} onClick={() => {router.push(`/me`) }} >
-                  <CancelIcon sx={{ color: 'red', fontSize: '30px'}}></CancelIcon>
-                </IconButton> */}
             </DialogTitle>
 
 
@@ -131,9 +111,6 @@ export default function UpdateProfile({refetch}:any) {
                       onChange={e=>setPhotoURL(e.target.value)}
                       sx={ {width: '100%'}}/>
                         
-                    {/* <input  id='avk-upload' type="file" style={{display: 'none'}} accept=".jpg, .jpeg, .png"
-                    onChange={(e:any)=>setPhotoURL(e.target.files)} /> */}
-
                 </div>
 
                 <TextField label={'name'}

@@ -28,22 +28,11 @@ const Transition = React.forwardRef(function Transition(
 export default function Observes({obsNr}:any) {
     const [open, setOpen] = useState(false)
  
-//   const db = getFirestore()
-//   const colRef = collection(db, 'users')
-//   const q2 = query(colRef, where("uid", "==", `${user?.uid}`))
-
-//   const {data} = useQuery('data', ()=>{ 
-//     return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
-//     })
-
-
-
 
    const theme = useTheme();
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (<>
-  {/* <Button onClick={e=>setOpen(true)}>Follows ({obsNr})</Button> */}
   <Chip
     label={`follows: ${obsNr}`}
   // onClick={(e:any)=>setOpen(true)}
@@ -66,8 +55,6 @@ export default function Observes({obsNr}:any) {
 
             <DialogContent id={modal.dialogContent}>
               <br></br>
-
-                   dc
 
             </DialogContent>
 

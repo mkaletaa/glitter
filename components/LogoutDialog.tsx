@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Avatar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip} from '@mui/material'
 import { auth } from '../utils/firebase-config'
 
@@ -7,9 +7,6 @@ type LogoutDialogProps = {
     name: string
 }
 
-
-
-//TODO: ogarnąć typ propsów
 export default function LogoutDialog(props:any) {
     const [open, setOpen] = useState(false)
   return (
@@ -34,7 +31,6 @@ export default function LogoutDialog(props:any) {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-        {/* <Button onClick={()=>auth.signOut()}>sign out</Button> */}
 
                 <Button onClick={e=>{setOpen(false); auth.signOut()}}>Ok</Button>
                 <Button onClick={e=>setOpen(false)} autoFocus>Cancel</Button>

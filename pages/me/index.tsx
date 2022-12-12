@@ -40,11 +40,9 @@ export default function Userprofile() {
       && data!==undefined)
       setPollingTime(0)
   }
-// variable should not be in the link, try to mess with refetchInterval
+
     const {data, refetch, isFetching} = useQuery('data', ()=>{ 
-      // return null
       return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${user?.uid}`)
-      // return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
     },{
         refetchInterval: pollingTime,
         onSuccess
@@ -105,23 +103,11 @@ export default function Userprofile() {
         )}
 
 
-
       <div id={profile.infoDiv} >
-
         <strong>{data?.data.displayName}</strong>
-        {/* <br/> */}
         <span>@{data?.data.uid}</span>
-        {/* <br/> */}
-        {/* <br/> */}
         <p>{data?.data.bio}</p>
-        {/* <br/> */}
-
-
       </div>
-    {/* {user?.uid===userprof.uid && !user && 'nie mój' } */}
-
-
-        {/* {user?.uid && <Posts uid={user?.uid}/>} */}
 
        { user &&  <Posts uid={user?.uid}/>}
     </div>

@@ -3,7 +3,7 @@ import { auth } from '../../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {TextField, Button} from "@mui/material"
 import scss from '../../styles/messages.module.scss'
-import {getFirestore, collection, getDocs, query, orderBy, limit, where, doc, onSnapshot, setDoc} from 'firebase/firestore'
+import {getFirestore, collection, doc, onSnapshot, setDoc} from 'firebase/firestore'
 import { useRouter } from 'next/router';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -26,10 +26,10 @@ export default function Userid() {
 
       const query  = collection(db, `messages/${sorted[0]}-${sorted[1]}/conversation`)
 
-      // getDocs(query)
+      
       onSnapshot(query, (snapshot)=>{
           let messages:any = []
-          // res.status(201).json(query)
+
           if(snapshot.docs[0] === undefined)
               console.log('undefined')
           else{
@@ -55,11 +55,9 @@ export default function Userid() {
       scrollToBottom()
     }, 10)
   }, []);
-  useEffect(() => {
-    // setTimeout(()=>{
 
+  useEffect(() => {
       scrollToBottom()
-    // }, 500)
   }, [message]);
 
 
@@ -102,7 +100,6 @@ export default function Userid() {
                 >{a.text}
               </div>
       
-  
               </>
             )})}
  
@@ -127,7 +124,6 @@ export default function Userid() {
               <SendIcon/>
         </Button>
         </div>
-
 
         <div ref={messagesEndRef2} />
         </div>

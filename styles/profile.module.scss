@@ -28,7 +28,6 @@ $brp: 370px;
 #editDiv{
     height: 75px;
     position: relative;
-    // background-color: red;
 }
 
 #edit{
@@ -42,12 +41,10 @@ $brp: 370px;
         height: 30px;
         font-size: .6em;
         right: 20px;
-
         }
 }
 
 #chips{
-    // position: absolute;
     float: right;
     width: fit-content;
     margin-right: 30px;
@@ -67,13 +64,12 @@ $brp: 370px;
         justify-content: center;
         gap: 10px
         }
-        // background-color: red;
 }
 
 #infoDiv{
     padding-inline: 20px;
     margin-top: 10px;
-    // border-bottom: 1px solid grey;
+
     *{
         word-break: break-word;
         display: block
@@ -84,9 +80,11 @@ $brp: 370px;
                 margin-top: 45px
             }
     }
+
     span{
         color: grey
     }
+    
     p{
         font-size: 20px;
     }

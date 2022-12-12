@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { useRouter } from 'next/router';
 import right from '../styles/rightPanel.module.scss'
 import {List, ListItemButton, Avatar, ListSubheader, Divider} from '@mui/material'
@@ -10,7 +10,6 @@ export default function RightPanel() {
 
   return (
     <>
-
             <List className={right.cards}>
      
               <ListSubheader className={right.header}>Recommended for you:</ListSubheader>
@@ -34,7 +33,7 @@ export default function RightPanel() {
                 <Avatar sx={{width: '80px', height: '80px'}}
                   src={'https://www.befunky.com/images/wp/wp-2020-07-glitter-final-1-scaled.jpg?auto=avif,webp&format=jpg&width=944'}/>
                   <div className={right.recInfo}>
-                    <b>Jolanta Swędzipięta</b>
+                    <b>Jolanta Zdyb</b>
                     <span>kawa czy herbata?</span>
                   </div>
               </ListItemButton></Link>
@@ -53,10 +52,7 @@ export default function RightPanel() {
              
             </List>
 
-            
           <p id={right.p}>Glitter® 2022</p>
-
-
     </>
   )
 }

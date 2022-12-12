@@ -24,18 +24,12 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-//TODO: zmienić typ 
 export default function Observers({isObsNr, uid}:any) {
     const [open, setOpen] = useState(false)
 
 
-  // const db = getFirestore()
-  // const colRef = collection(db, 'users')
-  // const q = query(colRef, where("uid", "==", `${uid}`))
-
   const {isLoading , data} = useQuery('data', ()=>{ 
     return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${uid}`)
-    // return axios.get(`http://localhost:3000/api/users/${uid}`)
     },{
       onSuccess
     })
@@ -44,21 +38,12 @@ export default function Observers({isObsNr, uid}:any) {
       console.log(uid)
     }
    
-    
-//   const {data} = useQuery('data', ()=>{ 
-//     return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
-//     })
-
-
-
-
    const theme = useTheme();
    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (<>
   <Chip
     label={`followers: ${isObsNr}`}
-  // onClick={(e:any)=>setOpen(true)}
   ></Chip>
 
   
@@ -71,24 +56,13 @@ export default function Observers({isObsNr, uid}:any) {
       setOpen(false)
     }}  >
 
-
             <DialogTitle id={modal.dialogTitle} >
                 <span>Edit your profile</span>
             </DialogTitle>
 
-
             <DialogContent id={modal.dialogContent}>
               <br></br>
-ss sdccccccccccccccccccccccccccccccccc
-{/* {data?.data.id} */}
-                   {/* {data ? data?.data.isObservedBy.map((el:any)=>{
-                    return (
-                      <div key={Date.now()}>{el.id}</div>
-                    )
-                   }) : null} */}
-
             </DialogContent>
-
 
             <DialogActions id={modal.dialogActions}>
                 <Button 
