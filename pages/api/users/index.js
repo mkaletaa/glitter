@@ -8,9 +8,13 @@ export default function handler(req, res){
     if(req.method==='GET')
     {
 
-      getDocs(q)
+      getDocs(colRef)
       .then((snapshot)=>{
-              res.status(201).json(snapshot.docs[0].data())
+              let users = []
+              snapshot.forEach(doc=>{
+                users.push(doc.data())
+              })
+              res.status(201).json(users)
           })
           .catch(err=>{
               res.status(201).json(err.message)
