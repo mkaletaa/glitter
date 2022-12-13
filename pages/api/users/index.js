@@ -1,4 +1,3 @@
-import {users} from '../../../data/users'
 import {getFirestore, collection, getDocs, query, where} from 'firebase/firestore'
 const db = getFirestore()
 const colRef = collection(db, 'users')
