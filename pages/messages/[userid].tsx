@@ -46,8 +46,8 @@ export default function Userid() {
   }, [user])
 
   const scrollToBottom = () => {
-    messagesEndRef1.current?.scrollIntoView()
-    messagesEndRef2.current?.scrollIntoView()
+    // messagesEndRef1.current?.scrollIntoView()
+    // messagesEndRef2.current?.scrollIntoView()
   }
 
   useEffect(() => {
