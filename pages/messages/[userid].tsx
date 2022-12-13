@@ -21,10 +21,11 @@ export default function Userid() {
   
   useEffect(()=>{
     if(user){
-      const sorted =  [user?.uid, interlocutor.userid].sort((a, b) => a?.localeCompare(b))
-      console.error(sorted)
 
-      const query  = collection(db, `messages/${sorted[0]}-${sorted[1]}/conversation`)
+      let a = user?.uid
+      let b = interlocutor.userid
+
+      const query  = collection(db, `messages/${a<b! ? a : b}-${a>b! ? a : b}/conversation`)
 
       
       onSnapshot(query, (snapshot)=>{
@@ -64,13 +65,17 @@ export default function Userid() {
   function send(){
     if(!/^\s*$/.test(message) && user){
 
-      const sorted =  [user?.uid, interlocutor.userid].sort((a, b) => a?.localeCompare(b))
+      // const sorted =  [user?.uid, interlocutor.userid].sort((a, b) => a?.localeCompare(b))
+      let a = user?.uid
+      let b = interlocutor.userid
+     
+
 
     let id = 9999999999999 - Date.now()
     const date = JSON.stringify(new Date().getDate()) + '-' +
                 JSON.stringify(new Date().getMonth()+1) + '-' +
                 JSON.stringify(new Date().getFullYear())
-    setDoc(doc(db, `messages/${sorted[0]}-${sorted[1]}/conversation/${id}`), 
+    setDoc(doc(db, `messages/${a<b! ? a : b}-${a>b! ? a : b}/conversation/${id}`), 
     {  
       uid: user?.uid,
       text: message,
