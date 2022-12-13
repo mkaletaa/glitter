@@ -34,7 +34,7 @@ export default function Userprofile() {
   const [pollingTime, setPollingTime] = useState<number>(1000)
   //feching data about user to know if they observe the profile
   const {isLoading , data} = useQuery('data', ()=>{ 
-    return axios.get(`http://localhost:3000/api/users/${user?.uid}`)
+    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${user?.uid}`)
     },{
       refetchInterval: pollingTime,
       onSuccess,
