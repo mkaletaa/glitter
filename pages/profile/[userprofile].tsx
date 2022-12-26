@@ -25,10 +25,15 @@ export default function Userprofile() {
 
 
   useEffect(()=>{
+    setPollingTime(100)
+
     if(userUid===user?.uid && userUid!==undefined && loading===false )
     {userUid === user?.uid &&  router.push(`/me`)}
-  }, [loading])
-
+  }, [loading, router])
+  
+  // useEffect(()=>{
+  //   setPollingTime(100)
+  // }, [router])
 
   /////////////
   const [pollingTime, setPollingTime] = useState<number>(1000)
@@ -49,7 +54,7 @@ export default function Userprofile() {
 
       if(data?.data.uid!==userUid && data?.data.uid!==undefined){
       let x = data?.data.observes.some((a:any)=>{return (a===userData?.data.uid)})
-      console.log('q')
+      // console.log('q')
       setFolBtn(x)}
       setPollingTime(100)
       setIsObsNr(userData?.data.isObservedByNr)

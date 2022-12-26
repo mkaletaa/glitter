@@ -6,12 +6,13 @@ import { useQuery, useInfiniteQuery } from 'react-query';
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Snackbar, Alert, Tooltip, Avatar} from '@mui/material'
+import {Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Snackbar, Alert, Tooltip, CircularProgress} from '@mui/material'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from 'next/link'
 import Post from './Post'
+import { flexbox } from '@mui/system';
 
 //uid here is needed only to know if to display posts of specific user or all posts
 export default function Posts({uid}:any) {
@@ -93,11 +94,16 @@ export default function Posts({uid}:any) {
     else setOtherAlert(true)
   }
 
+  // useEffect(()=>{
+  //   console.log(fetchedPosts?.data)
+  // }, [fetchedPosts])
 
   return (
     <div >
 
-      {fetchedPosts?.data[0].text ? fetchedPosts.data.map((post:any)=>{
+      {(fetchedPosts?.data[0].text!==undefined)
+      //false
+      ? fetchedPosts?.data.map((post:any)=>{
         return (
         <div className={posts.post} key={post.id}>
 
@@ -129,7 +135,12 @@ export default function Posts({uid}:any) {
                   
             </div>
         </div>)
-      }) : null}
+      }) : 
+
+      (refetchTime===100 && <div style={{width: '100%', display: 'flex',  }}>
+      <CircularProgress sx={{margin: 'auto', marginTop: '100px'}}/>
+      </div> )
+      }
 
 
           <Dialog 
