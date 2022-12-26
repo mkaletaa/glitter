@@ -12,7 +12,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from 'next/link'
 import Post from './Post'
-import { flexbox } from '@mui/system';
 
 //uid here is needed only to know if to display posts of specific user or all posts
 export default function Posts({uid}:any) {
@@ -58,6 +57,7 @@ export default function Posts({uid}:any) {
   const [lackUserAlert, setLackUserAlert] = useState(false)
   const [authorAlert, setAuthorAlert] = useState(false)
   const [otherAlert, setOtherAlert] = useState(false)
+
   function like(id:number, likes:number, author:string, isLikedBy: any){
     const db = getFirestore()
 
@@ -94,9 +94,7 @@ export default function Posts({uid}:any) {
     else setOtherAlert(true)
   }
 
-  // useEffect(()=>{
-  //   console.log(fetchedPosts?.data)
-  // }, [fetchedPosts])
+
 
   return (
     <div >

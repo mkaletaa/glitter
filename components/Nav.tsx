@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import LogoutDialog from './LogoutDialog'
 import Notifications from './Notifications'
+import NewPost from './NewPost'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { auth } from '../utils/firebase-config'
@@ -9,7 +10,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import {IconButton, Tooltip, Drawer } from '@mui/material';
+import {IconButton, Tooltip} from '@mui/material';
 import { ThemeContext } from '@emotion/react'
 import {useQuery} from 'react-query'
 import axios from 'axios'
@@ -126,7 +127,9 @@ function onSuccess(){
         </IconButton>
       </Tooltip>
 
-    <Tooltip title="toggle theme" placement="right" className='smDisappear'>
+     <NewPost></NewPost>
+
+    <Tooltip title="Toggle theme" placement="right" className='smDisappear'>
       <Switch onClick={e=>Theme()}></Switch>
     </Tooltip>
       
