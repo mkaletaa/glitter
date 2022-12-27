@@ -39,11 +39,12 @@ export default function Posts({uid}:any) {
   function onSuccess(){
     if(fetchedPosts?.data!==undefined )
     setRefetchTime(0)
+    // console.log(uid)
   }
 //ferferfer//
   useEffect(()=>{
     setRefetchTime(10)
-  }, [ router])
+  }, [ router ])
 
   const {deletePostFn, setDeletePost, setDeletePostAuthor } = useDeletePost(setRefetchTime)
   // const [deletePost, setDeletePost] = useState<number>()
@@ -142,7 +143,8 @@ export default function Posts({uid}:any) {
         </div>)
       }) : 
 
-      (refetchTime===100 && <div style={{width: '100%', display: 'flex',  }}>
+      ((refetchTime===10 || refetchTime===100) && 
+      <div style={{width: '100%', display: 'flex',  }}>
       <CircularProgress sx={{margin: 'auto', marginTop: '100px'}}/>
       </div> )
       }
