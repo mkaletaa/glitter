@@ -12,6 +12,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from 'next/link'
 import Post from './Post'
+import useLikePost from '../utils/custom-hooks/useLikePost'
+import useDeletePost from '../utils/custom-hooks/useDeletePost'
 
 //uid here is needed only to know if to display posts of specific user or all posts
 export default function Posts({uid}:any) {
@@ -38,61 +40,66 @@ export default function Posts({uid}:any) {
     if(fetchedPosts?.data!==undefined )
     setRefetchTime(0)
   }
+//ferferfer//
+  useEffect(()=>{
+    setRefetchTime(10)
+  }, [ router])
+
+  const {deletePostFn, setDeletePost, setDeletePostAuthor } = useDeletePost(setRefetchTime)
+  // const [deletePost, setDeletePost] = useState<number>()
+  // const [deletePostAuthor, setDeletePostAuthor] = useState('')
+  // function deletePostFn(){
+  //   //usuwanie z obydwu baz
+  //   const db = getFirestore()
+
+  //   const docRef = doc(db, `posts/${deletePostAuthor}/posts`, `${deletePost}`)
+  //         deleteDoc(docRef).then(()=>{setRefetchTime(10)})
+
+  //   const docRef2 = doc(db, `allposts`, `${deletePost}`)
+  //   deleteDoc(docRef2).then(()=>{setRefetchTime(10)})
+  // }
+
+  const {like, lackUserAlert, authorAlert, otherAlert, setLackUserAlert, setAuthorAlert, setOtherAlert} = useLikePost(setRefetchTime)
+
+  // const [lackUserAlert, setLackUserAlert] = useState(false)
+  // const [authorAlert, setAuthorAlert] = useState(false)
+  // const [otherAlert, setOtherAlert] = useState(false)
+
+  // function like(id:number, likes:number, author:string, isLikedBy: any){
+  //   const db = getFirestore()
+
+  //   const docRef = doc(db, `posts/${author}/posts`, `${id}`)
+  //   const docRef2 = doc(db, `allposts`, `${id}`)
 
 
-  const [deletePost, setDeletePost] = useState<number>()
-  const [deletePostAuthor, setDeletePostAuthor] = useState('')
-  function deletePostFn(){
-    //usuwanie z obydwu baz
-    const db = getFirestore()
+  //   if(!user) setLackUserAlert(true)
+  //   else if(user.uid===author) setAuthorAlert(true)
+  //   else  if(isLikedBy.some((a:string)=>{return (a===user.uid)}))
+  //         {
+  //           updateDoc(docRef,{
+  //             likes: likes-1,
+  //             isLikedBy: isLikedBy.filter((a:string)=>{return (a!==user.uid)})
+  //           }).then(()=>{setRefetchTime(10)})
 
-    const docRef = doc(db, `posts/${deletePostAuthor}/posts`, `${deletePost}`)
-          deleteDoc(docRef).then(()=>{setRefetchTime(10)})
+  //           updateDoc(docRef2,{
+  //             likes: likes-1,
+  //             isLikedBy: isLikedBy.filter((a:string)=>{return (a!==user.uid)})
+  //           }).then(()=>{setRefetchTime(10)})
+  //         }
+  //   else  if(!isLikedBy.some((a:string)=>{return (a===user.uid)}))
+  //         {
+  //           updateDoc(docRef,{
+  //             likes: likes+1,
+  //             isLikedBy: [...isLikedBy, user.uid]
+  //           }).then(()=>{setRefetchTime(10)})
 
-    const docRef2 = doc(db, `allposts`, `${deletePost}`)
-    deleteDoc(docRef2).then(()=>{setRefetchTime(10)})
-  }
-
-
-  const [lackUserAlert, setLackUserAlert] = useState(false)
-  const [authorAlert, setAuthorAlert] = useState(false)
-  const [otherAlert, setOtherAlert] = useState(false)
-
-  function like(id:number, likes:number, author:string, isLikedBy: any){
-    const db = getFirestore()
-
-    const docRef = doc(db, `posts/${author}/posts`, `${id}`)
-    const docRef2 = doc(db, `allposts`, `${id}`)
-
-
-    if(!user) setLackUserAlert(true)
-    else if(user.uid===author) setAuthorAlert(true)
-    else  if(isLikedBy.some((a:string)=>{return (a===user.uid)}))
-          {
-            updateDoc(docRef,{
-              likes: likes-1,
-              isLikedBy: isLikedBy.filter((a:string)=>{return (a!==user.uid)})
-            }).then(()=>{setRefetchTime(10)})
-
-            updateDoc(docRef2,{
-              likes: likes-1,
-              isLikedBy: isLikedBy.filter((a:string)=>{return (a!==user.uid)})
-            }).then(()=>{setRefetchTime(10)})
-          }
-    else  if(!isLikedBy.some((a:string)=>{return (a===user.uid)}))
-          {
-            updateDoc(docRef,{
-              likes: likes+1,
-              isLikedBy: [...isLikedBy, user.uid]
-            }).then(()=>{setRefetchTime(10)})
-
-            updateDoc(docRef2,{
-              likes: likes+1,
-              isLikedBy: [...isLikedBy, user.uid]
-            }).then(()=>{setRefetchTime(10)})
-          } 
-    else setOtherAlert(true)
-  }
+  //           updateDoc(docRef2,{
+  //             likes: likes+1,
+  //             isLikedBy: [...isLikedBy, user.uid]
+  //           }).then(()=>{setRefetchTime(10)})
+  //         } 
+  //   else setOtherAlert(true)
+  // }
 
 
 
