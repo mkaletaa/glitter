@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react'
 import { auth } from '../../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
-import {TextField, Button} from "@mui/material"
+import {TextField, Button, Snackbar, Alert} from "@mui/material"
 import scss from '../../styles/messages.module.scss'
 import {getFirestore, collection, doc, onSnapshot, setDoc} from 'firebase/firestore'
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ export default function Userid() {
   const [message, setMessage] = useState('')
   const router = useRouter()
   const interlocutor = router.query
-  
+
   const [messages, setMessages] = useState([])
   const db = getFirestore()
   
@@ -42,7 +42,7 @@ export default function Userid() {
               }
           })
 
-    }
+    } 
   }, [user])
 
   const scrollToBottom = () => {
@@ -132,6 +132,15 @@ export default function Userid() {
 
         <div ref={messagesEndRef2} />
         </div>
+
+        <Snackbar open={!user} autoHideDuration={3000} 
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+            <Alert severity="error" 
+            sx={{ width: '100%'}}  variant="filled">
+                You must be logged in to create posts!
+            </Alert>
+          </Snackbar>
     </>
   )
 }
