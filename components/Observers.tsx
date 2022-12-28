@@ -35,7 +35,7 @@ export default function Observers({isObsNr, uid}:any) {
     })
 
     function onSuccess(){
-      console.log(uid)
+      // console.log(uid)
     }
    
    const theme = useTheme();

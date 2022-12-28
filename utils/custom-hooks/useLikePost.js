@@ -3,7 +3,7 @@ import { auth } from '../firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import { collection, doc, getDocs, getFirestore, query, deleteDoc, where, updateDoc } from 'firebase/firestore';
 
-const useLikePost = (setRefetchTime) =>{
+const useLikePost = (postsfn) =>{
     const [lackUserAlert, setLackUserAlert] = useState(false)
     const [authorAlert, setAuthorAlert] = useState(false)
     const [otherAlert, setOtherAlert] = useState(false)
@@ -22,24 +22,24 @@ const useLikePost = (setRefetchTime) =>{
             updateDoc(docRef,{
               likes: likes-1,
               isLikedBy: isLikedBy.filter((a)=>{return (a!==user.uid)})
-            }).then(()=>{setRefetchTime(10)})
+            }).then(()=>{postsfn()})
 
             updateDoc(docRef2,{
               likes: likes-1,
               isLikedBy: isLikedBy.filter((a)=>{return (a!==user.uid)})
-            }).then(()=>{setRefetchTime(10)})
+            }).then(()=>{postsfn()})
           }
     else  if(!isLikedBy.some((a)=>{return (a===user.uid)}))
           {
             updateDoc(docRef,{
               likes: likes+1,
               isLikedBy: [...isLikedBy, user.uid]
-            }).then(()=>{setRefetchTime(10)})
+            }).then(()=>{postsfn()})
 
             updateDoc(docRef2,{
               likes: likes+1,
               isLikedBy: [...isLikedBy, user.uid]
-            }).then(()=>{setRefetchTime(10)})
+            }).then(()=>{postsfn()})
           } 
     else setOtherAlert(true)
         }

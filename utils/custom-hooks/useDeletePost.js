@@ -3,7 +3,7 @@ import { auth } from '../firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import { collection, doc, getDocs, getFirestore, query, deleteDoc, where, updateDoc } from 'firebase/firestore';
 
-const useDeletePost = (setRefetchTime) =>{
+const useDeletePost = (postsfn) =>{
     const [deletePost, setDeletePost] = useState()
     const [deletePostAuthor, setDeletePostAuthor] = useState('')
 
@@ -12,10 +12,10 @@ const useDeletePost = (setRefetchTime) =>{
         const db = getFirestore()
     
         const docRef = doc(db, `posts/${deletePostAuthor}/posts`, `${deletePost}`)
-              deleteDoc(docRef).then(()=>{setRefetchTime(10)})
+              deleteDoc(docRef).then(()=>{postsfn()})
     
         const docRef2 = doc(db, `allposts`, `${deletePost}`)
-        deleteDoc(docRef2).then(()=>{setRefetchTime(10)})
+        deleteDoc(docRef2).then(()=>{postsfn()})
       }
     
     return {deletePostFn, setDeletePost, setDeletePostAuthor }

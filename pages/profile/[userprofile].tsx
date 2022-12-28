@@ -168,10 +168,10 @@ const db = getFirestore()
          onClick={e=>{unfollow();}}>Unfollow</Button>}
     </div>
     
-    <div id={profile.chips}>
+    {!userIsLoading && <div id={profile.chips}>
         <Observers isObsNr={isObsNr} uid={userData?.data.uid}/>
         <Observes obsNr={obsNr}/>
-      </div>
+      </div>}
       
     <div id={profile.infoDiv}>
 

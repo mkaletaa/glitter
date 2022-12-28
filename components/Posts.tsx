@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import posts from '../styles/posts.module.scss'
-import { collection, doc, getDocs, getFirestore, query, deleteDoc, where, updateDoc } from 'firebase/firestore';
-import axios from 'axios'
-import { useQuery, useInfiniteQuery } from 'react-query';
+import { collection, getDoc, doc, getDocs, getFirestore, query, deleteDoc, where, updateDoc } from 'firebase/firestore';
 import { auth } from '../utils/firebase-config'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
@@ -10,7 +8,6 @@ import {Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, S
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Link from 'next/link'
 import Post from './Post'
 import useLikePost from '../utils/custom-hooks/useLikePost'
 import useDeletePost from '../utils/custom-hooks/useDeletePost'
@@ -22,93 +19,101 @@ export default function Posts({uid}:any) {
   const [deleteDialog, setDeleteDialog] = useState(false)
   //this points at a post that needs to be deleted
   const [user, laoding] = useAuthState(auth)
+
+  const [spinning, setSpinning] = useState(true)
   const db = getFirestore()
+  const [fetchedPosts, setFetchedPosts] = useState<any>('')
+  
 
-  const [refetchTime, setRefetchTime] = useState(100)
-  const {data: fetchedPosts} = useQuery('dataa', ()=>{
-    if(uid!==null)
-    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/users/${uid}/posts`)
-    else
-    return axios.get(`${process.env.NEXT_PUBLIC_URL}/api/posts`)
+  function postsfn(){
+    const query1  = collection(db, `allposts`)
+    const query2  = collection(db, `posts/${uid}/posts`)
 
-  },{
-    refetchInterval: refetchTime,
-    onSuccess,
-  })
+    if(uid!==null) setSpinning(false)
 
-  function onSuccess(){
-    if(fetchedPosts?.data!==undefined )
-    setRefetchTime(0)
-    // console.log(uid)
+    getDocs(uid===null ? query1 : query2)
+    .then((snapshot)=>{
+    let posts:any = []
+    if(snapshot.docs[0].data() === undefined){
+    setSpinning(true)
+    setFetchedPosts([undefined])
+    setSpinning(false)
   }
-//ferferfer//
-  useEffect(()=>{
-    setRefetchTime(10)
-  }, [ router ])
+  else{
+    setSpinning(true)
+      snapshot.docs.forEach(doc=>{
+        posts.push(doc.data())
+      })
+      setSpinning(false)
+      setFetchedPosts(posts)}
+      })
+      .catch(err=>{
+          console.error(err.message)
+      })
+      // setSpinning(false)
+    }
+    
+    useEffect(()=>{
+      setFetchedPosts([undefined])
+      setSpinning(true)
+    postsfn()
+  }, [uid])
+ 
 
-  const {deletePostFn, setDeletePost, setDeletePostAuthor } = useDeletePost(setRefetchTime)
-  // const [deletePost, setDeletePost] = useState<number>()
-  // const [deletePostAuthor, setDeletePostAuthor] = useState('')
-  // function deletePostFn(){
-  //   //usuwanie z obydwu baz
-  //   const db = getFirestore()
+  const {deletePostFn, setDeletePost, setDeletePostAuthor } = useDeletePost(postsfn)
 
-  //   const docRef = doc(db, `posts/${deletePostAuthor}/posts`, `${deletePost}`)
-  //         deleteDoc(docRef).then(()=>{setRefetchTime(10)})
-
-  //   const docRef2 = doc(db, `allposts`, `${deletePost}`)
-  //   deleteDoc(docRef2).then(()=>{setRefetchTime(10)})
-  // }
-
-  const {like, lackUserAlert, authorAlert, otherAlert, setLackUserAlert, setAuthorAlert, setOtherAlert} = useLikePost(setRefetchTime)
-
-  // const [lackUserAlert, setLackUserAlert] = useState(false)
-  // const [authorAlert, setAuthorAlert] = useState(false)
-  // const [otherAlert, setOtherAlert] = useState(false)
-
-  // function like(id:number, likes:number, author:string, isLikedBy: any){
-  //   const db = getFirestore()
-
-  //   const docRef = doc(db, `posts/${author}/posts`, `${id}`)
-  //   const docRef2 = doc(db, `allposts`, `${id}`)
-
-
-  //   if(!user) setLackUserAlert(true)
-  //   else if(user.uid===author) setAuthorAlert(true)
-  //   else  if(isLikedBy.some((a:string)=>{return (a===user.uid)}))
-  //         {
-  //           updateDoc(docRef,{
-  //             likes: likes-1,
-  //             isLikedBy: isLikedBy.filter((a:string)=>{return (a!==user.uid)})
-  //           }).then(()=>{setRefetchTime(10)})
-
-  //           updateDoc(docRef2,{
-  //             likes: likes-1,
-  //             isLikedBy: isLikedBy.filter((a:string)=>{return (a!==user.uid)})
-  //           }).then(()=>{setRefetchTime(10)})
-  //         }
-  //   else  if(!isLikedBy.some((a:string)=>{return (a===user.uid)}))
-  //         {
-  //           updateDoc(docRef,{
-  //             likes: likes+1,
-  //             isLikedBy: [...isLikedBy, user.uid]
-  //           }).then(()=>{setRefetchTime(10)})
-
-  //           updateDoc(docRef2,{
-  //             likes: likes+1,
-  //             isLikedBy: [...isLikedBy, user.uid]
-  //           }).then(()=>{setRefetchTime(10)})
-  //         } 
-  //   else setOtherAlert(true)
-  // }
-
-
+  const {like, lackUserAlert, authorAlert, otherAlert, setLackUserAlert, setAuthorAlert, setOtherAlert} = useLikePost(postsfn)
 
   return (
     <div >
+      {fetchedPosts[0]!==undefined
 
-      {(fetchedPosts?.data[0].text!==undefined)
-      //false
+      ?
+      
+      fetchedPosts.map((post:any)=>{
+        return (
+          <div className={posts.post} key={post.id}>
+
+             
+          <Post uid={post.uid} text={post.text} date={post.date} author={post.author} isLikeBy={post.isLikedBy} userUID={user?.uid} />
+    
+          
+    <div className={posts.postOptions}>    
+
+      <span className={posts.date}>{post.date}</span>
+
+        { !post.isLikedBy.some((a:string)=>{return (a===user?.uid)}) ?
+        <><IconButton className={posts.likes} 
+        onClick={e=>{like(post.id, post.likes, post.author, post.isLikedBy)}}>
+          <Tooltip title="I like it"><FavoriteBorderIcon/></Tooltip>
+        </IconButton><b>{post.likes}</b> </> 
+        :
+        <><IconButton className={posts.likes} sx={{color: 'red'}}
+        onClick={e=>{like(post.id, post.likes, post.author, post.isLikedBy)}}>
+          <Tooltip title="I don't like it"><FavoriteIcon/></Tooltip>
+        </IconButton><b>{post.likes}</b> </> 
+          }
+
+         {  user?.uid===post.author && 
+         <IconButton 
+         onClick={e=>{setDeleteDialog(true); setDeletePost(post.id); setDeletePostAuthor(post.author)}}>
+             <Tooltip title="Delete"><DeleteIcon/></Tooltip>
+          </IconButton> }
+          
+      </div>
+    </div>
+        )
+      })
+    
+      :
+    
+      (spinning && 
+      <div style={{width: '100%', display: 'flex',  }}>
+      <CircularProgress sx={{margin: 'auto', marginTop: '100px'}}/>
+      </div> )
+      }
+      {/* {(fetchedPosts?.data[0].text!==undefined)
+      
       ? fetchedPosts?.data.map((post:any)=>{
         return (
         <div className={posts.post} key={post.id}>
@@ -147,7 +152,7 @@ export default function Posts({uid}:any) {
       <div style={{width: '100%', display: 'flex',  }}>
       <CircularProgress sx={{margin: 'auto', marginTop: '100px'}}/>
       </div> )
-      }
+      } */}
 
 
           <Dialog 
