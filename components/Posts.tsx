@@ -112,49 +112,7 @@ export default function Posts({uid}:any) {
       <CircularProgress sx={{margin: 'auto', marginTop: '100px'}}/>
       </div> )
       }
-      {/* {(fetchedPosts?.data[0].text!==undefined)
-      
-      ? fetchedPosts?.data.map((post:any)=>{
-        return (
-        <div className={posts.post} key={post.id}>
-
-             
-                  <Post uid={post.uid} text={post.text} date={post.date} author={post.author} isLikeBy={post.isLikedBy} userUID={user?.uid} />
-            
-                  
-            <div className={posts.postOptions}>    
-
-              <span className={posts.date}>{post.date}</span>
-
-                { !post.isLikedBy.some((a:string)=>{return (a===user?.uid)}) ?
-                <><IconButton className={posts.likes} 
-                onClick={e=>{like(post.id, post.likes, post.author, post.isLikedBy)}}>
-                  <Tooltip title="I like it"><FavoriteBorderIcon/></Tooltip>
-                </IconButton><b>{post.likes}</b> </> 
-                :
-                <><IconButton className={posts.likes} sx={{color: 'red'}}
-                onClick={e=>{like(post.id, post.likes, post.author, post.isLikedBy)}}>
-                  <Tooltip title="I don't like it"><FavoriteIcon/></Tooltip>
-                </IconButton><b>{post.likes}</b> </> 
-                  }
-
-                 {  user?.uid===post.author && 
-                 <IconButton 
-                 onClick={e=>{setDeleteDialog(true); setDeletePost(post.id); setDeletePostAuthor(post.author)}}>
-                     <Tooltip title="Delete"><DeleteIcon/></Tooltip>
-                  </IconButton> }
-                  
-            </div>
-        </div>)
-      }) : 
-
-      ((refetchTime===10 || refetchTime===100) && 
-      <div style={{width: '100%', display: 'flex',  }}>
-      <CircularProgress sx={{margin: 'auto', marginTop: '100px'}}/>
-      </div> )
-      } */}
-
-
+    
           <Dialog 
           open={deleteDialog}
           onClose={e=>setDeleteDialog(false)}  >
